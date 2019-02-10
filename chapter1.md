@@ -28,6 +28,7 @@ node    18245 root   20u  IPv4 219551      0t0  TCP localhost:3000 (LISTEN)
 kill -9 进程ID
 ```
 ```sh
+adduser me
 gpasswd -a me sudo
 Adding user me to group sudo
 sudo visudo
