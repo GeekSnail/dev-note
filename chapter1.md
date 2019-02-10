@@ -38,16 +38,22 @@ me      ALL=(ALL:ALL) ALL
 # 按 CTRL+X SHIFT+Y ENTER
 service ssh restart
 ```
-
+ssh公钥实现本地无秘登录
 ```sh
-用户名@主机名 ~
-ssh-keygen -t rsa -b 4096 -C "username@domain.com"
-# 回车
-cd .ssh
-eval "$(ssh-agent -s)"
+用户名@服务器名 ~
+$ ssh-keygen -t rsa -b 4096 -C "username@domain.com"
+$ eval "$(ssh-agent -s)"
 Agent pid 16780
-ssh-add ~/.ssh/id_rsa
-Identity added: /c/Users/35398/.ssh/id_rsa (/c/Users/35398/.ssh/id_rsa)
+$ cd .ssh
+$ ls
+id_rsa  id_rsa.pub
+$ ssh-add ~/.ssh/id_rsa
+Identity added: /home/me/.ssh/id_rsa (/home/me/.ssh/id_rsa)
+$ vi authorized_keys
+# 复制本地的~/.ssh下的id_rsa内容
+# 再粘贴到服务器vi打开的公钥文件
+$ chmod 600 authorized_keys
+$ sudo service ssh restart
 ```
 
 
