@@ -75,6 +75,7 @@ $ ssh -p <port> <username>@<host-ip>
 
 修改防火墙规则
 ```sh
+sudo vi /etc/iptables.up.rules
 *filter
 
 # allow all connections
@@ -116,6 +117,31 @@ ount 180 -j DROP
 
 #movie
 COMMIT
+<Esc>:wq
+sudo iptables-restore < /etc/iptables.up.rules
+sudo ufw status
+Status: inactive
+sudo ufw enable
+Command may disrupt existing ssh connections. Proceed with operation (y|n)? y
+Firewall is active and enabled on system startup
+sudo ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+3000                       ALLOW       Anywhere                  
+3000 (v6)                  ALLOW       Anywhere (v6)
+sudo vi /etc/network/if-up.d/iptables
+#!/bin/sh
+iptables-restore /etc/iptables.up.rules
+<Esc>:wq
+sudo chmod +x /etc/network/if-up.d/iptables
+```
+配置fail2ban
+```sh
+sudo apt-get install fail2ban
+
+destemail = <username>@domain
 ```
 
 
