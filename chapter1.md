@@ -1,7 +1,7 @@
 # First Chapter
 
 ```sh
-apt-get install git build-essential ilbssh-dev
+apt-get install git build-essential libssh-dev
 ```
 
 /home/downloads 安裝 node.js
@@ -15,18 +15,19 @@ ln -s /home/downloads/nodejs/bin/node /usr/local/bin/
 node -v
 ```
 
-查看端口占用
+
 ```sh
+# 查看端口占用
 netstat -tln | grep 3000
+tcp        0      0 127.0.0.1:3000          0.0.0.0:*               LISTEN
 # 查看端口属于哪个程序    
 lsof -i :3000
+COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+node    18245 root   20u  IPv4 219551      0t0  TCP localhost:3000 (LISTEN)
 # 杀掉占用端口的进程：
 kill -9 进程ID
-# 
-ps -ef | grep xxx
-kill xxx
 ```
-
+撒旦
 
 
 
