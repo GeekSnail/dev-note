@@ -142,6 +142,12 @@ sudo chmod +x /etc/network/if-up.d/iptables
 sudo apt-get install fail2ban
 
 destemail = <username>@domain
+...
+action = %(action_mw)s
+<Esc>:wq
+sudo service fail2ban stop
+sudo service fail2ban start
+sudo service fail2ban status
 ```
 
 
