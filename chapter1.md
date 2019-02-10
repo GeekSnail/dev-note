@@ -190,6 +190,121 @@ kernel.sysrq = 1
 fs.inotify.max_user_watches = 524288
 npm install pm2 webpack
 ```
+pm2 实现对node程序运维
+```sh
+pm2 list
+                        -------------
+
+__/\\\\\\\\\\\\\____/\\\\____________/\\\\____/\\\\\\\\\_____
+ _\/\\\/////////\\\_\/\\\\\\________/\\\\\\__/\\\///////\\\___
+  _\/\\\_______\/\\\_\/\\\//\\\____/\\\//\\\_\///______\//\\\__
+   _\/\\\\\\\\\\\\\/__\/\\\\///\\\/\\\/_\/\\\___________/\\\/___
+    _\/\\\/////////____\/\\\__\///\\\/___\/\\\________/\\\//_____
+     _\/\\\_____________\/\\\____\///_____\/\\\_____/\\\//________
+      _\/\\\_____________\/\\\_____________\/\\\___/\\\/___________
+       _\/\\\_____________\/\\\_____________\/\\\__/\\\\\\\\\\\\\\\_
+        _\///______________\///______________\///__\///////////////__
 
 
+                          Runtime Edition
 
+        PM2 is a Production Process Manager for Node.js applications
+                     with a built-in Load Balancer.
+
+                Start and Daemonize any application:
+                $ pm2 start app.js
+
+                Load Balance 4 instances of api.js:
+                $ pm2 start api.js -i 4
+
+                Monitor in production:
+                $ pm2 monitor
+
+                Make pm2 auto-boot at server restart:
+                $ pm2 startup
+
+                To go further checkout:
+                http://pm2.io/
+
+pm2 start app.js
+pm2 show <id|name>
+pm2 logs
+```
+
+Nginx 实现反向代理
+```sh
+# 终止apache服务
+sudo service apache2 stop
+update-rc.d -f apache2 remove
+sudo apt-get remove apache2
+```
+
+```sh
+sudo apt-get install nginx
+nginx -v
+nginx version: nginx/1.10.3 (Ubuntu)
+
+sudo vi /etc/nginx/conf.d/
+hi-com-3000.conf
+```
+虚拟主机配置
+让
+```js
+upstream hi {
+  server 127.0.0.1:3000;
+}
+
+server {
+  listen 80;
+  server_name <host-ip>;
+
+  location / {
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forward-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Nginx-Proxy true;
+
+    proxy_pass http://hi;
+    proxy_redirect off;
+  }
+}
+```
+查看nginx主配置文件，确认包含
+```sh
+sudo vi /etc/nginx/nginx.conf 
+http {
+    ...
+    ##
+    # Virtual Host Configs
+    ##
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
+
+}
+```
+检查nginx配置是否正确
+```sh
+sudo nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+sudo nginx -s reload
+```
+然后可以通过公网ip直接访问之前pm2开启的3000端口web服务
+
+去掉响应头服务器详细信息
+默认：
+Server: nginx/1.10.3 (Ubuntu)
+```sh
+sudo vi /etc/nginx/nginx.conf
+server_tokens off; # 去掉注释
+sudo service nginx restart reload
+```
+修改后：
+Server: nginx
+
+mongodb 云数据库连接
+```sh
+mongo "mongodb://cluster0-shard-00-00-dk9yb.mongodb.net:27017,cluster0-shard-00-01-dk9yb.mongodb.net:27017,cluster0-shard-00-02-dk9yb.mongodb.net:27017/test?replicaSet=Cluster0-shard-0" --ssl --authenticationDatabase admin --username <username> --password <password>
+mongo "mongodb+srv://cluster0-dk9yb.mongodb.net/test" --username <username>
+```  
