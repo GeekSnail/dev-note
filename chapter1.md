@@ -36,8 +36,18 @@ sudo visudo
 root    ALL=(ALL:ALL) ALL
 me      ALL=(ALL:ALL) ALL
 # 按 CTRL+X SHIFT+Y ENTER
+service ssh restart
 ```
 
-
+```sh
+用户名@主机名 ~
+ssh-keygen -t rsa -b 4096 -C "username@domain.com"
+# 回车
+cd .ssh
+eval "$(ssh-agent -s)"
+Agent pid 16780
+ssh-add ~/.ssh/id_rsa
+Identity added: /c/Users/35398/.ssh/id_rsa (/c/Users/35398/.ssh/id_rsa)
+```
 
 
