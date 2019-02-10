@@ -110,10 +110,6 @@ ount 180 -j DROP
 -A INPUT -j REJECT
 -A FORWARD -j REJECT
 
-# mongodb connect
--A INPUT -s 127.0.0.1 -p tcp --destination-port 19999 -m state --state NEW,ESTABLISHED -j ACCEPT
--A OUTPUT -d 127.0.0.1 -p tcp --source-port 19999 -m state --state ESTABLISHED -j ACCEPT
-
 # website
 -A INPUT -s 127.0.0.1 -p tcp --destination-port 3000 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A OUTPUT -s 127.0.0.1 -p tcp --source-port 3000 -m state --state ESTABLISHED -j ACCEPT
@@ -308,3 +304,43 @@ mongodb 云数据库连接
 mongo "mongodb://cluster0-shard-00-00-dk9yb.mongodb.net:27017,cluster0-shard-00-01-dk9yb.mongodb.net:27017,cluster0-shard-00-02-dk9yb.mongodb.net:27017/test?replicaSet=Cluster0-shard-0" --ssl --authenticationDatabase admin --username <username> --password <password>
 mongo "mongodb+srv://cluster0-dk9yb.mongodb.net/test" --username <username>
 ```  
+安装mongodb
+[Install MongoDB Community Edition on Ubuntu](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
+
+去掉apt-get 阿里云安装源（可选）
+```sh
+vi /etc/apt/apt.conf
+# 将require注释
+```
+若安装很慢，可结束并更改源
+```sh
+vi /etc/apt/sources.list.d/mongodb-org-4.0.list
+deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.0 multiverse
+# https://mirrors.aliyun.com/mongodb/ubuntu
+```
+
+启动mongod服务
+```sh
+sudo service mongod start
+sudo cat /var/log/mongodb/mongod.logmongo
+MongoDB shell version v4.0.6
+connecting to: mongodb://127.0.0.1:27017/?gssapiServiceName=mongodb
+sudo service mongod stop
+sudo service mongod restart
+```
+
+修改mongod默认端口
+```sh
+sudo vi /etc/mongod.conf
+# network interfaces
+net:
+  port: 19999 #
+  bindIp: 127.0.0.1
+sudo service mongod restart
+sudo vi /etc/iptales.up.rules
+# 添加规则
+# mongodb connect
+-A INPUT -s 127.0.0.1 -p tcp --destination-port 19999 -m state --state NEW,ESTABLISHED -j ACCEPT
+-A OUTPUT -d 127.0.0.1 -p tcp --source-port 19999 -m state --state ESTABLISHED -j ACCEPT
+mongo --port 19999
+```
