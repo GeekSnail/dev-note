@@ -1,11 +1,10 @@
 # First Chapter
-
+准备
 ```sh
 apt-get install git build-essential libssh-dev
 ```
 
-/home/downloads 安裝 node.js
-
+安裝 node.js
 ```sh
 wget https://nodejs.org/dist/v10.15.1/node-v10.15.1-linux-x64.tar.xz
 tar -xvf node-v10.15.1-linux-x64.tar.xz
@@ -14,7 +13,6 @@ ln -s /home/downloads/nodejs/bin/npm /usr/local/bin/
 ln -s /home/downloads/nodejs/bin/node /usr/local/bin/
 node -v
 ```
-
 
 ```sh
 # 查看端口占用
@@ -27,6 +25,7 @@ node    18245 root   20u  IPv4 219551      0t0  TCP localhost:3000 (LISTEN)
 # 杀掉占用端口的进程：
 kill -9 进程ID
 ```
+
 ```sh
 adduser me
 gpasswd -a me sudo
@@ -38,9 +37,11 @@ me      ALL=(ALL:ALL) ALL
 # 按 CTRL+X SHIFT+Y ENTER
 service ssh restart
 ```
+
 ssh公钥实现本地无秘登录
+
 ```sh
-用户名@服务器名 ~
+me@服务器名 ~
 $ ssh-keygen -t rsa -b 4096 -C "username@domain.com"
 $ eval "$(ssh-agent -s)"
 Agent pid 16780
@@ -54,6 +55,62 @@ $ vi authorized_keys
 # 再粘贴到服务器vi打开的公钥文件
 $ chmod 600 authorized_keys
 $ sudo service ssh restart
+```
+
+修改ssh 端口
+
+```sh
+sudo vi /etc/ssh/sshd_config
+# port 22 改为自定义端口(>1024 && <65535)
+# 最后一行后面加上
+AllowUsers <username>
+sudo service ssh restart
+# 再次尝试登录
+$ ssh <username>@<host-ip>
+ssh: connect to host <ip> port 22: Connection refused
+# 去阿里云添加一条安全组规则，自定义TCP 刚才设置的ssh端口
+$ ssh -p <port> <username>@<host-ip> 
+```
+[刘月林 \| 解决阿里云 ssh 端口修改后连接失败的问题](https://www.jianshu.com/p/51fdf8139e9a)
+
+修改防火墙规则
+```sh
+*filter
+
+# allow all connections
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# allow out traffic
+-A OUTPUT -j ACCEPT
+
+# allow http https
+-A INPUT -p tcp --dport 443 -j ACCEPT
+-A INPUT -p tcp --dport 80 -j ACCEPT
+-A INPUT -p tcp --dport 3000 -j ACCEPT
+
+# allow ssh port login
+-A INPUT -p tcp -m state --state NEW --dport 39999 -j ACCEPT
+
+# ping 
+-A INPUT -p icmp -m --icmp-type 8 -j ACCEPT
+
+# log denied calls
+-A INPUT -m limit 5/min -j LOG --log-prefix "iptables denied:" --log-level 7
+
+# reject all other inbound
+-A INPUT -j REJECT
+-A FORWARD -j REJECT
+
+# mongodb connect
+-A INPUT -s 127.0.0.1 -p tcp --destination-port 19999 -m state --state NEW,ESTABLISHED -j ACCEPT
+-A OUTPUT -d 127.0.0.1 -p tcp --source-port 19999 -m state --state ESTABLISHED -j ACCEPT
+
+# website
+-A INPUT -s 127.0.0.1 -p tcp --destination-port 3000 -m state --state NEW,ESTABLISHED -j ACCEPT
+-A OUTPUT -s 127.0.0.1 -p tcp --source-port 3000 -m state --state ESTABLISHED -j ACCEPT
+
+#movie
+COMMIT
 ```
 
 
