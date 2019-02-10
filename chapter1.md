@@ -1,10 +1,9 @@
 # First Chapter
+
 准备
-```sh
-apt-get install git build-essential libssh-dev
-```
 
 安裝 node.js
+
 ```sh
 wget https://nodejs.org/dist/v10.15.1/node-v10.15.1-linux-x64.tar.xz
 tar -xvf node-v10.15.1-linux-x64.tar.xz
@@ -12,6 +11,9 @@ mv node-v10.15.1-linux-x64.tar.xz nodejs
 ln -s /home/downloads/nodejs/bin/npm /usr/local/bin/
 ln -s /home/downloads/nodejs/bin/node /usr/local/bin/
 node -v
+# 删除
+sudo rm /usr/local/bin/node
+sudo rm /usr/local/bin/npm
 ```
 
 ```sh
@@ -26,7 +28,7 @@ node    18245 root   20u  IPv4 219551      0t0  TCP localhost:3000 (LISTEN)
 kill -9 进程ID
 ```
 
-```sh
+```bash
 adduser me
 gpasswd -a me sudo
 Adding user me to group sudo
@@ -40,7 +42,7 @@ service ssh restart
 
 ssh公钥实现本地无秘登录
 
-```sh
+```bash
 me@服务器名 ~
 $ ssh-keygen -t rsa -b 4096 -C "username@domain.com"
 $ eval "$(ssh-agent -s)"
@@ -59,7 +61,7 @@ $ sudo service ssh restart
 
 修改ssh 端口
 
-```sh
+```bash
 sudo vi /etc/ssh/sshd_config
 # port 22 改为自定义端口(>1024 && <65535)
 # 最后一行后面加上
@@ -69,12 +71,13 @@ sudo service ssh restart
 $ ssh <username>@<host-ip>
 ssh: connect to host <ip> port 22: Connection refused
 # 去阿里云添加一条安全组规则，自定义TCP 刚才设置的ssh端口
-$ ssh -p <port> <username>@<host-ip> 
+$ ssh -p <port> <username>@<host-ip>
 ```
+
 [刘月林 \| 解决阿里云 ssh 端口修改后连接失败的问题](https://www.jianshu.com/p/51fdf8139e9a)
 
-修改防火墙规则
-```sh
+配置防火墙规则
+```bash
 sudo vi /etc/iptables.up.rules
 *filter
 
@@ -137,10 +140,13 @@ iptables-restore /etc/iptables.up.rules
 <Esc>:wq
 sudo chmod +x /etc/network/if-up.d/iptables
 ```
+
 配置fail2ban
+
 ```sh
 sudo apt-get install fail2ban
-
+sudo vi /etc/fail2ban/jail.conf
+...
 destemail = <username>@domain
 ...
 action = %(action_mw)s
@@ -149,5 +155,41 @@ sudo service fail2ban stop
 sudo service fail2ban start
 sudo service fail2ban status
 ```
+
+安装环境依赖
+
+```sh
+apt-get install git build-essential libssh-dev
+```
+
+```sh
+# https://github.com/creationix/nvm
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+nvm install v10.15.1
+nvm use v10.15.1
+nvm alias default v10.15.1
+nvm ls
+node -v
+npm --registry=https://registry.npm.taobao.org install -g npm
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -pfs.inotify.max_user_watches=524288
+vm.swappiness = 0
+net.ipv4.neigh.default.gc_stale_time = 120
+net.ipv4.conf.all.rp_filter = 0
+net.ipv4.conf.default.rp_filter = 0
+net.ipv4.conf.default.arp_announce = 2
+net.ipv4.conf.lo.arp_announce = 2
+net.ipv4.conf.all.arp_announce = 2
+net.ipv4.tcp_max_tw_buckets = 5000
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_max_syn_backlog = 1024
+net.ipv4.tcp_synack_retries = 2
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+kernel.sysrq = 1
+fs.inotify.max_user_watches = 524288
+npm install pm2 webpack
+```
+
 
 
