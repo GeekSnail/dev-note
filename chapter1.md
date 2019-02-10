@@ -27,7 +27,16 @@ node    18245 root   20u  IPv4 219551      0t0  TCP localhost:3000 (LISTEN)
 # 杀掉占用端口的进程：
 kill -9 进程ID
 ```
-撒旦
+```sh
+gpasswd -a me sudo
+Adding user me to group sudo
+sudo visudo
+# User privilege specification
+root    ALL=(ALL:ALL) ALL
+me      ALL=(ALL:ALL) ALL
+# 按 CTRL+X SHIFT+Y ENTER
+```
+
 
 
 
