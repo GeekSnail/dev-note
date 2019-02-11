@@ -423,3 +423,271 @@ $unwind：将文档中的某一个数组类型字段拆分成多条，每条包�
 $group：将集合中的文档分组，可用于统计结果。
 $sort：将输入文档排序后输出。
 $geoNear：输出接近某一地理位置的有序文档。
+实例
+1、$project实例
+```js
+db.article.aggregate(
+    { $project : {
+        title : 1 ,
+        author : 1 ,
+    }}
+ );
+``` 
+这样的话结果中就只还有_id,tilte和author三个字段了，默认情况下_id字段是被包含的，如果要想不包含_id话可以这样:
+```js
+db.article.aggregate(
+    { $project : {
+        _id : 0 ,
+        title : 1 ,
+        author : 1
+    }});
+```    
+例：
+```js
+> db.article.insert({
+... 'title':'你好世界',
+... 'time': new Date(),
+... 'author':'Jack',
+... 'content':'hello world!',
+... 'category':'日记',
+... })
+> db.article.find()
+{ "_id" : ObjectId("5c61881156b2f401e8cec100"), "title" : "你好世界", "time" : ISODate("2019-02-11T14:34:57.127Z"), "author" : "Jack", "content" : "hello world!", "category" : "日记" }
+> db.article.aggregate({ $project: {_id: 0, title: 1, author: 1, content: 1}})
+{ "title" : "你好世界", "author" : "Jack", "content" : "hello world!" }
+```
+2.$match实例
+```js
+db.articles.aggregate( [
+                        { $match : { score : { $gt : 70, $lte : 90 } } },
+                        { $group: { _id: null, count: { $sum: 1 } } }
+                       ] );
+```
+$match用于获取分数大于70小于或等于90记录，然后将符合条件的记录送到下一阶段$group管道操作符进行处理。
+3.$skip实例
+```js
+db.article.aggregate(
+    { $skip : 5 });
+```
+经过$skip管道操作符处理后，前五个文档被"过滤"掉。
+### 复制（副本集）
+MongoDB复制是将数据同步在多个服务器的过程。
+
+复制提供了数据的冗余备份，并在多个服务器上存储数据副本，提高了数据的可用性， 并可以保证数据的安全性。
+
+复制还允许您从硬件故障和服务中断中恢复数据。
+
+什么是复制?
+- 保障数据的安全性
+- 数据高可用性 (24*7)
+- 灾难恢复
+- 无需停机维护（如备份，重建索引，压缩）
+- 分布式读取数据
+- MongoDB复制原理
+
+mongodb的复制至少需要两个节点。其中一个是主节点，负责处理客户端请求，其余的都是从节点，负责复制主节点上的数据。
+
+mongodb各个节点常见的搭配方式为：一主一从、一主多从。
+
+主节点记录在其上的所有操作oplog，从节点定期轮询主节点获取这些操作，然后对自己的数据副本执行这些操作，从而保证从节点的数据与主节点一致。
+
+复制结构图：客户端从主节点读取数据，在客户端写入数据到主节点时， 主节点与从节点进行数据交互保障数据的一致性。
+![](http://www.runoob.com/wp-content/uploads/2013/12/replication.png)
+**副本集特征：**
+- N 个节点的集群
+- 任何节点可作为主节点
+- 所有写入操作都在主节点上
+- 自动故障转移
+- 自动恢复
+- MongoDB副本集设置
+
+我们使用同一个MongoDB来做MongoDB主从的实验， 操作步骤如下：
+1、关闭正在运行的MongoDB服务器。
+通过指定 --replSet 选项来启动mongoDB。--replSet 基本语法格式如下：
+```js
+mongod --port "PORT" --dbpath "YOUR_DB_DATA_PATH" --replSet "REPLICA_SET_INSTANCE_NAME"
+```
+实例
+``js
+mongod --port 27017 --dbpath "D:\set up\mongodb\data" --replSet rs0
+```
+以上实例会启动一个名为rs0的MongoDB实例，其端口号为27017。
+启动后打开命令提示框并连接上mongoDB服务。
+
+`rs.initiate()` 来启动一个新的副本集。
+`rs.conf()` 来查看副本集的配置
+`rs.status()` 查看副本集状态
+
+**副本集添加成员**
+添加副本集的成员，我们需要使用多台服务器来启动mongo服务。进入Mongo客户端，并使用`rs.add()`方法来添加副本集的成员。
+```
+>rs.add(HOST_NAME:PORT)
+```
+实例
+假设你已经启动了一个名为mongod1.net，端口号为27017的Mongo服务。 在客户端命令窗口使用rs.add() 命令将其添加到副本集中，命令如下所示：
+```js
+>rs.add("mongod1.net:27017")
+```
+MongoDB中你只能通过主节点将Mongo服务添加到副本集中， 判断当前运行的Mongo服务是否为主节点可以使用命令`db.isMaster()` 。
+
+MongoDB的副本集与我们常见的主从有所不同，主从在主机宕机后所有服务将停止，而副本集在主机宕机后，副本会接管主节点成为主节点，不会出现宕机的情况。
+
+### 分片
+在Mongodb里面存在另一种集群，就是分片技术,可以满足MongoDB数据量大量增长的需求。
+
+当MongoDB存储海量的数据时，一台机器可能不足以存储数据，也可能不足以提供可接受的读写吞吐量。这时，我们就可以通过在多台机器上分割数据，使得数据库系统能存储和处理更多的数据。
+
+为什么使用分片
+- 复制所有的写入操作到主节点
+- 延迟的敏感数据会在主节点查询
+- 单个副本集限制在12个节点
+- 当请求量巨大时会出现内存不足。
+- 本地磁盘不足
+- 垂直扩展价格昂贵
+
+在MongoDB中使用分片集群结构分布：
+![](http://www.runoob.com/wp-content/uploads/2013/12/sharding.png)
+上图中主要有如下所述三个主要组件：
+- Shard:
+用于存储实际的数据块，实际生产环境中一个shard server角色可由几台机器组个一个replica set承担，防止主机单点故障
+- Config Server:
+mongod实例，存储了整个 ClusterMetadata，其中包括 chunk信息。
+- Query Routers:
+前端路由，客户端由此接入，且让整个集群看上去像单一数据库，前端应用可以透明使用。
+
+**分片实例**
+分片结构端口分布如下：
+Shard Server 1：27020
+Shard Server 2：27021
+Shard Server 3：27022
+Shard Server 4：27023
+Config Server ：27100
+Route Process：40000
+步骤一：启动Shard Server
+```sh
+[root@100 /]# mkdir -p /www/mongoDB/shard/s0
+[root@100 /]# mkdir -p /www/mongoDB/shard/s1
+[root@100 /]# mkdir -p /www/mongoDB/shard/s2
+[root@100 /]# mkdir -p /www/mongoDB/shard/s3
+[root@100 /]# mkdir -p /www/mongoDB/shard/log
+[root@100 /]# /usr/local/mongoDB/bin/mongod --port 27020 --dbpath=/www/mongoDB/shard/s0 --logpath=/www/mongoDB/shard/log/s0.log --logappend --fork
+....
+[root@100 /]# /usr/local/mongoDB/bin/mongod --port 27023 --dbpath=/www/mongoDB/shard/s3 --logpath=/www/mongoDB/shard/log/s3.log --logappend --fork
+```
+步骤二： 启动Config Server
+```sh
+[root@100 /]# mkdir -p /www/mongoDB/shard/config
+[root@100 /]# /usr/local/mongoDB/bin/mongod --port 27100 --dbpath=/www/mongoDB/shard/config --logpath=/www/mongoDB/shard/log/config.log --logappend --fork
+```
+【注意】这里我们完全可以像启动普通mongodb服务一样启动，不需要添加—shardsvr和configsvr参数。因为这两个参数的作用就是改变启动端口的，所以我们自行指定了端口就可以。
+
+步骤三： 启动Route Process
+```sh
+/usr/local/mongoDB/bin/mongos --port 40000 --configdb localhost:27100 --fork --logpath=/www/mongoDB/shard/log/route.log --chunkSize 500
+```
+mongos启动参数中，chunkSize这一项是用来指定chunk的大小的，单位是MB，默认大小为200MB.
+
+步骤四： 配置Sharding
+使用MongoDB Shell登录到mongos，添加Shard节点
+```sh
+[root@100 shard]# /usr/local/mongoDB/bin/mongo admin --port 40000
+MongoDB shell version: 2.0.7
+connecting to: 127.0.0.1:40000/admin
+mongos> db.runCommand({ addshard:"localhost:27020" })
+{ "shardAdded" : "shard0000", "ok" : 1 }
+......
+mongos> db.runCommand({ addshard:"localhost:27029" })
+{ "shardAdded" : "shard0009", "ok" : 1 }
+mongos> db.runCommand({ enablesharding:"test" }) #设置分片存储的数据库
+{ "ok" : 1 }
+mongos> db.runCommand({ shardcollection: "test.log", key: { id:1,time:1}})
+{ "collectionsharded" : "test.log", "ok" : 1 }
+```
+步骤五： 程序代码内无需太大更改，直接按照连接普通的mongo数据库那样，将数据库连接接入接口40000
+
+实例：
+1. 创建Sharding复制集 rs0
+```sh
+# mkdir /data/log
+# mkdir /data/db1
+# nohup mongod --port 27020 --dbpath=/data/db1 --logpath=/data/log/rs0-1.log --logappend --fork --shardsvr --replSet=rs0 &
+
+# mkdir /data/db2
+# nohup mongod --port 27021 --dbpath=/data/db2 --logpath=/data/log/rs0-2.log --logappend --fork --shardsvr --replSet=rs0 &
+```
+1.1 复制集rs0配置
+```sh
+# mongo localhost:27020 > rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'localhost:27020'}, {_id: 1, host: 'localhost:27021'}]}) > rs.isMaster() #查看主从关系
+```
+2. 创建Sharding复制集 rs1
+```sh
+# mkdir /data/db3
+# nohup mongod --port 27030 --dbpath=/data/db3 --logpath=/data/log/rs1-1.log --logappend --fork --shardsvr --replSet=rs1 &
+# mkdir /data/db4
+# nohup mongod --port 27031 --dbpath=/data/db4 --logpath=/data/log/rs1-2.log --logappend --fork --shardsvr --replSet=rs1 &
+```
+2.1 复制集rs1配置
+```sh
+# mongo localhost:27030
+> rs.initiate({_id: 'rs1', members: [{_id: 0, host: 'localhost:27030'}, {_id: 1, host: 'localhost:27031'}]})
+> rs.isMaster() #查看主从关系
+```
+3. 创建Config复制集 conf
+```
+# mkdir /data/conf1
+# nohup mongod --port 27100 --dbpath=/data/conf1 --logpath=/data/log/conf-1.log --logappend --fork --configsvr --replSet=conf &
+# mkdir /data/conf2
+# nohup mongod --port 27101 --dbpath=/data/conf2 --logpath=/data/log/conf-2.log --logappend --fork --configsvr --replSet=conf &
+```
+3.1 复制集conf配置
+```sh
+# mongo localhost:27100
+> rs.initiate({_id: 'conf', members: [{_id: 0, host: 'localhost:27100'}, {_id: 1, host: 'localhost:27101'}]})
+> rs.isMaster() #查看主从关系
+```
+4. 创建Route
+```sh
+# nohup mongos --port 40000 --configdb conf/localhost:27100,localhost:27101 --fork --logpath=/data/log/route.log --logappend & 
+```
+4.1 设置分片
+```sh
+# mongo localhost:40000
+> use admin
+> db.runCommand({ addshard: 'rs0/localhost:27020,localhost:27021'})
+> db.runCommand({ addshard: 'rs1/localhost:27030,localhost:27031'})
+> db.runCommand({ enablesharding: 'test'})
+> db.runCommand({ shardcollection: 'test.user', key: {name: 1}})
+```
+### 备份(mongodump)与恢复(mongorestore)
+#### MongoDB数据备份
+`mongodump` 命令来备份MongoDB数据，该命令可以导出所有数据到指定目录中。
+`mongodump` 命令可以通过参数指定导出的数据量级转存的服务器。
+语法
+```js
+>mongodump -h dbhost -d dbname -o dbdirectory
+```
+-h：
+MongDB所在服务器地址，例如：127.0.0.1，当然也可以指定端口号：127.0.0.1:27017
+-d：
+需要备份的数据库实例，例如：test
+-o：
+备份的数据存放位置，例如：c:\data\dump，当然该目录需要提前建立，在备份完成后，系统自动在dump目录下建立一个test目录，这个目录里面存放该数据库实例的备份数据。
+
+实例
+在本地使用 27017 启动你的mongod服务。打开命令提示符窗口，进入MongoDB安装目录的bin目录输入命令mongodump:
+```sh
+>mongodump
+```
+执行以上命令后，客户端会连接到ip为 127.0.0.1 端口号为 27017 的MongoDB服务上，并备份所有数据到 bin/dump/ 目录中。命令输出结果如下：
+```sh
+C:\WINDOWS\system32>mongodump
+2019-02-12T00:28:16.031+0800    writing admin.system.version to
+2019-02-12T00:28:16.200+0800    done dumping admin.system.version (1 document)
+2019-02-12T00:28:16.201+0800    writing test.user to
+2019-02-12T00:28:16.202+0800    writing test.test to
+2019-02-12T00:28:16.203+0800    writing test.article to
+2019-02-12T00:28:16.206+0800    done dumping test.user (3 documents)
+2019-02-12T00:28:16.208+0800    done dumping test.test (1 document)
+2019-02-12T00:28:17.213+0800    done dumping test.article (1 document)
+```
+
