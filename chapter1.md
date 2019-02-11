@@ -2,7 +2,7 @@
 
 准备
 
-安裝 node.js
+#### 安裝 node.js
 
 ```sh
 wget https://nodejs.org/dist/v10.15.1/node-v10.15.1-linux-x64.tar.xz
@@ -40,11 +40,11 @@ me      ALL=(ALL:ALL) ALL
 service ssh restart
 ```
 
-ssh公钥实现本地无秘登录
+#### ssh公钥实现本地无秘登录
 
 ```bash
 me@服务器名 ~
-$ ssh-keygen -t rsa -b 4096 -C "username@domain.com"
+$ ssh-keygen -t rsa -b 4096 -C "username@domain"
 $ eval "$(ssh-agent -s)"
 Agent pid 16780
 $ cd .ssh
@@ -59,7 +59,7 @@ $ chmod 600 authorized_keys
 $ sudo service ssh restart
 ```
 
-修改ssh 端口
+#### 修改ssh 端口
 
 ```bash
 sudo vi /etc/ssh/sshd_config
@@ -76,7 +76,8 @@ $ ssh -p <port> <username>@<host-ip>
 
 [刘月林 \| 解决阿里云 ssh 端口修改后连接失败的问题](https://www.jianshu.com/p/51fdf8139e9a)
 
-配置防火墙规则
+#### 配置防火墙规则
+
 ```bash
 sudo vi /etc/iptables.up.rules
 *filter
@@ -137,7 +138,7 @@ iptables-restore /etc/iptables.up.rules
 sudo chmod +x /etc/network/if-up.d/iptables
 ```
 
-配置fail2ban
+#### 配置fail2ban
 
 ```sh
 sudo apt-get install fail2ban
@@ -152,7 +153,7 @@ sudo service fail2ban start
 sudo service fail2ban status
 ```
 
-安装环境依赖
+#### 安装环境依赖
 
 ```sh
 apt-get install git build-essential libssh-dev
@@ -186,7 +187,9 @@ kernel.sysrq = 1
 fs.inotify.max_user_watches = 524288
 npm install pm2 webpack
 ```
-pm2 实现对node程序运维
+
+#### pm2 实现对node程序运维
+
 ```sh
 pm2 list
                         -------------
@@ -227,7 +230,8 @@ pm2 show <id|name>
 pm2 logs
 ```
 
-Nginx 实现反向代理
+### Nginx 实现反向代理
+
 ```sh
 # 终止apache服务
 sudo service apache2 stop
@@ -243,8 +247,10 @@ nginx version: nginx/1.10.3 (Ubuntu)
 sudo vi /etc/nginx/conf.d/
 hi-com-3000.conf
 ```
-虚拟主机配置
+
+虚拟主机配置  
 让
+
 ```js
 upstream hi {
   server 127.0.0.1:3000;
@@ -265,7 +271,9 @@ server {
   }
 }
 ```
+
 查看nginx主配置文件，确认包含
+
 ```sh
 sudo vi /etc/nginx/nginx.conf 
 http {
@@ -279,47 +287,58 @@ http {
 
 }
 ```
+
 检查nginx配置是否正确
+
 ```sh
 sudo nginx -t
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 sudo nginx -s reload
 ```
-然后可以通过公网ip直接访问之前pm2开启的3000端口web服务
 
-去掉响应头服务器详细信息
-默认：
-Server: nginx/1.10.3 (Ubuntu)
+然后可以通过公网ip直接访问之前pm2开启的3000端口app服务
+
+#### 去掉响应头服务器详细信息  
+默认：  
+Server: nginx/1.10.3 \(Ubuntu\)
+
 ```sh
 sudo vi /etc/nginx/nginx.conf
 server_tokens off; # 去掉注释
-sudo service nginx restart reload
+sudo service nginx reload
 ```
-修改后：
+
+修改后：  
 Server: nginx
 
 mongodb 云数据库连接
+
 ```sh
 mongo "mongodb://cluster0-shard-00-00-dk9yb.mongodb.net:27017,cluster0-shard-00-01-dk9yb.mongodb.net:27017,cluster0-shard-00-02-dk9yb.mongodb.net:27017/test?replicaSet=Cluster0-shard-0" --ssl --authenticationDatabase admin --username <username> --password <password>
 mongo "mongodb+srv://cluster0-dk9yb.mongodb.net/test" --username <username>
-```  
-安装mongodb
+```
+
+#### 安装mongodb  
 [Install MongoDB Community Edition on Ubuntu](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
 
 去掉apt-get 阿里云安装源（可选）
+
 ```sh
 vi /etc/apt/apt.conf
 # 将require注释
 ```
+
 若安装很慢，可结束并更改源
+
 ```sh
 vi /etc/apt/sources.list.d/mongodb-org-4.0.list
 deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.0 multiverse
 # https://mirrors.aliyun.com/mongodb/ubuntu
 ```
 
-启动mongod服务
+#### 启动mongod服务
+
 ```sh
 sudo service mongod start
 sudo cat /var/log/mongodb/mongod.logmongo
@@ -329,7 +348,8 @@ sudo service mongod stop
 sudo service mongod restart
 ```
 
-修改mongod默认端口
+#### 修改mongod默认端口
+
 ```sh
 sudo vi /etc/mongod.conf
 # network interfaces
@@ -344,3 +364,12 @@ sudo vi /etc/iptales.up.rules
 -A OUTPUT -d 127.0.0.1 -p tcp --source-port 19999 -m state --state ESTABLISHED -j ACCEPT
 mongo --port 19999
 ```
+
+#### 本地mongodb数据备份
+
+```sh
+mongodump -h 12
+```
+
+
+
