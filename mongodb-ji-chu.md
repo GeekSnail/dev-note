@@ -351,10 +351,12 @@ db.col.dropIndex("索引名称")
         }
 ]
 ```
-聚合 aggregate() 方法
+#### 聚合 aggregate() 方法
+MongoDB中聚合(aggregate)主要用于处理数据(诸如统计平均值,求和等)，并返回计算后的数据结果。有点类似sql语句中的 count(*)。
 ```js
 db.COLLECTION_NAME.aggregate(AGGREGATE_OPERATION)
 ```
+例：以age域分组，计算各age组的人数（文档数）
 ```js
 > db.user.find()
 { "_id" : ObjectId("5c61189a56b2f401e8cec0fd"), "name" : "Lee", "title" : "Lee", "age" : 18 }
@@ -364,3 +366,17 @@ db.COLLECTION_NAME.aggregate(AGGREGATE_OPERATION)
 { "_id" : 23, "num" : 2 }
 { "_id" : 18, "num" : 1 }
 ```
+类似sql语句：
+```
+select age, count(*) from user group by age
+```
+|表达式	|描述	|实例|
+|-|-|
+|$sum	|计算总和。	|db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$sum : "$likes"}}}])|
+|$avg	|计算平均值	|db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$avg : "$likes"}}}])|
+|$min	|获取集合中所有文档对应值得最小值。|	db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$min : "$likes"}}}])|
+|$max	|获取集合中所有文档对应值得最大值。|	db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$max : "$likes"}}}])|
+|$push	|在结果文档中插入值到一个数组中。	|db.mycol.aggregate([{$group : {_id : "$by_user", url : {$push: "$url"}}}])|
+|$addToSet	|在结果文档中插入值到一个数组中，但不创建副本。	|db.mycol.aggregate([{$group : {_id : "$by_user", url : {$addToSet : "$url"}}}])|
+|$first	|根据资源文档的排序获取第一个文档数据。	|db.mycol.aggregate([{$group : {_id : "$by_user", first_url : {$first : "$url"}}}])|
+|$last	|根据资源文档的排序获取最后一个文档数据	|db.mycol.aggregate([{$group : {_id : "$by_user", last_url : {$last : "$url"}}}])|
