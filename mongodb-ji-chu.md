@@ -690,4 +690,9 @@ C:\WINDOWS\system32>mongodump
 2019-02-12T00:28:16.208+0800    done dumping test.test (1 document)
 2019-02-12T00:28:17.213+0800    done dumping test.article (1 document)
 ```
+mongodump 命令可选参数列表如下所示：
 
+语|法	|描述	|实例
+|mongodump --host HOST_NAME --port PORT_NUMBER	该命令将备份所有MongoDB数据	mongodump --host runoob.com --port 27017|
+|mongodump --dbpath DB_PATH --out BACKUP_DIRECTORY		mongodump --dbpath /data/db/ --out /data/backup/|
+|mongodump --collection COLLECTION --db DB_NAME	该命令将备份指定数据库的集合。	mongodump --collection mycol --db test|
