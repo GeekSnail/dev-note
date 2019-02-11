@@ -1,6 +1,6 @@
 # Summary
 
 * [Introduction](README.md)
-* [First Chapter](environment.md)
+* [环境配置](environment.md)
 * [MongoDB 基础](mongodb-ji-chu.md)
 
