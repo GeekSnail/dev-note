@@ -180,12 +180,12 @@ $type条件操作符是基于BSON类型来检索集合中匹配的数据类型�
 
 |类型	|数字|
 |-|-|
-|Double	|1|	 
-|String	|2|	 
-|Object	|3|	 
-|Array	|4|	 
-|Binary data|	5|	 
-|Object id|	7|	 
+|Double	|1|
+|String	|2|
+|Object	|3|
+|Array	|4|
+|Binary data|	5|
+|Object id|	7|
 |Boolean |8  |
 |Date	|9 |
 |Null	|10  |
@@ -257,7 +257,7 @@ createIndex() 方法中你也可以设置使用多个字段创建索引（关系
 在后台创建索引：
 ```js
 db.values.createIndex({open: 1, close: 1}, {background: true})
-```   
+```
 1、查看集合索引
 db.col.getIndexes()
 
@@ -432,7 +432,7 @@ db.article.aggregate(
         author : 1 ,
     }}
  );
-``` 
+```
 这样的话结果中就只还有_id,tilte和author三个字段了，默认情况下_id字段是被包含的，如果要想不包含_id话可以这样:
 ```js
 db.article.aggregate(
@@ -441,7 +441,7 @@ db.article.aggregate(
         title : 1 ,
         author : 1
     }});
-```    
+```
 例：
 ```js
 > db.article.insert({
@@ -508,7 +508,7 @@ mongodb各个节点常见的搭配方式为：一主一从、一主多从。
 mongod --port "PORT" --dbpath "YOUR_DB_DATA_PATH" --replSet "REPLICA_SET_INSTANCE_NAME"
 ```
 实例
-``js
+```sh
 mongod --port 27017 --dbpath "D:\set up\mongodb\data" --replSet rs0
 ```
 以上实例会启动一个名为rs0的MongoDB实例，其端口号为27017。
@@ -525,7 +525,7 @@ mongod --port 27017 --dbpath "D:\set up\mongodb\data" --replSet rs0
 ```
 实例
 假设你已经启动了一个名为mongod1.net，端口号为27017的Mongo服务。 在客户端命令窗口使用rs.add() 命令将其添加到副本集中，命令如下所示：
-```js
+​```js
 >rs.add("mongod1.net:27017")
 ```
 MongoDB中你只能通过主节点将Mongo服务添加到副本集中， 判断当前运行的Mongo服务是否为主节点可以使用命令`db.isMaster()` 。
@@ -606,7 +606,8 @@ mongos> db.runCommand({ shardcollection: "test.log", key: { id:1,time:1}})
 步骤五： 程序代码内无需太大更改，直接按照连接普通的mongo数据库那样，将数据库连接接入接口40000
 
 实例：
-1. 创建Sharding复制集 rs0
+1.创建Sharding复制集 rs0
+
 ```sh
 # mkdir /data/log
 # mkdir /data/db1
@@ -615,41 +616,41 @@ mongos> db.runCommand({ shardcollection: "test.log", key: { id:1,time:1}})
 # mkdir /data/db2
 # nohup mongod --port 27021 --dbpath=/data/db2 --logpath=/data/log/rs0-2.log --logappend --fork --shardsvr --replSet=rs0 &
 ```
-1.1 复制集rs0配置
+1.1复制集rs0配置
 ```sh
 # mongo localhost:27020 > rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'localhost:27020'}, {_id: 1, host: 'localhost:27021'}]}) > rs.isMaster() #查看主从关系
 ```
-2. 创建Sharding复制集 rs1
+2.创建Sharding复制集 rs1
 ```sh
 # mkdir /data/db3
 # nohup mongod --port 27030 --dbpath=/data/db3 --logpath=/data/log/rs1-1.log --logappend --fork --shardsvr --replSet=rs1 &
 # mkdir /data/db4
 # nohup mongod --port 27031 --dbpath=/data/db4 --logpath=/data/log/rs1-2.log --logappend --fork --shardsvr --replSet=rs1 &
 ```
-2.1 复制集rs1配置
+2.1复制集rs1配置
 ```sh
 # mongo localhost:27030
 > rs.initiate({_id: 'rs1', members: [{_id: 0, host: 'localhost:27030'}, {_id: 1, host: 'localhost:27031'}]})
 > rs.isMaster() #查看主从关系
 ```
-3. 创建Config复制集 conf
+3.创建Config复制集 conf
 ```
 # mkdir /data/conf1
 # nohup mongod --port 27100 --dbpath=/data/conf1 --logpath=/data/log/conf-1.log --logappend --fork --configsvr --replSet=conf &
 # mkdir /data/conf2
 # nohup mongod --port 27101 --dbpath=/data/conf2 --logpath=/data/log/conf-2.log --logappend --fork --configsvr --replSet=conf &
 ```
-3.1 复制集conf配置
+3.1复制集conf配置
 ```sh
 # mongo localhost:27100
 > rs.initiate({_id: 'conf', members: [{_id: 0, host: 'localhost:27100'}, {_id: 1, host: 'localhost:27101'}]})
 > rs.isMaster() #查看主从关系
 ```
-4. 创建Route
+4.创建Route
 ```sh
 # nohup mongos --port 40000 --configdb conf/localhost:27100,localhost:27101 --fork --logpath=/data/log/route.log --logappend & 
 ```
-4.1 设置分片
+4.1设置分片
 ```sh
 # mongo localhost:40000
 > use admin
@@ -658,6 +659,7 @@ mongos> db.runCommand({ shardcollection: "test.log", key: { id:1,time:1}})
 > db.runCommand({ enablesharding: 'test'})
 > db.runCommand({ shardcollection: 'test.user', key: {name: 1}})
 ```
+
 ### 备份(mongodump)与恢复(mongorestore)
 #### MongoDB数据备份
 `mongodump` 命令来备份MongoDB数据，该命令可以导出所有数据到指定目录中。
@@ -671,16 +673,12 @@ MongDB所在服务器地址，例如：127.0.0.1，当然也可以指定端口�
 -d：
 需要备份的数据库实例，例如：test
 -o：
-备份的数据存放位置，例如：c:\data\dump，当然该目录需要提前建立，在备份完成后，系统自动在dump目录下建立一个test目录，这个目录里面存放该数据库实例的备份数据。
+备份的数据存放位置，目录需要提前建立，在备份完成后，系统自动在指定目录下建立一个test目录，这个目录里面存放该数据库实例的备份数据。
 
-实例
-在本地使用 27017 启动你的mongod服务。打开命令提示符窗口，进入MongoDB安装目录的bin目录输入命令mongodump:
+实例：
+在本地使用 27017 启动你的mongod服务。
 ```sh
->mongodump
-```
-执行以上命令后，客户端会连接到ip为 127.0.0.1 端口号为 27017 的MongoDB服务上，并备份所有数据到 bin/dump/ 目录中。命令输出结果如下：
-```sh
-C:\WINDOWS\system32>mongodump
+C:\WINDOWS\system32>mongodump -h localhost:27017 -d test -o "C:\Program Files\MongoDB\Server\4.0"
 2019-02-12T00:28:16.031+0800    writing admin.system.version to
 2019-02-12T00:28:16.200+0800    done dumping admin.system.version (1 document)
 2019-02-12T00:28:16.201+0800    writing test.user to
@@ -690,9 +688,90 @@ C:\WINDOWS\system32>mongodump
 2019-02-12T00:28:16.208+0800    done dumping test.test (1 document)
 2019-02-12T00:28:17.213+0800    done dumping test.article (1 document)
 ```
-mongodump 命令可选参数列表如下所示：
+#### 数据恢复
+mongodb使用 mongorestore 命令来恢复备份的数据。
+```sh
+mongorestore -h <hostname><:port> -d dbname <path>
+```
+- --host <:port>, -h <:port>：
+  MongoDB所在服务器地址，默认为： localhost:27017
+- --db , -d ：
+  需要恢复的数据库实例，例如：test，当然这个名称也可以和备份时候的不一样，比如test2
+- --drop：
+  恢复的时候，先删除当前数据，然后恢复备份的数据。就是说，恢复后，备份后添加修改的数据都会被删除，慎用哦！
+- <path>：
+  mongorestore 最后的一个参数，设置备份数据所在位置，例如：c:\data\dump\test。
+  你不能同时指定 <path> 和 --dir 选项，--dir也可以设置备份目录。
+- --dir：
+  指定备份的目录，你不能同时指定 <path> 和 --dir 选项。
+监控
+在你已经安装部署并允许MongoDB服务后，你必须要了解MongoDB的运行情况，并查看MongoDB的性能。这样在大流量得情况下可以很好的应对并保证MongoDB正常运作。
 
-语|法	|描述	|实例
-|mongodump --host HOST_NAME --port PORT_NUMBER	该命令将备份所有MongoDB数据	mongodump --host runoob.com --port 27017|
-|mongodump --dbpath DB_PATH --out BACKUP_DIRECTORY		mongodump --dbpath /data/db/ --out /data/backup/|
-|mongodump --collection COLLECTION --db DB_NAME	该命令将备份指定数据库的集合。	mongodump --collection mycol --db test|
+###  监控
+在你已经安装部署并允许MongoDB服务后，你必须要了解MongoDB的运行情况，并查看MongoDB的性能。这样在大流量得情况下可以很好的应对并保证MongoDB正常运作。
+MongoDB中提供了`mongostat` 和` mongotop` 两个命令来监控MongoDB的运行情况。
+####  mongostat 命令
+mongostat是mongodb自带的状态检测工具，在命令行下使用。它会间隔固定时间获取mongodb的当前运行状态，并输出。如果你发现数据库突然变慢或者有其他问题的话，你第一手的操作就考虑采用mongostat来查看mongo的状态。
+
+启动你的Mongod服务，进入到你安装的MongoDB目录下的bin目录， 然后输入mongostat命令，如下所示：
+
+```sh
+C:\Users\35398>mongostat
+insert query update delete getmore command dirty used flushes vsize   res qrw arw net_in net_out conn                time
+    *0    *0     *0     *0       0   334|0  0.0% 0.0%       0 4.96G 26.0M 0|0 1|0  26.4k   10.5m    1 Feb 13 17:29:18.412
+    *0    *0     *0     *0       0     2|0  0.0% 0.0%       0 4.96G 26.0M 0|0 1|0   164b   65.6k    1 Feb 13 17:29:19.371
+    *0    *0     *0     *0       0     2|0  0.0% 0.0%       0 4.96G 26.0M 0|0 1|0   158b   63.1k    1 Feb 13 17:29:20.368
+    *0    *0     *0     *0       0     1|0  0.0% 0.0%       0 4.96G 26.0M 0|0 1|0   156b   62.5k    1 Feb 13 17:29:21.376
+    *0    *0     *0     *0       0     2|0  0.0% 0.0%       0 4.96G 26.0M 0|0 1|0   158b   63.2k    1 Feb 13 17:29:22.371
+    *0    *0     *0     *0       0     1|0  0.0% 0.0%       0 4.96G 26.0M 0|0 1|0   157b   62.8k    1 Feb 13 17:29:23.372
+    *0    *0     *0     *0       0     1|0  0.0% 0.0%       0 4.96G 26.0M 0|0 1|0   157b   62.7k    1 Feb 13 17:29:24.376
+    *0    *0     *0     *0       0     2|0  0.0% 0.0%       0 4.96G 26.0M 0|0 1|0   159b   63.3k    1 Feb 13 17:29:25.369
+    *0    *0     *0     *0       0     1|0  0.0% 0.0%       0 4.96G 26.0M 0|0 1|0   156b   62.4k    1 Feb 13 17:29:26.377
+    *0    *0     *0     *0       0     2|0  0.0% 0.0%       0 4.96G 26.0M 0|0 1|0   159b   63.4k    1 Feb 13 17:29:27.369
+....
+```
+####  mongotop 命令
+mongotop也是mongodb下的一个内置工具，mongotop提供了一个方法，用来跟踪一个MongoDB的实例，查看哪些大量的时间花费在读取和写入数据。 mongotop提供每个集合的水平的统计数据。默认情况下，mongotop返回值的每一秒。
+```sh
+C:\Users\35398>mongotop
+2019-02-13T17:30:12.434+0800    connected to: 127.0.0.1
+
+                    ns    total    read    write    2019-02-13T17:30:13+08:00
+    admin.system.roles      0ms     0ms      0ms
+  admin.system.version      0ms     0ms      0ms
+config.system.sessions      0ms     0ms      0ms
+     local.startup_log      0ms     0ms      0ms
+  local.system.replset      0ms     0ms      0ms
+          test.article      0ms     0ms      0ms
+             test.test      0ms     0ms      0ms
+             test.user      0ms     0ms      0ms
+...
+```
+输出结果字段说明：
+
+- ns：
+
+  包含数据库命名空间，后者结合了数据库名称和集合。
+
+- **db：**
+
+  包含数据库的名称。名为 . 的数据库针对全局锁定，而非特定数据库。
+
+- **total：**
+
+  mongod花费的时间工作在这个命名空间提供总额。
+
+- **read：**
+
+  提供了大量的时间，这mongod花费在执行读操作，在此命名空间。
+
+- **write：**
+
+  提供这个命名空间进行写操作，这mongod花了大量的时间。
+
+
+------
+
+参考
+
+https://www.cnblogs.com/phpandmysql/p/7763394.html
