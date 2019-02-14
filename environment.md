@@ -364,12 +364,3 @@ sudo vi /etc/iptales.up.rules
 -A OUTPUT -d 127.0.0.1 -p tcp --source-port 19999 -m state --state ESTABLISHED -j ACCEPT
 mongo --port 19999
 ```
-
-#### 本地mongodb数据备份
-
-```sh
-mongodump -h 12
-```
-
-
-
