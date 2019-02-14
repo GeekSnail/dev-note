@@ -564,7 +564,7 @@ Shard Server 4：27023
 Config Server ：27100
 Route Process：40000
 步骤一：启动Shard Server
-```sh
+​```sh
 [root@100 /]# mkdir -p /www/mongoDB/shard/s0
 [root@100 /]# mkdir -p /www/mongoDB/shard/s1
 [root@100 /]# mkdir -p /www/mongoDB/shard/s2
@@ -772,6 +772,11 @@ config.system.sessions      0ms     0ms      0ms
 
 ------
 
-参考
+#### 参考
+http://www.runoob.com/mongodb/
+
+http://www.runoob.com/nodejs/nodejs-mongodb.html
+
+https://www.npmjs.com/package/mongodb
 
 https://www.cnblogs.com/phpandmysql/p/7763394.html
