@@ -29,5 +29,6 @@ book.pdf
 book.epub
 book.mobi
 
-# add commit push
-push.sh
+# push master, build and push gh-pages
+*.sh
+*.js
