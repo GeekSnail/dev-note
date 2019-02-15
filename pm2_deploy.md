@@ -29,7 +29,7 @@ sudo mkdir /var/www/website
 sudo chmod 777 /var/www/website
 ```
 
-本地项目配置pm2，并启动部署：
+本地项目配置pm2，并对部署进行启动（在服务器建立三个文件）
 ```sh
 cd /path/to/project
 vi ecosystem.json
@@ -75,7 +75,7 @@ current shared source
 # current服务器运行的文件，shared如日志文件，source是clone过来的源文件
 ```
 
-本地再部署：
+本地提交并部署：
 ```sh
 git add .
 git commit -m 'add ecosystem.json'
@@ -93,7 +93,22 @@ $ vi .bashrc
 #esac
 $ source .bashrc
 ```
-本地再尝试部署发布：
+本地再尝试部署：
 ```sh
 pm2 deploy ecosystem.json production
 ```
+Nginx 子域名转发配置文件
+```sh
+vi /etc/nginx/conf.d/xxx.conf
+# server_name
+# proxy_pass
+```
+防火墙端口配置
+```sh
+vi /etc/iptables.up.rules
+input ...
+output ...
+```
+
+
+
