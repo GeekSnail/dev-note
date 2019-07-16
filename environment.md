@@ -2,7 +2,7 @@
 
 准备
 
-#### 安裝 node.js
+#### 简单安裝 node.js
 
 ```sh
 wget https://nodejs.org/dist/v10.15.1/node-v10.15.1-linux-x64.tar.xz
@@ -11,7 +11,7 @@ mv node-v10.15.1-linux-x64.tar.xz nodejs
 ln -s /home/downloads/nodejs/bin/npm /usr/local/bin/
 ln -s /home/downloads/nodejs/bin/node /usr/local/bin/
 node -v
-# 删除
+# 删除软链接
 sudo rm /usr/local/bin/node
 sudo rm /usr/local/bin/npm
 ```
@@ -104,8 +104,7 @@ sudo vi /etc/iptables.up.rules
 
 # drop incoming sensitive connections
 -A INPUT -p tcp --dport 80 -i eth0 -m state --state NEW -m recent --set
--A INPUT -p tcp --dport 80 -i eth0 -m state --state NEW -m recent --update --seconds 60 --hitc
-ount 180 -j DROP
+-A INPUT -p tcp --dport 80 -i eth0 -m state --state NEW -m recent --update --seconds 60 --hitcount 180 -j DROP
 
 # reject all other inbound
 -A INPUT -j REJECT
@@ -117,7 +116,6 @@ ount 180 -j DROP
 
 #movie
 COMMIT
-<Esc>:wq
 sudo iptables-restore < /etc/iptables.up.rules
 sudo ufw status
 Status: inactive
@@ -134,7 +132,6 @@ To                         Action      From
 sudo vi /etc/network/if-up.d/iptables
 #!/bin/sh
 iptables-restore /etc/iptables.up.rules
-<Esc>:wq
 sudo chmod +x /etc/network/if-up.d/iptables
 ```
 
@@ -185,6 +182,7 @@ net.ipv6.conf.default.disable_ipv6 = 1
 net.ipv6.conf.lo.disable_ipv6 = 1
 kernel.sysrq = 1
 fs.inotify.max_user_watches = 524288
+npm config set registry https://registry.npm.taobao.org
 npm install pm2 webpack
 ```
 
@@ -225,7 +223,7 @@ __/\\\\\\\\\\\\\____/\\\\____________/\\\\____/\\\\\\\\\_____
                 To go further checkout:
                 http://pm2.io/
 
-pm2 start app.js
+pm2 start app.js --watch
 pm2 show <id|name>
 pm2 logs
 ```
@@ -244,8 +242,7 @@ sudo apt-get install nginx
 nginx -v
 nginx version: nginx/1.10.3 (Ubuntu)
 
-sudo vi /etc/nginx/conf.d/
-hi-com-3000.conf
+sudo vi /etc/nginx/conf.d/hi-com-3000.conf
 ```
 
 虚拟主机配置  
@@ -312,7 +309,7 @@ sudo service nginx reload
 修改后：  
 Server: nginx
 
-mongodb 云数据库连接
+#### mongodb 云数据库连接
 
 ```sh
 mongo "mongodb://cluster0-shard-00-00-dk9yb.mongodb.net:27017,cluster0-shard-00-01-dk9yb.mongodb.net:27017,cluster0-shard-00-02-dk9yb.mongodb.net:27017/test?replicaSet=Cluster0-shard-0" --ssl --authenticationDatabase admin --username <username> --password <password>
@@ -341,13 +338,22 @@ deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/
 
 ```sh
 sudo service mongod start
-sudo cat /var/log/mongodb/mongod.logmongo
+sudo cat /var/log/mongodb/mongod.log
+mongo
 MongoDB shell version v4.0.6
 connecting to: mongodb://127.0.0.1:27017/?gssapiServiceName=mongodb
 sudo service mongod stop
 sudo service mongod restart
 ```
-
+#### 相关文件路径
+```sh
+# 默认配置文件
+vi /etc/mongod.conf
+# 默认日志文件
+vi /var/log/mongodb/mongod.log
+# 默认data路径
+ls /var/lib/mongodb/
+```
 #### 修改mongod默认端口
 
 ```sh
@@ -364,3 +370,79 @@ sudo vi /etc/iptales.up.rules
 -A OUTPUT -d 127.0.0.1 -p tcp --source-port 19999 -m state --state ESTABLISHED -j ACCEPT
 mongo --port 19999
 ```
+
+#### 客户端连接mongodb
+```sh
+mongo --port 19999
+MongoDB shell version v4.0.6
+connecting to: mongodb://127.0.0.1:19999/?gssapiServiceName=mongodb
+mongo --help
+usage: mongo [options] [db address] [file names (ending in .js)]
+db address can be:
+  foo                   foo database on local machine
+  192.168.0.5/foo       foo database on 192.168.0.5 machine
+  192.168.0.5:9999/foo  foo database on 192.168.0.5 machine on port 9999
+Options:
+  --shell                             run the shell after executing files
+  --nodb                              don't connect to mongod on startup - no 
+                                      'db address' arg expected
+  --norc                              will not run the ".mongorc.js" file on 
+                                      start up
+  --quiet                             be less chatty
+  --port arg                          port to connect to
+  --host arg                          server to connect to
+  --eval arg                          evaluate javascript
+  -h [ --help ]                       show this usage information
+  --version                           show version information
+  --verbose                           increase verbosity
+  --ipv6                              enable IPv6 support (disabled by default)
+  --disableJavaScriptJIT              disable the Javascript Just In Time 
+                                      compiler
+  --enableJavaScriptJIT               enable the Javascript Just In Time 
+                                      compiler
+  --disableJavaScriptProtection       allow automatic JavaScript function 
+                                      marshalling
+  --ssl                               use SSL for all connections
+  --sslCAFile arg                     Certificate Authority file for SSL
+  --sslPEMKeyFile arg                 PEM certificate/key file for SSL
+  --sslPEMKeyPassword arg             password for key in PEM file for SSL
+  --sslCRLFile arg                    Certificate Revocation List file for SSL
+  --sslAllowInvalidHostnames          allow connections to servers with 
+                                      non-matching hostnames
+  --sslAllowInvalidCertificates       allow connections to servers with invalid certificates
+Authentication Options:
+  -u [ --username ] arg               username for authentication
+  -p [ --password ] arg               password for authentication
+
+file names: a list of files to run. files have to end in .js and will exit after unless --shell is specified
+```
+
+redis安装
+
+wget
+
+tar
+
+cd make
+
+sudo vi redis.conf
+
+daemonize yes
+
+requirepass xxx
+
+去除protectd-mode模式，并且设置所有ip均能访问：
+
+protected-mode no 
+
+bind 0.0.0.0 ::1
+
+sudo ./src/redis-server redis.conf
+
+src/redis-cli
+
+auth 
+
+keys
+
+netstat -tln | grep 6379

@@ -56,7 +56,7 @@ vi ecosystem.json
       "host": ["192.168.0.13"],
       "port": "<ssh-port>",
       "ref": "origin/master",
-      "repo": "git@git.github.com:<username>/<repo>.git",
+      "repo": "git@github.com:<username>/<repo>.git",
       "path": "/var/www/website",
       "ssh_options": "StrictHostKeyChecking=no",
       "env": {
@@ -110,5 +110,58 @@ input ...
 output ...
 ```
 
+本地传文件scp
+```sh
+scp -P <ssh-port> /local/file/path/ <user>@<ip>:/home/<user>/ssl/
+```
 
+删除nvm
 
+```sh
+rm -rf $NVM_DIR ~/.npm ~/.bower
+```
+
+删除nvm 在$PATH中的变量
+
+```sh
+vi ~/.bashrc
+#将文件末尾的export $NVM_DIR xxx 都注释
+source ~/.bashrc #生效
+```
+
+若ecosystem.config.js中加了watch:true
+则若在服务器修改了配置路径中的日志，则默认启动失败，需删掉
+为了使用pm2 ssh远程部署更新，且在node程序中能写入程序，最好使node、npm、pm2全局安装，且当前用户有权限直接使用（非sudo）
+**准备工作：**
+1. root启动pm2：在packege.json start 中，pm2-runtime 前加入sudo（为了写入文件流）
+2. npm授权当前用户：由于pm2 ssh远程部署更新启动（包含npm i）不能使用sudo，故确保当前用户有权限直接使用npm（非sudo）
+若全局安装后，npm i 失败：
+```sh
+Unhandled rejection Error: EACCES: permission denied, mkdir '/home/me/.npm/_cacache/index-v5/63/6f'
+```
+```sh
+sudo chown -R $(whoami) ~/.npm #授权当前用户 -R files and directories recursively
+sudo chown -R $(whoami):$(whoami) ~/.npm #或授权当前用户及组
+```
+3. pm2授权当前用户：
+```sh
+me@iZuf6dwb7yea1206rdub0wZ:~$ pm2 list
+[PM2][ERROR] Permission denied, to give access to current user:
+#$ sudo chown me:me /home/me/.pm2/rpc.sock /home/me/.pm2/pub.sock
+export PM2_HOME="~/.pm2"
+```
+**开始**
+```sh
+git add . && git commit -m 'update xxx'
+git push origin <branch>
+pm2 deploy ecosystem.config.js production setup
+pm2 deploy production update
+# 执行 pm2 deploy production exec 'sudo npm start' 会失败(sudo失败)
+# 到服务器项目文件夹下执行：
+sudo npm start #或直接执行start语句：
+sudo pm2-runtime start ecosystem.config.js --env production
+
+scp -r -P 39999 ./dist/* me@101.132.144.238:/var/www/pixels
+# 传图片
+C:\Users\35398\Documents\GitHub\vue-graphql\uploads\photos>scp -r -P 39999 . me@101.132.144.238:/var/www/static/photos
+```
