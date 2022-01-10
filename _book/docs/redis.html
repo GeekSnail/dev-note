@@ -1,0 +1,432 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>redis · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="tmp.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="environment.html">
+            
+                <a href="environment.html">
+            
+                    
+                    环境配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="mongodb_basic.html">
+            
+                <a href="mongodb_basic.html">
+            
+                    
+                    MongoDB 基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="mongoose.html">
+            
+                <a href="mongoose.html">
+            
+                    
+                    Mongoose 基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="pm2_deploy.html">
+            
+                <a href="pm2_deploy.html">
+            
+                    
+                    pm2 部署 nodejs 应用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="tmp.html">
+            
+                <a href="tmp.html">
+            
+                    
+                    nuxt-wechat
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.7" data-path="redis.html">
+            
+                <a href="redis.html">
+            
+                    
+                    redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >redis</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <p><strong>redis-conf &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x6CE8;&#x91CA;</strong></p>
+<pre><code class="lang-sh">daemonize yes        <span class="hljs-comment">#&#x662F;&#x5426;&#x4F5C;&#x4E3A;&#x5B88;&#x62A4;&#x8FDB;&#x7A0B;&#x8FD0;&#x884C;</span>
+pidfile redis.pid    <span class="hljs-comment">#&#x914D;&#x7F6E;pid&#x7684;&#x5B58;&#x653E;&#x8DEF;&#x5F84;&#x53CA;&#x6587;&#x4EF6;&#x540D;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;&#x5F53;&#x524D;&#x8DEF;&#x5F84;&#x4E0B;</span>
+port 6379            <span class="hljs-comment">#Redis&#x9ED8;&#x8BA4;&#x76D1;&#x542C;&#x7AEF;&#x53E3;</span>
+timeout 300            <span class="hljs-comment">#&#x5BA2;&#x6237;&#x7AEF;&#x95F2;&#x7F6E;&#x591A;&#x5C11;&#x79D2;&#x540E;&#xFF0C;&#x65AD;&#x5F00;&#x8FDE;&#x63A5;</span>
+loglevel verbose    <span class="hljs-comment">#&#x65E5;&#x5FD7;&#x663E;&#x793A;&#x7EA7;&#x522B;</span>
+logfile stdout        <span class="hljs-comment">#&#x6307;&#x5B9A;&#x65E5;&#x5FD7;&#x8F93;&#x51FA;&#x7684;&#x6587;&#x4EF6;&#x540D;&#xFF0C;&#x4E5F;&#x53EF;&#x6307;&#x5B9A;&#x5230;&#x6807;&#x51C6;&#x8F93;&#x51FA;&#x7AEF;&#x53E3;</span>
+databases 16        <span class="hljs-comment">#&#x8BBE;&#x7F6E;&#x6570;&#x636E;&#x5E93;&#x7684;&#x6570;&#x91CF;&#xFF0C;&#x9ED8;&#x8BA4;&#x8FDE;&#x63A5;&#x7684;&#x6570;&#x636E;&#x5E93;&#x662F;0&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;select N&#x6765;&#x8FDE;&#x63A5;&#x4E0D;&#x540C;&#x7684;&#x6570;&#x636E;&#x5E93;</span>
+<span class="hljs-comment">#&#x4FDD;&#x5B58;&#x6570;&#x636E;&#x5230;disk&#x7684;&#x7B56;&#x7565;</span>
+save 900 1        <span class="hljs-comment">#&#x5F53;&#x6709;&#x4E00;&#x6761;Keys&#x6570;&#x636E;&#x88AB;&#x6539;&#x53D8;&#x662F;&#xFF0C;900&#x79D2;&#x5237;&#x65B0;&#x5230;disk&#x4E00;&#x6B21;</span>
+save 300 10     <span class="hljs-comment">#&#x5F53;&#x6709;10&#x6761;Keys&#x6570;&#x636E;&#x88AB;&#x6539;&#x53D8;&#x65F6;&#xFF0C;300&#x79D2;&#x5237;&#x65B0;&#x5230;disk&#x4E00;&#x6B21;</span>
+save 60 10000    <span class="hljs-comment">#&#x5F53;&#x6709;1w&#x6761;keys&#x6570;&#x636E;&#x88AB;&#x6539;&#x53D8;&#x65F6;&#xFF0C;60&#x79D2;&#x5237;&#x65B0;&#x5230;disk&#x4E00;&#x6B21;</span>
+rdbcompression yes    <span class="hljs-comment">#&#x5F53;dump  .rdb&#x6570;&#x636E;&#x5E93;&#x7684;&#x65F6;&#x5019;&#x662F;&#x5426;&#x538B;&#x7F29;&#x6570;&#x636E;&#x5BF9;&#x8C61;</span>
+dbfilename dump.rdb <span class="hljs-comment">#dump&#x6570;&#x636E;&#x5E93;&#x7684;&#x6570;&#x636E;&#x4FDD;&#x5B58;&#x7684;&#x6587;&#x4EF6;&#x540D;</span>
+dir /home/falcon/redis-2.0.0/    <span class="hljs-comment">#Redis&#x7684;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;</span>
+<span class="hljs-comment">###########  Replication #####################</span>
+<span class="hljs-comment">#Redis&#x7684;&#x590D;&#x5236;&#x914D;&#x7F6E;</span>
+<span class="hljs-comment"># slaveof &lt;masterip&gt; &lt;masterport&gt;</span>
+<span class="hljs-comment"># masterauth &lt;master-password&gt;</span>
+<span class="hljs-comment">############## SECURITY ###########</span>
+<span class="hljs-comment"># requirepass foobared</span>
+<span class="hljs-comment">############### LIMITS ##############</span>
+<span class="hljs-comment"># maxclients 128 #&#x6700;&#x5927;&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x6570;</span>
+<span class="hljs-comment"># maxmemory &lt;bytes&gt; #&#x6700;&#x5927;&#x5185;&#x5B58;&#x4F7F;&#x7528;&#x7387;</span>
+<span class="hljs-comment">########## APPEND ONLY MODE #########</span>
+appendonly no <span class="hljs-comment">#&#x662F;&#x5426;&#x5F00;&#x542F;&#x65E5;&#x5FD7;&#x529F;&#x80FD;</span>
+<span class="hljs-comment"># appendfsync always # &#x5237;&#x65B0;&#x65E5;&#x5FD7;&#x5230;disk&#x7684;&#x89C4;&#x5219;</span>
+appendfsync everysec <span class="hljs-comment"># appendfsync no</span>
+<span class="hljs-comment">################ VIRTUAL MEMORY ###########</span>
+vm-enabled no <span class="hljs-comment">#&#x662F;&#x5426;&#x5F00;&#x542F;VM&#x529F;&#x80FD;</span>
+<span class="hljs-comment"># vm-enabled yes</span>
+vm-swap-file logs/redis.swap
+vm-max-memory 0
+vm-page-size 32
+vm-pages 134217728
+vm-max-threads 4
+<span class="hljs-comment">############# ADVANCED CONFIG ###############</span>
+glueoutputbuf yes
+<span class="hljs-built_in">hash</span>-max-zipmap-entries 64
+<span class="hljs-built_in">hash</span>-max-zipmap-value 512
+activerehashing yes <span class="hljs-comment">#&#x662F;&#x5426;&#x91CD;&#x7F6E;Hash&#x8868;</span>
+</code></pre>
+<p><strong>redis&#x5E38;&#x7528;&#x547D;&#x4EE4;</strong></p>
+<pre><code class="lang-sh">exits key    <span class="hljs-comment">#&#x6D4B;&#x8BD5;&#x6307;&#x5B9A;key&#x662F;&#x5426;&#x5B58;&#x5728;&#xFF0C;&#x8FD4;&#x56DE;1&#x8868;&#x793A;&#x5B58;&#x5728;&#xFF0C;0&#x4E0D;&#x5B58;&#x5728;</span>
+del key1 key2 ....keyN    <span class="hljs-comment">#&#x5220;&#x9664;&#x7ED9;&#x5B9A;key,&#x8FD4;&#x56DE;&#x5220;&#x9664;key&#x7684;&#x6570;&#x76EE;&#xFF0C;0&#x8868;&#x793A;&#x7ED9;&#x5B9A;key&#x90FD;&#x4E0D;&#x5B58;&#x5728;</span>
+<span class="hljs-built_in">type</span> key            <span class="hljs-comment">#&#x8FD4;&#x56DE;&#x7ED9;&#x5B9A;key&#x7684;value&#x7C7B;&#x578B;&#x3002;&#x8FD4;&#x56DE; none &#x8868;&#x793A;&#x4E0D;&#x5B58;&#x5728;key,string&#x5B57;&#x7B26;&#x7C7B;&#x578B;&#xFF0C;list &#x94FE;&#x8868;&#x7C7B;&#x578B; set &#x65E0;&#x5E8F;&#x96C6;&#x5408;&#x7C7B;&#x578B;...</span>
+keys pattern        <span class="hljs-comment">#&#x8FD4;&#x56DE;&#x5339;&#x914D;&#x6307;&#x5B9A;&#x6A21;&#x5F0F;&#x7684;&#x6240;&#x6709;key,&#x4E0B;&#x9762;&#x7ED9;&#x4E2A;&#x4F8B;&#x5B50;</span>
+randomkey            <span class="hljs-comment">#&#x8FD4;&#x56DE;&#x4ECE;&#x5F53;&#x524D;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x968F;&#x673A;&#x9009;&#x62E9;&#x7684;&#x4E00;&#x4E2A;key,&#x5982;&#x679C;&#x5F53;&#x524D;&#x6570;&#x636E;&#x5E93;&#x662F;&#x7A7A;&#x7684;&#xFF0C;&#x8FD4;&#x56DE;&#x7A7A;&#x4E32;</span>
+rename oldkey newkey    <span class="hljs-comment">#&#x539F;&#x5B50;&#x7684;&#x91CD;&#x547D;&#x540D;&#x4E00;&#x4E2A;key,&#x5982;&#x679C;newkey&#x5B58;&#x5728;&#xFF0C;&#x5C06;&#x4F1A;&#x88AB;&#x8986;&#x76D6;&#xFF0C;&#x8FD4;&#x56DE;1&#x8868;&#x793A;&#x6210;&#x529F;&#xFF0C;0&#x5931;&#x8D25;&#x3002;&#x53EF;&#x80FD;&#x662F;oldkey&#x4E0D;&#x5B58;&#x5728;&#x6216;&#x8005;&#x548C;newkey&#x76F8;&#x540C;</span>
+renamenx oldkey newkey    <span class="hljs-comment">#&#x540C;&#x4E0A;&#xFF0C;&#x4F46;&#x662F;&#x5982;&#x679C;newkey&#x5B58;&#x5728;&#x8FD4;&#x56DE;&#x5931;&#x8D25;</span>
+dbsize                <span class="hljs-comment">#&#x8FD4;&#x56DE;&#x5F53;&#x524D;&#x6570;&#x636E;&#x5E93;&#x7684;key&#x6570;&#x91CF;</span>
+expire key seconds    <span class="hljs-comment">#&#x4E3A;key&#x6307;&#x5B9A;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#xFF0C;&#x5355;&#x4F4D;&#x662F;&#x79D2;&#x3002;&#x8FD4;&#x56DE;1&#x6210;&#x529F;&#xFF0C;0&#x8868;&#x793A;key&#x5DF2;&#x7ECF;&#x8BBE;&#x7F6E;&#x8FC7;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#x6216;&#x8005;&#x4E0D;&#x5B58;&#x5728;</span>
+ttl key                <span class="hljs-comment">#&#x8FD4;&#x56DE;&#x8BBE;&#x7F6E;&#x8FC7;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#x7684;key&#x7684;&#x5269;&#x4F59;&#x8FC7;&#x671F;&#x79D2;&#x6570; -1&#x8868;&#x793A;key&#x4E0D;&#x5B58;&#x5728;&#x6216;&#x8005;&#x6CA1;&#x6709;&#x8BBE;&#x7F6E;&#x8FC7;&#x8FC7;&#x671F;&#x65F6;&#x95F4;</span>
+select db-index        <span class="hljs-comment">#&#x901A;&#x8FC7;&#x7D22;&#x5F15;&#x9009;&#x62E9;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x9ED8;&#x8BA4;&#x8FDE;&#x63A5;&#x7684;&#x6570;&#x636E;&#x5E93;&#x6240;&#x6709;&#x662F;0,&#x9ED8;&#x8BA4;&#x6570;&#x636E;&#x5E93;&#x6570;&#x662F;16&#x4E2A;&#x3002;&#x8FD4;&#x56DE;1&#x8868;&#x793A;&#x6210;&#x529F;&#xFF0C;0&#x5931;&#x8D25;</span>
+move key db-index    <span class="hljs-comment">#&#x5C06;key&#x4ECE;&#x5F53;&#x524D;&#x6570;&#x636E;&#x5E93;&#x79FB;&#x52A8;&#x5230;&#x6307;&#x5B9A;&#x6570;&#x636E;&#x5E93;&#x3002;&#x8FD4;&#x56DE;1&#x6210;&#x529F;&#x3002;0 &#x5982;&#x679C;key&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x6216;&#x8005;&#x5DF2;&#x7ECF;&#x5728;&#x6307;&#x5B9A;&#x6570;&#x636E;&#x5E93;&#x4E2D;</span>
+flushdb        <span class="hljs-comment">#&#x5220;&#x9664;&#x5F53;&#x524D;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x6240;&#x6709;key,&#x6B64;&#x65B9;&#x6CD5;&#x4E0D;&#x4F1A;&#x5931;&#x8D25;&#x3002;&#x614E;&#x7528;</span>
+flushall    <span class="hljs-comment">#&#x5220;&#x9664;&#x6240;&#x6709;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;&#x6240;&#x6709;key&#xFF0C;&#x6B64;&#x65B9;&#x6CD5;&#x4E0D;&#x4F1A;&#x5931;&#x8D25;&#x3002;&#x66F4;&#x52A0;&#x614E;&#x7528;</span>
+
+<span class="hljs-comment"># string &#x7C7B;&#x578B;&#x6570;&#x636E;&#x64CD;&#x4F5C;&#x547D;&#x4EE4; </span>
+<span class="hljs-built_in">set</span> key value             <span class="hljs-comment">#&#x8BBE;&#x7F6E;key&#x5BF9;&#x5E94;&#x7684;&#x503C;&#x4E3A;string&#x7C7B;&#x578B;&#x7684;value,&#x8FD4;&#x56DE;1&#x8868;&#x793A;&#x6210;&#x529F;&#xFF0C;0&#x5931;&#x8D25;</span>
+setnx key value            <span class="hljs-comment">#&#x540C;&#x4E0A;&#xFF0C;&#x5982;&#x679C;key&#x5DF2;&#x7ECF;&#x5B58;&#x5728;&#xFF0C;&#x8FD4;&#x56DE;0 &#x3002;nx &#x662F;not exist&#x7684;&#x610F;&#x601D;</span>
+get key                  <span class="hljs-comment">#&#x83B7;&#x53D6;key&#x5BF9;&#x5E94;&#x7684;string&#x503C;,&#x5982;&#x679C;key&#x4E0D;&#x5B58;&#x5728;&#x8FD4;&#x56DE;nil</span>
+getset key value        <span class="hljs-comment">#&#x539F;&#x5B50;&#x7684;&#x8BBE;&#x7F6E;key&#x7684;&#x503C;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;key&#x7684;&#x65E7;&#x503C;&#x3002;&#x5982;&#x679C;key&#x4E0D;&#x5B58;&#x5728;&#x8FD4;&#x56DE;nil</span>
+mget key1 key2 ... keyN    <span class="hljs-comment">#&#x4E00;&#x6B21;&#x83B7;&#x53D6;&#x591A;&#x4E2A;key&#x7684;&#x503C;&#xFF0C;&#x5982;&#x679C;&#x5BF9;&#x5E94;key&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x5219;&#x5BF9;&#x5E94;&#x8FD4;&#x56DE;nil&#x3002;&#x4E0B;&#x9762;&#x662F;&#x4E2A;&#x5B9E;&#x9A8C;,&#x9996;&#x5148;&#x6E05;&#x7A7A;&#x5F53;&#x524D;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x7136;&#x540E;&#x8BBE;&#x7F6E;k1,k2.&#x83B7;&#x53D6;&#x65F6;k3&#x5BF9;&#x5E94;&#x8FD4;&#x56DE;nil</span>
+mset key1 value1 ... keyN valueN    <span class="hljs-comment">#&#x4E00;&#x6B21;&#x8BBE;&#x7F6E;&#x591A;&#x4E2A;key&#x7684;&#x503C;&#xFF0C;&#x6210;&#x529F;&#x8FD4;&#x56DE;1&#x8868;&#x793A;&#x6240;&#x6709;&#x7684;&#x503C;&#x90FD;&#x8BBE;&#x7F6E;&#x4E86;&#xFF0C;&#x5931;&#x8D25;&#x8FD4;&#x56DE;0&#x8868;&#x793A;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x503C;&#x88AB;&#x8BBE;&#x7F6E;</span>
+msetnx key1 value1 ... keyN valueN    <span class="hljs-comment">#&#x540C;&#x4E0A;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x4F1A;&#x8986;&#x76D6;&#x5DF2;&#x7ECF;&#x5B58;&#x5728;&#x7684;key</span>
+incr key    <span class="hljs-comment">#&#x5BF9;key&#x7684;&#x503C;&#x505A;&#x52A0;&#x52A0;&#x64CD;&#x4F5C;,&#x5E76;&#x8FD4;&#x56DE;&#x65B0;&#x7684;&#x503C;&#x3002;&#x6CE8;&#x610F;incr&#x4E00;&#x4E2A;&#x4E0D;&#x662F;int&#x7684;value&#x4F1A;&#x8FD4;&#x56DE;&#x9519;&#x8BEF;&#xFF0C;incr&#x4E00;&#x4E2A;&#x4E0D;&#x5B58;&#x5728;&#x7684;key&#xFF0C;&#x5219;&#x8BBE;&#x7F6E;key&#x4E3A;1</span>
+decr key    <span class="hljs-comment">#&#x540C;&#x4E0A;&#xFF0C;&#x4F46;&#x662F;&#x505A;&#x7684;&#x662F;&#x51CF;&#x51CF;&#x64CD;&#x4F5C;&#xFF0C;decr&#x4E00;&#x4E2A;&#x4E0D;&#x5B58;&#x5728;key&#xFF0C;&#x5219;&#x8BBE;&#x7F6E;key&#x4E3A;-1</span>
+incrby key <span class="hljs-built_in">integer</span>        <span class="hljs-comment">#&#x540C;incr&#xFF0C;&#x52A0;&#x6307;&#x5B9A;&#x503C; &#xFF0C;key&#x4E0D;&#x5B58;&#x5728;&#x65F6;&#x5019;&#x4F1A;&#x8BBE;&#x7F6E;key&#xFF0C;&#x5E76;&#x8BA4;&#x4E3A;&#x539F;&#x6765;&#x7684;value&#x662F; 0</span>
+decrby key <span class="hljs-built_in">integer</span>        <span class="hljs-comment">#&#x540C;decr&#xFF0C;&#x51CF;&#x6307;&#x5B9A;&#x503C;&#x3002;decrby&#x5B8C;&#x5168;&#x662F;&#x4E3A;&#x4E86;&#x53EF;&#x8BFB;&#x6027;&#xFF0C;&#x6211;&#x4EEC;&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;incrby&#x4E00;&#x4E2A;&#x8D1F;&#x503C;&#x6765;&#x5B9E;&#x73B0;&#x540C;&#x6837;&#x6548;&#x679C;&#xFF0C;&#x53CD;&#x4E4B;&#x4E00;&#x6837;&#x3002;</span>
+append key value        <span class="hljs-comment">#&#x7ED9;&#x6307;&#x5B9A;key&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x503C;&#x8FFD;&#x52A0;value,&#x8FD4;&#x56DE;&#x65B0;&#x5B57;&#x7B26;&#x4E32;&#x503C;&#x7684;&#x957F;&#x5EA6;&#x3002;&#x4E0B;&#x9762;&#x7ED9;&#x4E2A;&#x4F8B;&#x5B50;</span>
+substr key start end    <span class="hljs-comment">#&#x8FD4;&#x56DE;&#x622A;&#x53D6;&#x8FC7;&#x7684;key&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x503C;,&#x6CE8;&#x610F;&#x5E76;&#x4E0D;&#x4FEE;&#x6539;key&#x7684;&#x503C;&#x3002;&#x4E0B;&#x6807;&#x662F;&#x4ECE;0&#x5F00;&#x59CB;&#x7684;&#xFF0C;&#x63A5;&#x7740;&#x4E0A;&#x9762;&#x4F8B;&#x5B50;</span>
+
+<span class="hljs-comment"># list &#x7C7B;&#x578B;&#x6570;&#x636E;&#x64CD;&#x4F5C;&#x547D;&#x4EE4; </span>
+lpush key string        <span class="hljs-comment">#&#x5728;key&#x5BF9;&#x5E94;list&#x7684;&#x5934;&#x90E8;&#x6DFB;&#x52A0;&#x5B57;&#x7B26;&#x4E32;&#x5143;&#x7D20;&#xFF0C;&#x8FD4;&#x56DE;1&#x8868;&#x793A;&#x6210;&#x529F;&#xFF0C;0&#x8868;&#x793A;key&#x5B58;&#x5728;&#x4E14;&#x4E0D;&#x662F;list&#x7C7B;&#x578B;</span>
+rpush key string        <span class="hljs-comment">#&#x540C;&#x4E0A;&#xFF0C;&#x5728;&#x5C3E;&#x90E8;&#x6DFB;&#x52A0;</span>
+llen key                <span class="hljs-comment">#&#x8FD4;&#x56DE;key&#x5BF9;&#x5E94;list&#x7684;&#x957F;&#x5EA6;&#xFF0C;key&#x4E0D;&#x5B58;&#x5728;&#x8FD4;&#x56DE;0,&#x5982;&#x679C;key&#x5BF9;&#x5E94;&#x7C7B;&#x578B;&#x4E0D;&#x662F;list&#x8FD4;&#x56DE;&#x9519;&#x8BEF;</span>
+lrange key start end    <span class="hljs-comment">#&#x8FD4;&#x56DE;&#x6307;&#x5B9A;&#x533A;&#x95F4;&#x5185;&#x7684;&#x5143;&#x7D20;&#xFF0C;&#x4E0B;&#x6807;&#x4ECE;0&#x5F00;&#x59CB;&#xFF0C;&#x8D1F;&#x503C;&#x8868;&#x793A;&#x4ECE;&#x540E;&#x9762;&#x8BA1;&#x7B97;&#xFF0C;-1&#x8868;&#x793A;&#x5012;&#x6570;&#x7B2C;&#x4E00;&#x4E2A;&#x5143;&#x7D20; &#xFF0C;key&#x4E0D;&#x5B58;&#x5728;&#x8FD4;&#x56DE;&#x7A7A;&#x5217;&#x8868;</span>
+ltrim key start end        <span class="hljs-comment">#&#x622A;&#x53D6;list&#xFF0C;&#x4FDD;&#x7559;&#x6307;&#x5B9A;&#x533A;&#x95F4;&#x5185;&#x5143;&#x7D20;&#xFF0C;&#x6210;&#x529F;&#x8FD4;&#x56DE;1&#xFF0C;key&#x4E0D;&#x5B58;&#x5728;&#x8FD4;&#x56DE;&#x9519;&#x8BEF;</span>
+lset key index value    <span class="hljs-comment">#&#x8BBE;&#x7F6E;list&#x4E2D;&#x6307;&#x5B9A;&#x4E0B;&#x6807;&#x7684;&#x5143;&#x7D20;&#x503C;&#xFF0C;&#x6210;&#x529F;&#x8FD4;&#x56DE;1&#xFF0C;key&#x6216;&#x8005;&#x4E0B;&#x6807;&#x4E0D;&#x5B58;&#x5728;&#x8FD4;&#x56DE;&#x9519;&#x8BEF;</span>
+lrem key count value    <span class="hljs-comment">#&#x4ECE;key&#x5BF9;&#x5E94;list&#x4E2D;&#x5220;&#x9664;count&#x4E2A;&#x548C;value&#x76F8;&#x540C;&#x7684;&#x5143;&#x7D20;&#x3002;count&#x4E3A;0&#x65F6;&#x5019;&#x5220;&#x9664;&#x5168;&#x90E8;</span>
+lpop key    <span class="hljs-comment">#&#x4ECE;list&#x7684;&#x5934;&#x90E8;&#x5220;&#x9664;&#x5143;&#x7D20;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x5220;&#x9664;&#x5143;&#x7D20;&#x3002;&#x5982;&#x679C;key&#x5BF9;&#x5E94;list&#x4E0D;&#x5B58;&#x5728;&#x6216;&#x8005;&#x662F;&#x7A7A;&#x8FD4;&#x56DE;nil&#xFF0C;&#x5982;&#x679C;key&#x5BF9;&#x5E94;&#x503C;&#x4E0D;&#x662F;list&#x8FD4;&#x56DE;&#x9519;&#x8BEF;</span>
+rpop        <span class="hljs-comment">#&#x540C;&#x4E0A;&#xFF0C;&#x4F46;&#x662F;&#x4ECE;&#x5C3E;&#x90E8;&#x5220;&#x9664;</span>
+blpop key1...keyN timeout    <span class="hljs-comment">#&#x4ECE;&#x5DE6;&#x5230;&#x53F3;&#x626B;&#x63CF;&#x8FD4;&#x56DE;&#x5BF9;&#x7B2C;&#x4E00;&#x4E2A;&#x975E;&#x7A7A;list&#x8FDB;&#x884C;lpop&#x64CD;&#x4F5C;&#x5E76;&#x8FD4;&#x56DE;&#xFF0C;&#x6BD4;&#x5982;blpop list1 list2 list3 0 ,&#x5982;&#x679C;list&#x4E0D;&#x5B58;&#x5728;list2,list3&#x90FD;&#x662F;&#x975E;&#x7A7A;&#x5219;&#x5BF9;list2&#x505A;lpop&#x5E76;&#x8FD4;&#x56DE;&#x4ECE;list2&#x4E2D;&#x5220;&#x9664;&#x7684;&#x5143;&#x7D20;&#x3002;&#x5982;&#x679C;&#x6240;&#x6709;&#x7684;list&#x90FD;&#x662F;&#x7A7A;&#x6216;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x5219;&#x4F1A;&#x963B;&#x585E;timeout&#x79D2;&#xFF0C;timeout&#x4E3A;0&#x8868;&#x793A;&#x4E00;&#x76F4;&#x963B;&#x585E;&#x3002;&#x5F53;&#x963B;&#x585E;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x6709;client&#x5BF9;key1...keyN&#x4E2D;&#x7684;&#x4EFB;&#x610F;key&#x8FDB;&#x884C;push&#x64CD;&#x4F5C;&#xFF0C;&#x5219;&#x7B2C;&#x4E00;&#x5728;&#x8FD9;&#x4E2A;key&#x4E0A;&#x88AB;&#x963B;&#x585E;&#x7684;client&#x4F1A;&#x7ACB;&#x5373;&#x8FD4;&#x56DE;&#x3002;&#x5982;&#x679C;&#x8D85;&#x65F6;&#x53D1;&#x751F;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;nil&#x3002;&#x6709;&#x70B9;&#x50CF;unix&#x7684;select&#x6216;&#x8005;poll</span>
+brpop        <span class="hljs-comment">#&#x540C;blpop&#xFF0C;&#x4E00;&#x4E2A;&#x662F;&#x4ECE;&#x5934;&#x90E8;&#x5220;&#x9664;&#x4E00;&#x4E2A;&#x662F;&#x4ECE;&#x5C3E;&#x90E8;&#x5220;&#x9664;</span>
+rpoplpush srckey destkey    <span class="hljs-comment">#&#x4ECE;srckey&#x5BF9;&#x5E94;list&#x7684;&#x5C3E;&#x90E8;&#x79FB;&#x9664;&#x5143;&#x7D20;&#x5E76;&#x6DFB;&#x52A0;&#x5230;destkey&#x5BF9;&#x5E94;list&#x7684;&#x5934;&#x90E8;,&#x6700;&#x540E;&#x8FD4;&#x56DE;&#x88AB;&#x79FB;&#x9664;&#x7684;&#x5143;&#x7D20;&#x503C;&#xFF0C;&#x6574;&#x4E2A;&#x64CD;&#x4F5C;&#x662F;&#x539F;&#x5B50;&#x7684;.&#x5982;&#x679C;srckey&#x662F;&#x7A7A;&#x6216;&#x8005;&#x4E0D;&#x5B58;&#x5728;&#x8FD4;&#x56DE;nil</span>
+
+<span class="hljs-comment"># set &#x7C7B;&#x578B;&#x6570;&#x636E;&#x64CD;&#x4F5C;&#x547D;&#x4EE4;</span>
+sadd key member    <span class="hljs-comment">#&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;string&#x5143;&#x7D20;&#x5230;,key&#x5BF9;&#x5E94;&#x7684;set&#x96C6;&#x5408;&#x4E2D;&#xFF0C;&#x6210;&#x529F;&#x8FD4;&#x56DE;1,&#x5982;&#x679C;&#x5143;&#x7D20;&#x4EE5;&#x53CA;&#x5728;&#x96C6;&#x5408;&#x4E2D;&#x8FD4;&#x56DE;0,key&#x5BF9;&#x5E94;&#x7684;set&#x4E0D;&#x5B58;&#x5728;&#x8FD4;&#x56DE;&#x9519;&#x8BEF;</span>
+srem key member    <span class="hljs-comment">#&#x4ECE;key&#x5BF9;&#x5E94;set&#x4E2D;&#x79FB;&#x9664;&#x7ED9;&#x5B9A;&#x5143;&#x7D20;&#xFF0C;&#x6210;&#x529F;&#x8FD4;&#x56DE;1&#xFF0C;&#x5982;&#x679C;member&#x5728;&#x96C6;&#x5408;&#x4E2D;&#x4E0D;&#x5B58;&#x5728;&#x6216;&#x8005;key&#x4E0D;&#x5B58;&#x5728;&#x8FD4;&#x56DE;0&#xFF0C;&#x5982;&#x679C;key&#x5BF9;&#x5E94;&#x7684;&#x4E0D;&#x662F;set&#x7C7B;&#x578B;&#x7684;&#x503C;&#x8FD4;&#x56DE;&#x9519;&#x8BEF;</span>
+spop key        <span class="hljs-comment">#&#x5220;&#x9664;&#x5E76;&#x8FD4;&#x56DE;key&#x5BF9;&#x5E94;set&#x4E2D;&#x968F;&#x673A;&#x7684;&#x4E00;&#x4E2A;&#x5143;&#x7D20;,&#x5982;&#x679C;set&#x662F;&#x7A7A;&#x6216;&#x8005;key&#x4E0D;&#x5B58;&#x5728;&#x8FD4;&#x56DE;nil</span>
+srandmember key    <span class="hljs-comment">#&#x540C;spop&#xFF0C;&#x968F;&#x673A;&#x53D6;set&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x5220;&#x9664;&#x5143;&#x7D20;</span>
+smove srckey dstkey member    <span class="hljs-comment">#&#x4ECE;srckey&#x5BF9;&#x5E94;set&#x4E2D;&#x79FB;&#x9664;member&#x5E76;&#x6DFB;&#x52A0;&#x5230;dstkey&#x5BF9;&#x5E94;set&#x4E2D;&#xFF0C;&#x6574;&#x4E2A;&#x64CD;&#x4F5C;&#x662F;&#x539F;&#x5B50;&#x7684;&#x3002;&#x6210;&#x529F;&#x8FD4;&#x56DE;1,&#x5982;&#x679C;member&#x5728;srckey&#x4E2D;&#x4E0D;&#x5B58;&#x5728;&#x8FD4;&#x56DE;0&#xFF0C;&#x5982;&#x679C;key&#x4E0D;&#x662F;set&#x7C7B;&#x578B;&#x8FD4;&#x56DE;&#x9519;&#x8BEF;</span>
+scard key                    <span class="hljs-comment">#&#x8FD4;&#x56DE;set&#x7684;&#x5143;&#x7D20;&#x4E2A;&#x6570;&#xFF0C;&#x5982;&#x679C;set&#x662F;&#x7A7A;&#x6216;&#x8005;key&#x4E0D;&#x5B58;&#x5728;&#x8FD4;&#x56DE;0</span>
+sismember key member        <span class="hljs-comment">#&#x5224;&#x65AD;member&#x662F;&#x5426;&#x5728;set&#x4E2D;&#xFF0C;&#x5B58;&#x5728;&#x8FD4;&#x56DE;1&#xFF0C;0&#x8868;&#x793A;&#x4E0D;&#x5B58;&#x5728;&#x6216;&#x8005;key&#x4E0D;&#x5B58;&#x5728;</span>
+sinter key1 key2...keyN        <span class="hljs-comment">#&#x8FD4;&#x56DE;&#x6240;&#x6709;&#x7ED9;&#x5B9A;key&#x7684;&#x4EA4;&#x96C6;</span>
+sinterstore dstkey key1...keyN    <span class="hljs-comment">#&#x540C;sinter&#xFF0C;&#x4F46;&#x662F;&#x4F1A;&#x540C;&#x65F6;&#x5C06;&#x4EA4;&#x96C6;&#x5B58;&#x5230;dstkey&#x4E0B;</span>
+sunion key1 key2...keyN            <span class="hljs-comment">#&#x8FD4;&#x56DE;&#x6240;&#x6709;&#x7ED9;&#x5B9A;key&#x7684;&#x5E76;&#x96C6;</span>
+sunionstore dstkey key1...keyN    <span class="hljs-comment">#&#x540C;sunion&#xFF0C;&#x5E76;&#x540C;&#x65F6;&#x4FDD;&#x5B58;&#x5E76;&#x96C6;&#x5230;dstkey&#x4E0B;</span>
+sdiff key1 key2...keyN            <span class="hljs-comment">#&#x8FD4;&#x56DE;&#x6240;&#x6709;&#x7ED9;&#x5B9A;key&#x7684;&#x5DEE;&#x96C6;</span>
+sdiffstore dstkey key1...keyN    <span class="hljs-comment">#&#x540C;sdiff&#xFF0C;&#x5E76;&#x540C;&#x65F6;&#x4FDD;&#x5B58;&#x5DEE;&#x96C6;&#x5230;dstkey&#x4E0B;</span>
+smembers key                    <span class="hljs-comment">#&#x8FD4;&#x56DE;key&#x5BF9;&#x5E94;set&#x7684;&#x6240;&#x6709;&#x5143;&#x7D20;&#xFF0C;&#x7ED3;&#x679C;&#x662F;&#x65E0;&#x5E8F;&#x7684;</span>
+
+<span class="hljs-comment"># sorted set &#x7C7B;&#x578B;&#x6570;&#x636E;&#x64CD;&#x4F5C;&#x547D;&#x4EE4; </span>
+zadd key score member        <span class="hljs-comment">#&#x6DFB;&#x52A0;&#x5143;&#x7D20;&#x5230;&#x96C6;&#x5408;&#xFF0C;&#x5143;&#x7D20;&#x5728;&#x96C6;&#x5408;&#x4E2D;&#x5B58;&#x5728;&#x5219;&#x66F4;&#x65B0;&#x5BF9;&#x5E94;score</span>
+zrem key member                <span class="hljs-comment">#&#x5220;&#x9664;&#x6307;&#x5B9A;&#x5143;&#x7D20;&#xFF0C;1&#x8868;&#x793A;&#x6210;&#x529F;&#xFF0C;&#x5982;&#x679C;&#x5143;&#x7D20;&#x4E0D;&#x5B58;&#x5728;&#x8FD4;&#x56DE;0</span>
+zincrby key incr member     <span class="hljs-comment">#&#x589E;&#x52A0;&#x5BF9;&#x5E94;member&#x7684;score&#x503C;&#xFF0C;&#x7136;&#x540E;&#x79FB;&#x52A8;&#x5143;&#x7D20;&#x5E76;&#x4FDD;&#x6301;skip list&#x4FDD;&#x6301;&#x6709;&#x5E8F;&#x3002;&#x8FD4;&#x56DE;&#x66F4;&#x65B0;&#x540E;&#x7684;score&#x503C;</span>
+zrank key member            <span class="hljs-comment">#&#x8FD4;&#x56DE;&#x6307;&#x5B9A;&#x5143;&#x7D20;&#x5728;&#x96C6;&#x5408;&#x4E2D;&#x7684;&#x6392;&#x540D;&#xFF08;&#x4E0B;&#x6807;&#xFF09;,&#x96C6;&#x5408;&#x4E2D;&#x5143;&#x7D20;&#x662F;&#x6309;score&#x4ECE;&#x5C0F;&#x5230;&#x5927;&#x6392;&#x5E8F;&#x7684;</span>
+zrevrank key member         <span class="hljs-comment">#&#x540C;&#x4E0A;,&#x4F46;&#x662F;&#x96C6;&#x5408;&#x4E2D;&#x5143;&#x7D20;&#x662F;&#x6309;score&#x4ECE;&#x5927;&#x5230;&#x5C0F;&#x6392;&#x5E8F;</span>
+zrange key start end        <span class="hljs-comment">#&#x7C7B;&#x4F3C;lrange&#x64CD;&#x4F5C;&#x4ECE;&#x96C6;&#x5408;&#x4E2D;&#x53BB;&#x6307;&#x5B9A;&#x533A;&#x95F4;&#x7684;&#x5143;&#x7D20;&#x3002;&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x6709;&#x5E8F;&#x7ED3;&#x679C;</span>
+zrevrange key start end     <span class="hljs-comment">#&#x540C;&#x4E0A;&#xFF0C;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x662F;&#x6309;score&#x9006;&#x5E8F;&#x7684;</span>
+zrangebyscore key min max   <span class="hljs-comment">#&#x8FD4;&#x56DE;&#x96C6;&#x5408;&#x4E2D;score&#x5728;&#x7ED9;&#x5B9A;&#x533A;&#x95F4;&#x7684;&#x5143;&#x7D20;</span>
+zcount key min max            <span class="hljs-comment">#&#x8FD4;&#x56DE;&#x96C6;&#x5408;&#x4E2D;score&#x5728;&#x7ED9;&#x5B9A;&#x533A;&#x95F4;&#x7684;&#x6570;&#x91CF;</span>
+zcard key                    <span class="hljs-comment">#&#x8FD4;&#x56DE;&#x96C6;&#x5408;&#x4E2D;&#x5143;&#x7D20;&#x4E2A;&#x6570;</span>
+zscore key element            <span class="hljs-comment">#&#x8FD4;&#x56DE;&#x7ED9;&#x5B9A;&#x5143;&#x7D20;&#x5BF9;&#x5E94;&#x7684;score</span>
+zremrangebyrank key min max        <span class="hljs-comment">#&#x5220;&#x9664;&#x96C6;&#x5408;&#x4E2D;&#x6392;&#x540D;&#x5728;&#x7ED9;&#x5B9A;&#x533A;&#x95F4;&#x7684;&#x5143;&#x7D20;</span>
+zremrangebyscore key min max    <span class="hljs-comment">#&#x5220;&#x9664;&#x96C6;&#x5408;&#x4E2D;score&#x5728;&#x7ED9;&#x5B9A;&#x533A;&#x95F4;&#x7684;&#x5143;&#x7D20;</span>
+
+<span class="hljs-comment"># hash &#x7C7B;&#x578B;&#x6570;&#x636E;&#x64CD;&#x4F5C;&#x547D;&#x4EE4;</span>
+hset key field value        <span class="hljs-comment">#&#x8BBE;&#x7F6E;hash field&#x4E3A;&#x6307;&#x5B9A;&#x503C;&#xFF0C;&#x5982;&#x679C;key&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x5219;&#x5148;&#x521B;&#x5EFA;</span>
+hget key field                <span class="hljs-comment">#&#x83B7;&#x53D6;&#x6307;&#x5B9A;&#x7684;hash field</span>
+hmget key filed1....fieldN    <span class="hljs-comment">#&#x83B7;&#x53D6;&#x5168;&#x90E8;&#x6307;&#x5B9A;&#x7684;hash filed</span>
+hmset key filed1 value1 ... filedN valueN    <span class="hljs-comment">#&#x540C;&#x65F6;&#x8BBE;&#x7F6E;hash&#x7684;&#x591A;&#x4E2A;field</span>
+hincrby key field <span class="hljs-built_in">integer</span>    <span class="hljs-comment">#&#x5C06;&#x6307;&#x5B9A;&#x7684;hash filed &#x52A0;&#x4E0A;&#x7ED9;&#x5B9A;&#x503C;</span>
+hexists key field           <span class="hljs-comment">#&#x6D4B;&#x8BD5;&#x6307;&#x5B9A;field&#x662F;&#x5426;&#x5B58;&#x5728;</span>
+hdel key field              <span class="hljs-comment">#&#x5220;&#x9664;&#x6307;&#x5B9A;&#x7684;hash field</span>
+hlen key        <span class="hljs-comment">#&#x8FD4;&#x56DE;&#x6307;&#x5B9A;hash&#x7684;field&#x6570;&#x91CF;</span>
+hkeys key       <span class="hljs-comment">#&#x8FD4;&#x56DE;hash&#x7684;&#x6240;&#x6709;field</span>
+hvals key       <span class="hljs-comment">#&#x8FD4;&#x56DE;hash&#x7684;&#x6240;&#x6709;value</span>
+hgetall         <span class="hljs-comment">#&#x56DE;hash&#x7684;&#x6240;&#x6709;filed&#x548C;value</span>
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="tmp.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: nuxt-wechat">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"redis","level":"1.7","depth":1,"previous":{"title":"nuxt-wechat","level":"1.6","depth":1,"path":"tmp.md","ref":"tmp.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"redis.md","mtime":"2022-01-10T11:41:46.445Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-01-10T11:57:57.901Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

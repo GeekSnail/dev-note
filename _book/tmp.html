@@ -1,0 +1,1321 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>nuxt-wechat · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="redis.html" />
+    
+    
+    <link rel="prev" href="pm2_deploy.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="environment.html">
+            
+                <a href="environment.html">
+            
+                    
+                    环境配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="mongodb_basic.html">
+            
+                <a href="mongodb_basic.html">
+            
+                    
+                    MongoDB 基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="mongoose.html">
+            
+                <a href="mongoose.html">
+            
+                    
+                    Mongoose 基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="pm2_deploy.html">
+            
+                <a href="pm2_deploy.html">
+            
+                    
+                    pm2 部署 nodejs 应用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6" data-path="tmp.html">
+            
+                <a href="tmp.html">
+            
+                    
+                    nuxt-wechat
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="redis.html">
+            
+                <a href="redis.html">
+            
+                    
+                    redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >nuxt-wechat</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <pre><code class="lang-sh">$ yarn create nuxt-app hi
+yarn create v1.13.0
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+
+success Installed <span class="hljs-string">&quot;create-nuxt-app@2.4.0&quot;</span> with binaries:
+      - create-nuxt-app
+&gt; Generating Nuxt.js project <span class="hljs-keyword">in</span> D:\35398\JavaScript\vue\cli-nuxt-koa\hi
+? Project name hi
+? Project description My peachy Nuxt.js project
+? Use a custom server framework koa
+? Choose features to install (Press &lt;space&gt; to select, &lt;a&gt; to toggle all, &lt;i&gt; to invert selection
+)
+? Use a custom UI framework element-ui
+? Use a custom <span class="hljs-built_in">test</span> framework none
+? Choose rendering mode Universal
+? Author name geeksnail
+? Choose a package manager yarn
+
+  To get started:
+
+        <span class="hljs-built_in">cd</span> hi
+        yarn run dev
+
+  To build &amp; start <span class="hljs-keyword">for</span> production:
+
+        <span class="hljs-built_in">cd</span> hi
+        yarn run build
+        yarn start
+
+Done <span class="hljs-keyword">in</span> 728.74s.
+
+$ <span class="hljs-built_in">cd</span> hi &amp;&amp; yarn run dev
+yarn run v1.13.0
+$ cross-env NODE_ENV=development nodemon server/index.js --watch server
+[nodemon] 1.18.10
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching: D:\35398\JavaScript\vue\cli-nuxt-koa\hi\server/**/*
+[nodemon] starting `node server/index.js`
+i Preparing project <span class="hljs-keyword">for</span> development                                                   18:03:28
+i Initial build may take a <span class="hljs-keyword">while</span>                                                      18:03:28
+&#x221A; Builder initialized                                                                 18:03:29
+&#x221A; Nuxt files generated                                                                18:03:29
+...
+ READY  Server listening on http://localhost:3000
+</code></pre>
+<p>&#x5B89;&#x88C5;mongoose</p>
+<pre><code class="lang-sh">$ yarn add mongoose
+&#x2514;&#x2500; mongoose@5.4.13
+</code></pre>
+<h4 id="server&#x5BFC;&#x5165;&#x5E76;&#x521D;&#x59CB;&#x5316;&#x4E2D;&#x95F4;&#x4EF6;">server&#x5BFC;&#x5165;&#x5E76;&#x521D;&#x59CB;&#x5316;&#x4E2D;&#x95F4;&#x4EF6;</h4>
+<pre><code>server
+  &#x2514;&#x2500; config
+       &#x2514;&#x2500; index.js
+  &#x2514;&#x2500; middleware
+       &#x2514;&#x2500; router.js
+  &#x2514;&#x2500; index.js
+</code></pre><pre><code class="lang-js"><span class="hljs-comment">// server/index.js</span>
+<span class="hljs-keyword">const</span> Koa = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;koa&apos;</span>)
+<span class="hljs-keyword">const</span> consola = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;consola&apos;</span>)
+<span class="hljs-keyword">const</span> { Nuxt, Builder } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;nuxt&apos;</span>)
+<span class="hljs-keyword">const</span> R = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;ramda&apos;</span>)
+<span class="hljs-keyword">const</span> { resolve } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;path&apos;</span>)
+
+<span class="hljs-comment">// Import and Set Nuxt.js options</span>
+<span class="hljs-keyword">let</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../nuxt.config.js&apos;</span>)
+config.dev = !(process.env === <span class="hljs-string">&apos;production&apos;</span>)
+
+<span class="hljs-keyword">const</span> r = path =&gt; resolve(__dirname, path) <span class="hljs-comment">// &#x89E3;&#x6790;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;</span>
+<span class="hljs-keyword">const</span> MIDDLEWARE = [<span class="hljs-string">&apos;router&apos;</span>]
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Server</span> </span>{
+  <span class="hljs-keyword">constructor</span> () {
+    <span class="hljs-keyword">this</span>.app = <span class="hljs-keyword">new</span> Koa()
+    <span class="hljs-keyword">this</span>.useMiddlewares(<span class="hljs-keyword">this</span>.app)(MIDDLEWARE)
+  }
+  useMiddlewares (app) {
+    <span class="hljs-keyword">return</span> R.map(R.compose(
+      R.map(i =&gt; i(app)), <span class="hljs-comment">// &#x521D;&#x59CB;&#x5316;&#x6BCF;&#x4E00;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;</span>
+      <span class="hljs-built_in">require</span>, <span class="hljs-comment">// &#x52A0;&#x8F7D;&#x5404;&#x6A21;&#x5757;</span>
+      i =&gt; <span class="hljs-string">`<span class="hljs-subst">${r(&apos;./middleware&apos;)}</span>/<span class="hljs-subst">${i}</span>`</span> <span class="hljs-comment">// &#x4E2D;&#x95F4;&#x4EF6;&#x76EE;&#x5F55;+&#x4E2D;&#x95F4;&#x4EF6;&#x540D;&#xFF0C;&#x8FD4;&#x56DE;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;</span>
+    ))
+  }
+  <span class="hljs-keyword">async</span> start () {
+    <span class="hljs-comment">// Instantiate nuxt.js</span>
+    <span class="hljs-keyword">const</span> nuxt = <span class="hljs-keyword">new</span> Nuxt(config)
+
+    <span class="hljs-keyword">const</span> {
+      host = process.env.HOST || <span class="hljs-string">&apos;127.0.0.1&apos;</span>,
+      port = process.env.PORT || <span class="hljs-number">3000</span>
+    } = nuxt.options.server
+
+    <span class="hljs-comment">// Build in development</span>
+    <span class="hljs-keyword">if</span> (config.dev) {
+      <span class="hljs-keyword">const</span> builder = <span class="hljs-keyword">new</span> Builder(nuxt)
+      <span class="hljs-keyword">await</span> builder.build()
+    }
+
+    <span class="hljs-keyword">this</span>.app.use(ctx =&gt; {
+      ctx.status = <span class="hljs-number">200</span>
+      ctx.respond = <span class="hljs-literal">false</span> <span class="hljs-comment">// Bypass Koa&apos;s built-in response handling</span>
+      ctx.req.ctx = ctx <span class="hljs-comment">// This might be useful later on, e.g. in nuxtServerInit or with nuxt-stash</span>
+      nuxt.render(ctx.req, ctx.res)
+    })
+
+    <span class="hljs-keyword">this</span>.app.listen(port, host)
+    consola.ready({
+      message: <span class="hljs-string">`Server listening on http://<span class="hljs-subst">${host}</span>:<span class="hljs-subst">${port}</span>`</span>,
+      badge: <span class="hljs-literal">true</span>
+    })
+  }
+}
+<span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Server()
+app.start()
+</code></pre>
+<h4 id="&#x5FAE;&#x4FE1;&#x516C;&#x4F17;&#x53F7;&#x63A5;&#x53E3;&#x6D4B;&#x8BD5;">&#x5FAE;&#x4FE1;&#x516C;&#x4F17;&#x53F7;&#x63A5;&#x53E3;&#x6D4B;&#x8BD5;</h4>
+<p><a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421135319" target="_blank">https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421135319</a>
+<a href="https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&amp;t=sandbox/index" target="_blank">https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&amp;t=sandbox/index</a></p>
+<pre><code class="lang-js"><span class="hljs-comment">// server/config/index.js</span>
+<span class="hljs-built_in">module</span>.exports = {
+  db: <span class="hljs-string">&apos;mongodb://localhost/&lt;proj&gt;&apos;</span>,
+  wechat: {
+    appID: <span class="hljs-string">&quot;xxxx&quot;</span>,
+    appSecret: <span class="hljs-string">&quot;xxxx&quot;</span>,
+    token: <span class="hljs-string">&quot;xxx&quot;</span> <span class="hljs-comment">//&#x4EFB;&#x53D6;</span>
+  }
+}
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-comment">// server/middleware/router.js</span>
+<span class="hljs-keyword">const</span> Router = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;koa-router&apos;</span>)
+<span class="hljs-keyword">const</span> sha1 = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;sha1&apos;</span>)
+<span class="hljs-keyword">const</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../config&apos;</span>)
+
+exports.router = app =&gt; {
+  <span class="hljs-keyword">const</span> router = <span class="hljs-keyword">new</span> Router()
+
+  router.get(<span class="hljs-string">&apos;/wechat-hear&apos;</span>, (ctx, next) =&gt; {
+    <span class="hljs-keyword">const</span> token = config.wechat.token
+    <span class="hljs-keyword">const</span> {
+      signature,
+      nonce,
+      timestamp,
+      echostr
+    } = ctx.query
+
+    <span class="hljs-keyword">const</span> str = [token, timestamp, nonce].sort().join(<span class="hljs-string">&apos;&apos;</span>)
+
+    <span class="hljs-keyword">const</span> sha = sha1(str)
+    <span class="hljs-keyword">if</span> (sha === signature) {
+      ctx.body = echostr
+    } <span class="hljs-keyword">else</span> {
+      ctx.body = <span class="hljs-string">&quot;Failed&quot;</span>
+    }
+
+  })
+  app.use(router.routes())
+     .use(router.allowedMethods())
+}
+</code></pre>
+<ol>
+<li>ngrok.cc &#x7533;&#x8BF7;&#x96A7;&#x9053;&#xFF0C;&#x5373;&#x524D;&#x7F6E;&#x57DF;&#x540D;&#xFF0C;&#x5B9E;&#x73B0;&#x5185;&#x7F51;&#x7A7F;&#x900F;&#x3002;&#x5373;&#x672C;&#x5730;&#x670D;&#x52A1;&#x5668;&#x53EF;&#x901A;&#x8FC7;&#x57DF;&#x540D;&#x8BBF;&#x95EE;
+&#x4E0B;&#x8F7D;sunny&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x89E3;&#x538B;&#xFF0C;&#x8FDB;&#x5165;&#x6587;&#x4EF6;&#x5939;<pre><code class="lang-sh">&gt; ./sunny.exe clientid &lt;&#x96A7;&#x9053;id&gt;
+</code></pre>
+</li>
+<li>natapp.cn &#x7533;&#x8BF7;&#x96A7;&#x9053;&#xFF0C;&#x4E0B;&#x8F7D;&#x5BA2;&#x6237;&#x7AEF; <a href="https://natapp.cn/article/natapp_newbie" target="_blank">natapp</a><pre><code class="lang-sh">&gt; ./natapp.exe --authtoken=&lt;&#x96A7;&#x9053;id&gt;
+</code></pre>
+<pre><code class="lang-sh">$ yarn add sha1
+&#x2514;&#x2500; sha1@1.1.1
+$ yarn add ramda
+&#x2514;&#x2500; ramda@0.26.1
+$ yarn add koa-router
+&#x2514;&#x2500; koa-router@7.4.0
+</code></pre>
+[&#x6CE8;] 1&#x3001;natapp &#x542F;&#x52A8;&#x540E;&#x57DF;&#x540D;&#x4F1A;&#x53D8;&#x5316;&#xFF0C;&#x5EFA;&#x8BAE;&#x7528; ngrok&#x3002;2&#x3001;&#x786E;&#x4FDD;&#x80FD;&#x901A;&#x8FC7;&#x57DF;&#x540D;&#x8BBF;&#x95EE;
+<a href="https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&amp;t=sandbox/index" target="_blank">https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&amp;t=sandbox/index</a>
+&#x5728;&#x3010;&#x63A5;&#x53E3;&#x914D;&#x7F6E;&#x4FE1;&#x606F;&#x3011;&#x680F;&#x586B;&#x5165;<domain>/wechat-hear&#xFF0C;Token&#x503C;&#x4E0E; config/index.js &#x7684; Token&#x53C2;&#x6570;&#x4E00;&#x81F4;&#xFF0C;&#x63D0;&#x4EA4;&#x6D4B;&#x8BD5;&#x3002;<h4 id="&#x83B7;&#x53D6;accesstoken&#x5E76;&#x5165;&#x5E93;&#x3001;&#x66F4;&#x65B0;&#x65F6;&#x95F4;">&#x83B7;&#x53D6;access_token&#x5E76;&#x5165;&#x5E93;&#x3001;&#x66F4;&#x65B0;&#x65F6;&#x95F4;</h4>
+<img src="C:\Users\35398\Pictures\Camera Roll\&#x5FAE;&#x4FE1;&#x622A;&#x56FE;_20190301010621.png" alt="&#x5FAE;&#x4FE1;&#x622A;&#x56FE;_20190301010621"><pre><code>server
+&#x2514;&#x2500; config
+|     &#x2514;&#x2500; index.js 
+&#x2514;&#x2500; database
+|     &#x2514;&#x2500; schema
+|           &#x2514;&#x2500; token.js
+&#x2514;&#x2500; middleware
+|     &#x2514;&#x2500; db.js
+|     &#x2514;&#x2500; router.js
+&#x2514;&#x2500; wechat-lib
+|     &#x2514;&#x2500; index.js
+&#x2514;&#x2500; wechat
+</code></pre></domain></li>
+<li>config/index.js &#x914D;&#x7F6E;db&#xFF1A;&apos;mongodb://localhost/<proj>&apos;</proj></li>
+<li>middleware/db.js &#x5BFC;&#x5165;schema&#x6587;&#x4EF6;&#xFF0C;&#x8FDE;&#x63A5;&#x3001;&#x542F;&#x52A8;&#x6570;&#x636E;&#x5E93;
+```js
+const mongoose = require(&apos;mongoose&apos;)
+const config = require(&apos;../config&apos;)
+const fs = require(&apos;fs&apos;)
+const { resolve } = require(&apos;path&apos;)
+const models = resolve(__dirname, &apos;../database/schema&apos;)</li>
+</ol>
+<p>fs.readdirSync(models)
+  .filter(file =&gt; ~file.search(/^<sup><a href="#fn_%5C." id="reffn_\.">\.</a></sup>.*js$/)) //&#x5339;&#x914D;js&#x540E;&#x7F00;&#x7684;&#x6587;&#x4EF6;
+  .forEach(file =&gt; require(resolve(models, file)))</p>
+<p>exports.db = app =&gt; {
+  mongoose.set(&apos;debug&apos;, true)
+  mongoose.connect(config.db, { useNewUrlParser: true })
+  mongoose.connection.on(&apos;disconnected&apos;, ()=&gt;{
+    mongoose.connect(config.db)
+  })
+  mongoose.connection.on(&apos;error&apos;, err =&gt; {
+    console.error(err)
+  })
+  mongoose.connection.on(&apos;open&apos;, async =&gt; {
+    console.log(&apos;Connected to MongoDB&apos;, config.db)
+  })
+}</p>
+<pre><code>3. database/schema/token.js &#x5EFA;&#x7ACB;tokenSchema:&#x83B7;&#x53D6;token&#x3001;&#x4FDD;&#x5B58;token
+```js
+const mongoose = require(&apos;mongoose&apos;)
+
+const TokenSchema = new mongoose.Schema({
+  name: String,
+  token: String,
+  expires_in: Number,
+  meta: {
+    createAt: {
+      type: Date,
+      default: Date.now()
+    },
+    updatedAt: {
+      type: Date,
+      default: Date.now()
+    }
+  }
+})
+
+TokenSchema.pre(&apos;save&apos;, function (next) {
+  if (this.isNew) {
+    this.meta.createAt = this.meta.updatedAt = Date.now()
+  } else {
+    this.meta.updatedAt = Date.now()
+  }
+  next()
+})
+TokenSchema.statics = {
+  async getAccessToken() {
+    const token = await this.findOne({
+      name: &apos;access_token&apos;
+    }).exec()
+    if (token &amp;&amp; token.token) {
+      token.access_token = token.token
+    }
+    return token
+  },
+  async saveAccessToken(data) {
+    let token = await this.findOne({
+      name: &apos;access_token&apos;
+    }).exec()
+    if (token) {
+      token.token = data.access_token
+      token.expires_in = data.expires_in
+    } else {
+      token = new Token({
+        name: &apos;access_token&apos;,
+        token: data.access_token,
+        expires_in: data.expires_in
+      })
+    }
+    await token.save()
+    return data
+  }
+}
+const Token = mongoose.model(&apos;Token&apos;, TokenSchema)
+</code></pre><ol>
+<li>wechat-lib/index.js &#x5C01;&#x88C5;&#x5FAE;&#x4FE1;&#x83B7;&#x53D6;/&#x66F4;&#x65B0;token&#x7C7B;
+<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140183" target="_blank">&#x83B7;&#x53D6;access_token</a>
+```js
+const rp = require(&apos;request-promise&apos;)
+const base = &apos;<a href="https://api.weixin.qq.com/cgi-bin/" target="_blank">https://api.weixin.qq.com/cgi-bin/</a>&apos;
+const api = {
+accessToken: base + &apos;token?grant_type=client_credential&apos;
+}</li>
+</ol>
+<p>module.exports = class Wechat {
+  constructor(opts) {
+    this.opts = Object.assign({}, opts)
+    this.appID = opts.appID
+    this.appSecret = opts.appSecret
+    this.getAccessToken = opts.getAccessToken // token.js
+    this.saveAccessToken = opts.saveAccessToken // token.js
+    this.fetchAccessToken()
+  }
+  async request (options) {
+    options = Object.assign({}, options, {json: true})
+    try {
+      const response = await rp(options)
+      console.log(&apos;res&apos;,response)
+      return response
+    } catch (e) {
+      console.error(e)
+    }
+  }
+  async fetchAccessToken () {
+    let data = await this.getAccessToken()
+    console.log(&apos;getAccessToken&apos;,data)
+    if (!this.isValidAccessToken(data)) {
+      data = await this.updateAccessToken()
+    }
+    await this.saveAccessToken(data)
+    return data
+  }
+  async updateAccessToken () {
+    const url = api.accessToken + &apos;&amp;appid=&apos; + this.appID + &apos;&amp;secret=&apos; + this.appSecret
+    const data = await this.request({url})
+    console.log(&apos;updateAccessToken&apos;,data);
+    const now = (new Date().getTime())
+    data.expires_in = now + (data.expires_in - 20) * 1000
+    return data
+  }
+  isValidAccessToken (data) {
+    if (!data || !data.access_token || !data.expires_in) {
+      return false
+    }
+    const expiresIn = data.expires_in
+    const now = (new Date().getTime())
+    return now &lt; expiresIn
+  }
+}</p>
+<pre><code>5. wechat/index.js &#x5B9E;&#x4F8B;&#x5316;wechat&#x7C7B;
+```js
+const mongoose = require(&apos;mongoose&apos;)
+const config = require(&apos;../config&apos;)
+const Wechat = require(&apos;../wechat-lib&apos;)
+
+const Token = mongoose.model(&apos;Token&apos;)
+const wechatConfig = {
+  wechat: {
+    appID: config.wechat.appID,
+    appSecret: config.wechat.appSecret,
+    token: config.wechat.token,
+    getAccessToken: async () =&gt; await Token.getAccessToken(),
+    saveAccessToken: async (data) =&gt; await Token.saveAccessToken(data)
+  }
+}
+module.exports = getWechat = () =&gt; {
+  console.log(&apos;wechat&apos;);
+  const wechatClient = new Wechat(wechatConfig.wechat)
+  return wechatClient
+}
+getWechat()
+</code></pre><ol>
+<li>middleware/router.js &#x5BFC;&#x5165;wechat.js<pre><code class="lang-js"><span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../wechat&apos;</span>)
+</code></pre>
+</li>
+<li>server/index.js &#x52A0;&#x5165;db&#x4E2D;&#x95F4;&#x4EF6;<pre><code class="lang-js"><span class="hljs-keyword">const</span> MIDDLEWARE = [<span class="hljs-string">&apos;db&apos;</span>, <span class="hljs-string">&apos;router&apos;</span>]
+</code></pre>
+</li>
+<li>&#x5B89;&#x88C5;&#x4F9D;&#x8D56;&#x5E76;&#x542F;&#x52A8;<pre><code class="lang-sh">yarn add request-promise
+yarn add request
+yarn run dev 
+...
+Connected to MongoDB mongodb://localhost/hi
+Mongoose: tokens.findOne({ name: <span class="hljs-string">&apos;access_token&apos;</span> }, { projection: {} })
+res { access_token:
+<span class="hljs-string">&apos;19_S5iu30EdLu2P23fM-g5fxa-aY_6JrtZYR-LbAzYEiSujXa1F2qV-h3YcFoH2Y9sb5BEMePwSvuMwQlGoKODypheD6H
+jRvVeHsHJpHVz8wshlaWNyQ55zgd5p_yIJF3S3qRYpkIX23r__QuuJQVMcADAYDU&apos;</span>,
+expires_<span class="hljs-keyword">in</span>: 7200 }
+</code></pre>
+&#x6D4F;&#x89C8;&#x5668;&#x8BBF;&#x95EE;localhost:3000/wechat-hear&#xFF0C;&#x663E;&#x793A; failed<pre><code class="lang-sh">Mongoose: tokens.findOne({ name: <span class="hljs-string">&apos;access_token&apos;</span> }, { projection: {} })
+Mongoose: tokens.insertOne({ meta: { createAt: new Date(<span class="hljs-string">&quot;Thu, 28 Feb 2019 10:06:49 GMT&quot;</span>), updated
+At: new Date(<span class="hljs-string">&quot;Thu, 28 Feb 2019 10:06:49 GMT&quot;</span>) }, _id: ObjectId(<span class="hljs-string">&quot;5c77b2b906a1c22b6449331a&quot;</span>), name:
+<span class="hljs-string">&apos;access_token&apos;</span>, token: <span class="hljs-string">&apos;19_ZcU1gml0npT4IjI-DNbif2qMhd-RP64xIcAPTjlVgFIFEAgb8Ndu3WgLtYF-OwiI_fQFa
+AbK9ki-opRJT2DxXvLkwVn6IMUMYYXQt--I4UsCLhcx4CgGUU8TfB5WKI9SA4myY-J0xIxNZpNsHRAiACAZJS&apos;</span>, expires_i
+n: 1551355589828, __v: 0 })
+</code></pre>
+<h4 id="&#x62BD;&#x8C61;&#x5FAE;&#x4FE1;&#x6D88;&#x606F;&#x4E2D;&#x95F4;&#x4EF6;&#x7EDF;&#x4E00;&#x5904;&#x7406;&#x6D88;&#x606F;&#x6D41;&#x2014;&#x2014;&#x88AB;&#x52A8;&#x56DE;&#x590D;&#x7528;&#x6237;&#x6D88;&#x606F;">&#x62BD;&#x8C61;&#x5FAE;&#x4FE1;&#x6D88;&#x606F;&#x4E2D;&#x95F4;&#x4EF6;&#x7EDF;&#x4E00;&#x5904;&#x7406;&#x6D88;&#x606F;&#x6D41;&#x2014;&#x2014;&#x88AB;&#x52A8;&#x56DE;&#x590D;&#x7528;&#x6237;&#x6D88;&#x606F;</h4>
+<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140543" target="_blank">https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140543</a>
+&#x5F53;&#x7528;&#x6237;&#x53D1;&#x9001;&#x6D88;&#x606F;&#x7ED9;&#x516C;&#x4F17;&#x53F7;&#x65F6;&#xFF08;&#x6216;&#x67D0;&#x4E9B;&#x7279;&#x5B9A;&#x7684;&#x7528;&#x6237;&#x64CD;&#x4F5C;&#x5F15;&#x53D1;&#x7684;&#x4E8B;&#x4EF6;&#x63A8;&#x9001;&#x65F6;&#xFF09;&#xFF0C;&#x4F1A;&#x4EA7;&#x751F;&#x4E00;&#x4E2A;POST&#x8BF7;&#x6C42;&#xFF0C;&#x5F00;&#x53D1;&#x8005;&#x53EF;&#x4EE5;&#x5728;&#x54CD;&#x5E94;&#x5305;&#xFF08;Get&#xFF09;&#x4E2D;&#x8FD4;&#x56DE;&#x7279;&#x5B9A;XML&#x7ED3;&#x6784;&#xFF0C;&#x6765;&#x5BF9;&#x8BE5;&#x6D88;&#x606F;&#x8FDB;&#x884C;&#x54CD;&#x5E94;&#xFF08;&#x73B0;&#x652F;&#x6301;&#x56DE;&#x590D;&#x6587;&#x672C;&#x3001;&#x56FE;&#x7247;&#x3001;&#x56FE;&#x6587;&#x3001;&#x8BED;&#x97F3;&#x3001;&#x89C6;&#x9891;&#x3001;&#x97F3;&#x4E50;&#xFF09;&#x3002;&#x4E25;&#x683C;&#x6765;&#x8BF4;&#xFF0C;&#x53D1;&#x9001;&#x88AB;&#x52A8;&#x54CD;&#x5E94;&#x6D88;&#x606F;&#x5176;&#x5B9E;&#x5E76;&#x4E0D;&#x662F;&#x4E00;&#x79CD;&#x63A5;&#x53E3;&#xFF0C;&#x800C;&#x662F;&#x5BF9;&#x5FAE;&#x4FE1;&#x670D;&#x52A1;&#x5668;&#x53D1;&#x8FC7;&#x6765;&#x6D88;&#x606F;&#x7684;&#x4E00;&#x6B21;&#x56DE;&#x590D;&#x3002;</li>
+</ol>
+<p><img src="C:\Users\35398\Pictures\Camera Roll\&#x5FAE;&#x4FE1;&#x622A;&#x56FE;_20190301010621.png" alt="&#x5FAE;&#x4FE1;&#x622A;&#x56FE;_20190301010621"></p>
+<pre><code>server
+  &#x2514;&#x2500; middleware
+  |     &#x2514;&#x2500; router.js
+  &#x2514;&#x2500; wechat
+  |     &#x2514;&#x2500; reply.js
+  &#x2514;&#x2500; wechat-lib
+     &#x2514;&#x2500; middleware.js
+     &#x2514;&#x2500; template.js
+       &#x2514;&#x2500; util.js
+</code></pre><p>&#x6539;&#x5199; /wechat-hear &#x8DEF;&#x7531;&#x5904;&#x7406;</p>
+<pre><code class="lang-js"><span class="hljs-comment">// server/middleware/router.js</span>
+<span class="hljs-keyword">const</span> Router = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;koa-router&apos;</span>)
+<span class="hljs-comment">// const sha1 = require(&apos;sha1&apos;)</span>
+<span class="hljs-keyword">const</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../config&apos;</span>)
+<span class="hljs-keyword">const</span> reply = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../wechat/reply&apos;</span>) <span class="hljs-comment">// &#x6D88;&#x606F;&#x56DE;&#x590D;&#x7B56;&#x7565;</span>
+<span class="hljs-keyword">const</span> wechatMiddle = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../wechat-lib/middleware&apos;</span>) <span class="hljs-comment">// &#x5FAE;&#x4FE1;&#x6D88;&#x606F;&#x4E2D;&#x95F4;&#x4EF6;</span>
+
+exports.router = app =&gt; {
+  <span class="hljs-keyword">const</span> router = <span class="hljs-keyword">new</span> Router()
+  router.all(<span class="hljs-string">&apos;/wechat-hear&apos;</span>, wechatMiddle(config.wechat, reply))
+
+  app.use(router.routes())
+     .use(router.allowedMethods())
+}
+</code></pre>
+<p>&#x56DE;&#x590D;&#x6587;&#x672C;&#x6D88;&#x606F;&#x6D4B;&#x8BD5;</p>
+<pre><code class="lang-js"><span class="hljs-comment">// server/wechat/reply.js</span>
+<span class="hljs-keyword">const</span> tip = <span class="hljs-string">&apos;hi~\n&apos;</span> + <span class="hljs-string">&apos;&#x70B9;&#x51FB;&lt;a href=&quot;http://coding.imooc.com&quot;&gt;coding&lt;/a&gt;&apos;</span>
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-keyword">async</span> (ctx, next) =&gt; {
+  <span class="hljs-keyword">const</span> message = ctx.weixin
+  <span class="hljs-built_in">console</span>.log(message)
+  ctx.body = tip
+}
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-comment">// server/wechat-lib/middleware.js</span>
+<span class="hljs-keyword">const</span> sha1 = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;sha1&apos;</span>)
+<span class="hljs-keyword">const</span> getRawBody = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;raw-body&apos;</span>)
+<span class="hljs-keyword">const</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./util&apos;</span>)
+
+<span class="hljs-built_in">module</span>.exports = (opts, reply) =&gt; {
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wechatMiddle</span>(<span class="hljs-params">ctx, next</span>) </span>{
+    <span class="hljs-keyword">const</span> token = opts.token <span class="hljs-comment">//config.wechat</span>
+    <span class="hljs-keyword">const</span> {
+      signature,
+      nonce,
+      timestamp,
+      echostr
+    } = ctx.query
+
+    <span class="hljs-keyword">const</span> str = [token, timestamp, nonce].sort().join(<span class="hljs-string">&apos;&apos;</span>)
+    <span class="hljs-keyword">const</span> sha = sha1(str)
+    <span class="hljs-keyword">if</span> (ctx.method === <span class="hljs-string">&apos;GET&apos;</span>) {
+      <span class="hljs-keyword">if</span> (sha === signature) {
+        ctx.body = echostr
+      } <span class="hljs-keyword">else</span> {
+        ctx.body = <span class="hljs-string">&quot;Failed&quot;</span>
+      }
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (ctx.method === <span class="hljs-string">&apos;POST&apos;</span>) {
+      <span class="hljs-keyword">if</span> (sha !== signature) {
+        ctx.body = <span class="hljs-string">&apos;Failed&apos;</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+      }
+
+      <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> getRawBody(ctx.req, {
+        length: ctx.length,
+        limit: <span class="hljs-string">&apos;1mb&apos;</span>,
+        encoding: ctx.charset
+      })
+      <span class="hljs-keyword">const</span> content = <span class="hljs-keyword">await</span> util.parseXML(data)
+      <span class="hljs-built_in">console</span>.log(content)
+      <span class="hljs-comment">//const message = util.formatMessage(content.xml) // &#x89E3;&#x6790;&#x6210;json&#x5C0D;&#x8C61;</span>
+      ctx.weixin = {}
+      <span class="hljs-comment">//ctx.weixin = message</span>
+      <span class="hljs-keyword">await</span> reply.apply(ctx, [ctx, next]) <span class="hljs-comment">// &#x8BA9;&#x4E0A;&#x4E0B;&#x6587;&#x53BB;&#x8C03;&#x7528;&#x56DE;&#x590D;&#x7B56;&#x7565;&#xFF0C;&#x5904;&#x7406;.weixin</span>
+      <span class="hljs-keyword">const</span> replyBody = ctx.body <span class="hljs-comment">// &#x83B7;&#x53D6;reply.js&#x4E2D;&#x8BBE;&#x7F6E;&#x7684;&#x6D88;&#x606F;</span>
+      <span class="hljs-comment">//const msg = ctx.weixin </span>
+      <span class="hljs-comment">//const xml = util.tpl(replyBody, msg) //&#x901A;&#x8FC7;&#x6A21;&#x677F;&#x6784;&#x5EFA;xml</span>
+      <span class="hljs-keyword">const</span> xml = <span class="hljs-string">`&lt;xml&gt;
+                    &lt;ToUserName&gt;&lt;![CDATA[<span class="hljs-subst">${content.xml.FromUserName[0]}</span>]]&gt;&lt;/ToUserName&gt;
+                    &lt;FromUserName&gt;&lt;![CDATA[<span class="hljs-subst">${content.xml.toUserName[0]}</span>]]&gt;&lt;/FromUserName&gt;
+                    &lt;CreateTime&gt;12345678&lt;/CreateTime&gt;
+                    &lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;
+                    &lt;Content&gt;&lt;![CDATA[replyBody]]&gt;&lt;/Content&gt;
+                  &lt;/xml&gt;`</span>
+
+      ctx.status = <span class="hljs-number">200</span>
+      ctx.type = <span class="hljs-string">&apos;application/xml&apos;</span>
+      ctx.body = xml
+    }
+  }
+}
+</code></pre>
+<p>xml2js &#x89E3;&#x6790;&#x6D88;&#x606F;</p>
+<pre><code class="lang-js"><span class="hljs-comment">// server/wechat-lib/util.js</span>
+<span class="hljs-keyword">const</span> xml2js = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;xml2js&apos;</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">parseXML</span>(<span class="hljs-params">xml</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; {
+    xml2js.parseString(xml, {trim: <span class="hljs-literal">true</span>}, (err, content) =&gt; {
+      <span class="hljs-keyword">if</span> (err) reject(err)
+      <span class="hljs-keyword">else</span> resolve(content)
+    })
+  })
+}
+<span class="hljs-built_in">module</span>.exports = {
+  parseXML
+}
+</code></pre>
+<pre><code class="lang-sh">$ yarn add raw-body xml2js
+$ yarn run dev
+</code></pre>
+<p><a href="https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&amp;t=sandbox/index" target="_blank">https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&amp;t=sandbox/index</a>
+&#x5173;&#x6CE8;&#x6D4B;&#x8BD5;&#x53F7;&#xFF0C;&#x5E76;&#x56DE;&#x590D;&#x6587;&#x672C;&#x3001;&#x56FE;&#x7247;&#x3001;&#x89C6;&#x9891;&#x6D88;&#x606F;</p>
+<pre><code class="lang-sh">{ xml:
+   { ToUserName: [ <span class="hljs-string">&apos;gh_f8a6ed368293&apos;</span> ],
+     FromUserName: [ <span class="hljs-string">&apos;oMvSd5kt0vUtNS__dbqZvqi6dBBk&apos;</span> ],
+     CreateTime: [ <span class="hljs-string">&apos;1551377172&apos;</span> ],
+     MsgType: [ <span class="hljs-string">&apos;event&apos;</span> ],
+     Event: [ <span class="hljs-string">&apos;subscribe&apos;</span> ],
+     EventKey: [ <span class="hljs-string">&apos;&apos;</span> ] } }
+{}
+{ xml:
+   { ToUserName: [ <span class="hljs-string">&apos;gh_f8a6ed368293&apos;</span> ],
+     FromUserName: [ <span class="hljs-string">&apos;oMvSd5kt0vUtNS__dbqZvqi6dBBk&apos;</span> ],
+     CreateTime: [ <span class="hljs-string">&apos;1551377290&apos;</span> ],
+     MsgType: [ <span class="hljs-string">&apos;text&apos;</span> ],
+     Content: [ <span class="hljs-string">&apos;1&apos;</span> ],
+     MsgId: [ <span class="hljs-string">&apos;22210381888945194&apos;</span> ] } }
+{}
+{ xml:
+   { ToUserName: [ <span class="hljs-string">&apos;gh_f8a6ed368293&apos;</span> ],
+     FromUserName: [ <span class="hljs-string">&apos;oMvSd5kt0vUtNS__dbqZvqi6dBBk&apos;</span> ],
+     CreateTime: [ <span class="hljs-string">&apos;1551384468&apos;</span> ],
+     MsgType: [ <span class="hljs-string">&apos;image&apos;</span> ],
+     PicUrl:
+      [ <span class="hljs-string">&apos;http://mmbiz.qpic.cn/mmbiz_jpg/RIic6Hm5wW7Jhiclctr8HEsjhRbxb3ia1rlBPxxntB7HsIe44Wxmg7fOi
+cZAVaYqNF5VRdUfvhrePx1RlBhzYdwSgw/0&apos;</span> ],
+     MsgId: [ <span class="hljs-string">&apos;22210484578361772&apos;</span> ],
+     MediaId:
+      [ <span class="hljs-string">&apos;BkSHQqsetqYfM5ShElX3R356s1def5tqR8_JTtJYsSce9nKVutr1NIstt-17esIK&apos;</span> ] } }
+{}
+{ xml:
+   { ToUserName: [ <span class="hljs-string">&apos;gh_f8a6ed368293&apos;</span> ],
+     FromUserName: [ <span class="hljs-string">&apos;oMvSd5kt0vUtNS__dbqZvqi6dBBk&apos;</span> ],
+     CreateTime: [ <span class="hljs-string">&apos;1551385628&apos;</span> ],
+     MsgType: [ <span class="hljs-string">&apos;video&apos;</span> ],
+     MediaId:
+      [ <span class="hljs-string">&apos;zJ13cIu8eAcTNoP9rm8PP78Dc-Yzo-BkyXis5PRwkdBYq9Ar250SBKVO6PgDLKfa&apos;</span> ],
+     ThumbMediaId:
+      [ <span class="hljs-string">&apos;Hl8l10iq6FdsmwuQyj1OJ9vt989BIugqz-TdgE4Sk87_ltK_NNnsb9Q4uqjvACkm&apos;</span> ],
+     MsgId: [ <span class="hljs-string">&apos;22210504245182870&apos;</span> ] } }
+{}
+</code></pre>
+<h4 id="&#x5FAE;&#x4FE1;&#x6D88;&#x606F;&#x89E3;&#x6790;&#x4E0E;&#x56DE;&#x590D;&#x6A21;&#x5757;&#x5C01;&#x88C5;">&#x5FAE;&#x4FE1;&#x6D88;&#x606F;&#x89E3;&#x6790;&#x4E0E;&#x56DE;&#x590D;&#x6A21;&#x5757;&#x5C01;&#x88C5;</h4>
+<ol>
+<li>&#x4FEE;&#x6539; server/wechat-lib/middleware.js
+```js
+const content = await util.parseXML(data)
+console.log(&apos;parseXML&apos;,content)
+const message = util.formatMessage(content.xml) // &#x683C;&#x5F0F;&#x5316;&#x4E3A;json&#x5C0D;&#x8C61;</li>
+</ol>
+<p>ctx.weixin = message
+await reply.apply(ctx, [ctx, next]) // &#x8BA9;&#x4E0A;&#x4E0B;&#x6587;&#x53BB;&#x8C03;&#x7528;&#x56DE;&#x590D;&#x7B56;&#x7565;
+const replyBody = ctx.body
+const msg = ctx.weixin
+const xml = util.tpl(replyBody, msg) //&#x6784;&#x5EFA;xml</p>
+<p>ctx.status = 200
+ctx.type = &apos;application/xml&apos;
+ctx.body = xml</p>
+<pre><code>2. &#x5C06;parseXML&#x5904;&#x7406;&#x540E;&#x7684;&#x6570;&#x636E;&#x683C;&#x5F0F;&#x5316;&#x4E3A;&#x7C7B;&#x4F3C;json&#x5BF9;&#x8C61;
+```js
+// server/wechat-lib/util.js
+const xml2js = require(&apos;xml2js&apos;)
+const template = require(&apos;./template&apos;)
+
+function parseXML(xml) {
+  ......
+}
+function formatMessage (result) {
+  let messasge = {}
+  if (typeof result === &apos;object&apos;) {
+    const keys = Object.keys(result)
+    for (let i = 0; i &lt; keys.length; i++) {
+      let item = result[keys[i]] // &#x503C;&#x662F;&#x6570;&#x7EC4;
+      let key = keys[i]
+
+      if (!(item instanceof Array) || item.length === 0) {
+        continue //&#x4E0D;&#x662F;&#x6570;&#x7EC4;&#x6216;&#x957F;&#x5EA6;&#x4E3A;0&#x65F6;&#x8DF3;&#x8FC7;
+      }
+      if (item.length === 1) {
+        let val = item[0]
+        if (typeof val === &apos;object&apos;) {
+          message[key] = formatMessage(val) //&#x503C;&#x4E3A;object&#x7C7B;&#x578B;&#xFF0C;&#x5219;&#x5FAA;&#x73AF;&#x8C03;&#x7528;
+        } else {
+          messasge[key] = (val || &apos;&apos;).trim()
+        }
+      } else {
+        messasge[key] = []
+        for (let i = 0; j &lt; item.length; i++) {
+          messasge[key].push(formatMessage(item[i]))
+        }
+      }
+    }
+  }
+  return messasge
+}
+function tpl (content, message) {
+  let type = &apos;text&apos; //&#x8BBE;&#x7F6E;&#x9ED8;&#x8BA4;&#x6D88;&#x606F;type
+  if (Array.isArray(content)) {
+    type = &apos;news&apos;
+  }
+  if (!content) {
+    content = &apos;Empty News&apos;
+  }
+  if (content &amp;&amp; content.type) {
+    type = content.type
+  }
+  let info = Object.assign({}, {
+    content,
+    createTime: new Date().getTime(),
+    msgType: type,
+    toUserName: message.FromUserName,
+    fromUserName: message.ToUserName
+  })
+  return template(info)
+}
+module.exports = {
+  parseXML,
+  formatMessage,
+  tpl
+}
+</code></pre><ol>
+<li>&#x5C01;&#x88C5;&#x6D88;&#x606F;&#x56DE;&#x590D;&#x6A21;&#x677F;
+<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140543" target="_blank">https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140543</a></li>
+</ol>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> ejs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;ejs&apos;</span>)
+
+<span class="hljs-keyword">const</span> template = <span class="hljs-string">`
+  &lt;xml&gt;
+    &lt;ToUserName&gt;&lt;![CDATA[&lt;%= toUserName %&gt;]]&gt;&lt;/ToUserName&gt;
+    &lt;FromUserName&gt;&lt;![CDATA[&lt;%= fromUserName %&gt;]]&gt;&lt;/FromUserName&gt;
+    &lt;CreateTime&gt;&lt;%= createTime %&gt;&lt;/CreateTime&gt;
+    &lt;MsgType&gt;&lt;![CDATA[&lt;%= msgType %&gt;]]&gt;&lt;/MsgType&gt;
+    &lt;% if (msgType === &apos;text&apos;) { %&gt;
+      &lt;Content&gt;&lt;![CDATA[&lt;%- content %&gt;]]&gt;&lt;/Content&gt;
+    &lt;% } else if (msgType === &apos;image&apos;) { %&gt;  
+      &lt;Image&gt;
+        &lt;MediaId&gt;&lt;![CDATA[&lt;%= content.mediaId %&gt;]]&gt;&lt;/MediaId&gt;
+      &lt;/Image&gt;
+    &lt;% } else if (msgType === &apos;voice&apos;) { %&gt;  
+      &lt;Voice&gt;
+        &lt;MediaId&gt;&lt;![CDATA[&lt;%= content.mediaId %&gt;]]&gt;&lt;/MediaId&gt;
+      &lt;/Voice&gt;      
+    &lt;% } else if (msgType === &apos;video&apos;) { %&gt;  
+      &lt;Video&gt;
+        &lt;MediaId&gt;&lt;![CDATA[&lt;%= content.mediaId %&gt;]]&gt;&lt;/MediaId&gt;
+        &lt;Title&gt;&lt;![CDATA[&lt;%= content.title %&gt;]]&gt;&lt;/Title&gt;
+        &lt;Description&gt;&lt;![CDATA[&lt;%= content.description %&gt;]]&gt;&lt;/Description&gt;
+      &lt;/Video&gt;      
+    &lt;% } else if (msgType === &apos;music&apos;) { %&gt;    
+      &lt;Music&gt;
+        &lt;Title&gt;&lt;![CDATA[&lt;%= content.title %&gt;]]&gt;&lt;/Title&gt;
+        &lt;Description&gt;&lt;![CDATA[&lt;%= content.description %&gt;]]&gt;&lt;/Description&gt;
+        &lt;MusicUrl&gt;&lt;![CDATA[&lt;%= content.musicUrl %&gt;]]&gt;&lt;/MusicUrl&gt;
+        &lt;HQMusicUrl&gt;&lt;![CDATA[&lt;%= content.hqMusicUrl %&gt;]]&gt;&lt;/HQMusicUrl&gt;
+        &lt;ThumbMediaId&gt;&lt;![CDATA[&lt;%= content.thumbMediaId %&gt;]]&gt;&lt;/ThumbMediaId&gt;
+      &lt;/Music&gt;      
+    &lt;% } else if (msgType === &apos;news&apos;) { %&gt;
+      &lt;ArticleCount&gt;&lt;%= content.length %&gt;&lt;/ArticleCount&gt;
+      &lt;Articles&gt;
+        &lt;% content.forEach(function(item) { %&gt;
+          &lt;item&gt;
+            &lt;Title&gt;&lt;![CDATA[&lt;%= item.title %&gt;]]&gt;&lt;/Title&gt;
+            &lt;Description&gt;&lt;![CDATA[&lt;%= item.description %&gt;]]&gt;&lt;/Description&gt;
+            &lt;PicUrl&gt;&lt;![CDATA[&lt;%= item.picUrl %&gt;]]&gt;&lt;/PicUrl&gt;
+            &lt;Url&gt;&lt;![CDATA[&lt;%= item.url %&gt;]]&gt;&lt;/Url&gt;
+          &lt;/item&gt;
+        &lt;% }) %&gt;
+      &lt;/Articles&gt;    
+    &lt;% } %&gt;  
+  &lt;/xml&gt;`</span>
+
+<span class="hljs-keyword">const</span> compiled = ejs.compile(template)
+<span class="hljs-built_in">module</span>.exports = compiled
+</code></pre>
+<p><a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140453" target="_blank">https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140453</a></p>
+<pre><code class="lang-sh">$ yarn add ejs
+</code></pre>
+<ol>
+<li>&#x6D88;&#x606F;&#x56DE;&#x590D;&#x7B56;&#x7565;&#x6D4B;&#x8BD5;&#xFF0C;&#x5305;&#x62EC;&#x666E;&#x901A;&#x6D88;&#x606F;&#x56DE;&#x590D;&#x3001;&#x4E8B;&#x4EF6;&#x63A8;&#x9001;
+<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140453" target="_blank">https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140453</a>
+```js
+// server/wechat/reply.js
+const tip = &apos;hi~\n&apos; + &apos;&#x70B9;&#x51FB;<a href="http://coding.imooc.com" target="_blank">coding</a>&apos;</li>
+</ol>
+<p>module.exports = async (ctx, next) =&gt; {
+  const message = ctx.weixin
+  console.log(message)</p>
+<p>  if (message.MsgType === &apos;event&apos;) {
+    if (message.Event === &apos;subscribe&apos;) {
+      ctx.body = tip
+    } else if (message.Event === &apos;unsubscribe&apos;) {
+      console.log(message.FromUserName,&apos;&#x53D6;&#x5173;&#x4E86;&apos;)
+    } else if (message.Event === &apos;Location&apos;) {
+      ctx.body = message.Latitude + &apos; : &apos; + message.Longtitude
+    }
+  } else if (message.MsgType === &apos;text&apos;) {
+    ctx.body = message.Content
+  } else if (message.MsgType === &apos;image&apos;) {
+    ctx.body = {
+      type: &apos;image&apos;,
+      mediaId: message.MediaId
+    }
+  } else if (message.MsgType === &apos;voice&apos;) {
+    ctx.body = {
+      type: &apos;voice&apos;,
+      mediaId: message.MediaId
+    }
+  } else if (message.MsgType === &apos;video&apos;) {
+    ctx.body = {
+      title: message.ThumbMediaId,
+      type: &apos;video&apos;,
+      mediaId: message.MediaId
+    }
+  } else if (message.MsgType === &apos;location&apos;) {
+    ctx.body = message.Location_X + &apos; : &apos; + message.Location_Y + &apos; : &apos; + message.Label
+  } else if (message.MsgType === &apos;link&apos;) {
+    ctx.body = [{
+      title: message.Title,
+      description: message.Description,
+      picUrl: &apos;<a href="http://mmbiz.qpic.cn/mmbiz_jpg/RIic6Hm5wW7IQiaFRuUkehGYjtHe5skvynKmhjxmU7kVGXaSiboqojEQCon7gc\n" target="_blank">http://mmbiz.qpic.cn/mmbiz_jpg/RIic6Hm5wW7IQiaFRuUkehGYjtHe5skvynKmhjxmU7kVGXaSiboqojEQCon7gc\n</a>&apos; +
+        &apos;IZtpClCKLYGE4p2NBZAbNial1Wgw/0&apos;,
+      url: message.Url
+    }]
+  }
+}</p>
+<pre><code>&#x3010;&#x6CE8;&#x3011;link&#x7C7B;&#x578B;&#x6D88;&#x606F;&#x63A5;&#x6536;&#x65F6;&#x65E0;PicUrl&#x5B57;&#x6BB5;
+5. &#x6D4B;&#x8BD5;&#x6587;&#x672C;&#x3001;&#x56FE;&#x7247;&#x3001;&#x89C6;&#x9891;&#x3001;&#x4F4D;&#x7F6E;&#x3001;&#x94FE;&#x63A5;&#x56DE;&#x590D;&#x3001;&#x5173;&#x6CE8;/&#x53D6;&#x5173;&#x4E8B;&#x4EF6;
+```xml
+{ ToUserName: &apos;gh_f8a6ed368293&apos;,
+  FromUserName: &apos;oMvSd5kt0vUtNS__dbqZvqi6dBBk&apos;,
+  CreateTime: &apos;1551452396&apos;,
+  MsgType: &apos;text&apos;,
+  Content: &apos;&#x54C8;&#x54C8;&apos;,
+  MsgId: &apos;22211457578749518&apos; }
+
+  &lt;xml&gt;
+    &lt;ToUserName&gt;&lt;![CDATA[oMvSd5kt0vUtNS__dbqZvqi6dBBk]]&gt;&lt;/ToUserName&gt;
+    &lt;FromUserName&gt;&lt;![CDATA[gh_f8a6ed368293]]&gt;&lt;/FromUserName&gt;
+    &lt;CreateTime&gt;1551452400122&lt;/CreateTime&gt;
+    &lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;
+      &lt;Content&gt;&lt;![CDATA[&#x54C8;&#x54C8;]]&gt;&lt;/Content&gt;
+  &lt;/xml&gt;
+{ ToUserName: &apos;gh_f8a6ed368293&apos;,
+  FromUserName: &apos;oMvSd5kt0vUtNS__dbqZvqi6dBBk&apos;,
+  CreateTime: &apos;1551452426&apos;,
+  MsgType: &apos;image&apos;,
+  PicUrl:   &apos;http://mmbiz.qpic.cn/mmbiz_jpg/RIic6Hm5wW7IQiaFRuUkehGYjtHe5skvynKmhjxmU7kVGXaSiboqojEQCon7gc
+IZtpClCKLYGE4p2NBZAbNial1Wgw/0&apos;,
+  MsgId: &apos;22211459765800517&apos;,
+  MediaId:
+   &apos;BJMIQCrC3pfLqQI2clnYNw4I28jTY-l7iAdz8xLqM6LopAJx63FoKUFLPZuM0tdW&apos; }
+
+  &lt;xml&gt;
+    &lt;ToUserName&gt;&lt;![CDATA[oMvSd5kt0vUtNS__dbqZvqi6dBBk]]&gt;&lt;/ToUserName&gt;
+    &lt;FromUserName&gt;&lt;![CDATA[gh_f8a6ed368293]]&gt;&lt;/FromUserName&gt;
+    &lt;CreateTime&gt;1551452429126&lt;/CreateTime&gt;
+    &lt;MsgType&gt;&lt;![CDATA[image]]&gt;&lt;/MsgType&gt;
+
+      &lt;Image&gt;
+        &lt;MediaId&gt;&lt;![CDATA[BJMIQCrC3pfLqQI2clnYNw4I28jTY-l7iAdz8xLqM6LopAJx63FoKUFLPZuM0tdW]]&gt;&lt;/Me
+diaId&gt;
+      &lt;/Image&gt;
+  &lt;/xml&gt;
+{ ToUserName: &apos;gh_f8a6ed368293&apos;,
+  FromUserName: &apos;oMvSd5kt0vUtNS__dbqZvqi6dBBk&apos;,
+  CreateTime: &apos;1551452452&apos;,
+  MsgType: &apos;video&apos;,
+  MediaId:
+   &apos;L0u79XZL3WlJ02saTcfTdb1EeEropBi0q3Ln3JZux3iOKdL-U3486IWgnYTuiGUg&apos;,
+  ThumbMediaId:
+   &apos;wJdxY-U3FoCaKir-shWBJidEh33Jf8qvZoaegUKA-diCSFKZByFgWb9RyLMFXJQZ&apos;,
+  MsgId: &apos;22211460000436810&apos; }
+
+  &lt;xml&gt;
+    &lt;ToUserName&gt;&lt;![CDATA[oMvSd5kt0vUtNS__dbqZvqi6dBBk]]&gt;&lt;/ToUserName&gt;
+    &lt;FromUserName&gt;&lt;![CDATA[gh_f8a6ed368293]]&gt;&lt;/FromUserName&gt;
+    &lt;CreateTime&gt;1551452455364&lt;/CreateTime&gt;
+    &lt;MsgType&gt;&lt;![CDATA[video]]&gt;&lt;/MsgType&gt;
+      &lt;Video&gt;
+        &lt;MediaId&gt;&lt;![CDATA[L0u79XZL3WlJ02saTcfTdb1EeEropBi0q3Ln3JZux3iOKdL-U3486IWgnYTuiGUg]]&gt;&lt;/Me
+diaId&gt;
+        &lt;Title&gt;&lt;![CDATA[wJdxY-U3FoCaKir-shWBJidEh33Jf8qvZoaegUKA-diCSFKZByFgWb9RyLMFXJQZ]]&gt;&lt;/Titl
+e&gt;
+        &lt;Description&gt;&lt;![CDATA[]]&gt;&lt;/Description&gt;
+      &lt;/Video&gt;
+  &lt;/xml&gt;
+{ ToUserName: &apos;gh_f8a6ed368293&apos;,
+  FromUserName: &apos;oMvSd5kt0vUtNS__dbqZvqi6dBBk&apos;,
+  CreateTime: &apos;1551453034&apos;,
+  MsgType: &apos;voice&apos;,
+  MediaId:
+   &apos;rk0rILlAiQfBzdZVjORYGaLT3pmIixTaQTVB5-OzNK6pxPcLi5gBWppsJscEVpKK&apos;,
+  Format: &apos;amr&apos;,
+  MsgId: &apos;22211470075366286&apos;,
+  Recognition: &apos;&apos; }
+
+  &lt;xml&gt;
+    &lt;ToUserName&gt;&lt;![CDATA[oMvSd5kt0vUtNS__dbqZvqi6dBBk]]&gt;&lt;/ToUserName&gt;
+    &lt;FromUserName&gt;&lt;![CDATA[gh_f8a6ed368293]]&gt;&lt;/FromUserName&gt;
+    &lt;CreateTime&gt;1551453036136&lt;/CreateTime&gt;
+    &lt;MsgType&gt;&lt;![CDATA[voice]]&gt;&lt;/MsgType&gt;
+
+      &lt;Voice&gt;
+        &lt;MediaId&gt;&lt;![CDATA[rk0rILlAiQfBzdZVjORYGaLT3pmIixTaQTVB5-OzNK6pxPcLi5gBWppsJscEVpKK]]&gt;&lt;/Me
+diaId&gt;
+      &lt;/Voice&gt;
+
+  &lt;/xml&gt;
+{ ToUserName: &apos;gh_f8a6ed368293&apos;,
+  FromUserName: &apos;oMvSd5kt0vUtNS__dbqZvqi6dBBk&apos;,
+  CreateTime: &apos;1551453070&apos;,
+  MsgType: &apos;location&apos;,
+  Location_X: &apos;27.829149&apos;,
+  Location_Y: &apos;121.145042&apos;,
+  Scale: &apos;16&apos;,
+  Label: &apos;&#x6D59;&#x6C5F;&#x7701;&#x6E29;&#x5DDE;&#x5E02;&#x6D1E;&#x5934;&#x533A;&apos;,
+  MsgId: &apos;22211469893781070&apos; }
+
+  &lt;xml&gt;
+    &lt;ToUserName&gt;&lt;![CDATA[oMvSd5kt0vUtNS__dbqZvqi6dBBk]]&gt;&lt;/ToUserName&gt;
+    &lt;FromUserName&gt;&lt;![CDATA[gh_f8a6ed368293]]&gt;&lt;/FromUserName&gt;
+    &lt;CreateTime&gt;1551453072841&lt;/CreateTime&gt;
+    &lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;
+      &lt;Content&gt;&lt;![CDATA[27.829149 : 121.145042 : &#x6D59;&#x6C5F;&#x7701;&#x6E29;&#x5DDE;&#x5E02;&#x6D1E;&#x5934;&#x533A;]]&gt;&lt;/Content&gt;
+  &lt;/xml&gt;
+{ ToUserName: &apos;gh_f8a6ed368293&apos;,
+  FromUserName: &apos;oMvSd5kt0vUtNS__dbqZvqi6dBBk&apos;,
+  CreateTime: &apos;1551453126&apos;,
+  MsgType: &apos;link&apos;,
+  Title: &apos;&#x6F2B;&#x753B;&#xFF1A;&#x4EC0;&#x4E48;&#x662F;&#x52A8;&#x6001;&#x89C4;&#x5212;&#xFF1F;&#xFF08;&#x6574;&#x5408;&#x7248;&#xFF09;&apos;,
+  Description: &apos;&#x6F2B;&#x753B;&#xFF1A;&#x4EC0;&#x4E48;&#x662F;&#x52A8;&#x6001;&#x89C4;&#x5212;&#xFF1F;&#xFF08;&#x6574;&#x5408;&#x7248;&#xFF09;&apos;,
+  Url:
+   &apos;http://mp.weixin.qq.com/s?__biz=MzI1MTIzMzI2MA==&amp;mid=2650561168&amp;idx=1&amp;sn=9d1c6f7ba6d651c75399
+c4aa5254a7d8&amp;chksm=f1feec13c6896505f7886d9455278ad39749d377a63908c59c1fdceb11241e577ff6d66931e4&amp;m
+pshare=1&amp;scene=24&amp;srcid=1006MIKJHAWLbruE1h1UGRLY#rd&apos;,
+  MsgId: &apos;22211468626513515&apos; }
+
+  &lt;xml&gt;
+    &lt;ToUserName&gt;&lt;![CDATA[oMvSd5kt0vUtNS__dbqZvqi6dBBk]]&gt;&lt;/ToUserName&gt;
+    &lt;FromUserName&gt;&lt;![CDATA[gh_f8a6ed368293]]&gt;&lt;/FromUserName&gt;
+    &lt;CreateTime&gt;1551453131385&lt;/CreateTime&gt;
+    &lt;MsgType&gt;&lt;![CDATA[news]]&gt;&lt;/MsgType&gt;
+
+      &lt;ArticleCount&gt;1&lt;/ArticleCount&gt;
+      &lt;Articles&gt;
+          &lt;item&gt;
+            &lt;Title&gt;&lt;![CDATA[&#x6F2B;&#x753B;&#xFF1A;&#x4EC0;&#x4E48;&#x662F;&#x52A8;&#x6001;&#x89C4;&#x5212;&#xFF1F;&#xFF08;&#x6574;&#x5408;&#x7248;&#xFF09;]]&gt;&lt;/Title&gt;
+            &lt;Description&gt;&lt;![CDATA[&#x6F2B;&#x753B;&#xFF1A;&#x4EC0;&#x4E48;&#x662F;&#x52A8;&#x6001;&#x89C4;&#x5212;&#xFF1F;&#xFF08;&#x6574;&#x5408;&#x7248;&#xFF09;]]&gt;&lt;/Description&gt;
+            &lt;PicUrl&gt;&lt;![CDATA[http://mmbiz.qpic.cn/mmbiz_jpg/RIic6Hm5wW7IQiaFRuUkehGYjtHe5skvynKmh
+jxmU7kVGXaSiboqojEQCon7gc
+IZtpClCKLYGE4p2NBZAbNial1Wgw/0]]&gt;&lt;/PicUrl&gt;
+            &lt;Url&gt;&lt;![CDATA[http://mp.weixin.qq.com/s?__biz=MzI1MTIzMzI2MA==&amp;amp;mid=2650561168&amp;amp
+;idx=1&amp;amp;sn=9d1c6f7ba6d651c75399c4aa5254a7d8&amp;amp;chksm=f1feec13c6896505f7886d9455278ad39749d377
+a63908c59c1fdceb11241e577ff6d66931e4&amp;amp;mpshare=1&amp;amp;scene=24&amp;amp;srcid=1006MIKJHAWLbruE1h1UGRL
+Y#rd]]&gt;&lt;/Url&gt;
+          &lt;/item&gt;
+      &lt;/Articles&gt;
+  &lt;/xml&gt;
+
+{ ToUserName: &apos;gh_f8a6ed368293&apos;,
+  FromUserName: &apos;oMvSd5kt0vUtNS__dbqZvqi6dBBk&apos;,
+  CreateTime: &apos;1551456173&apos;,
+  MsgType: &apos;event&apos;,
+  Event: &apos;unsubscribe&apos;,
+  EventKey: &apos;&apos; }
+oMvSd5kt0vUtNS__dbqZvqi6dBBk &#x53D6;&#x5173;&#x4E86;
+
+  &lt;xml&gt;
+    &lt;ToUserName&gt;&lt;![CDATA[oMvSd5kt0vUtNS__dbqZvqi6dBBk]]&gt;&lt;/ToUserName&gt;
+    &lt;FromUserName&gt;&lt;![CDATA[gh_f8a6ed368293]]&gt;&lt;/FromUserName&gt;
+    &lt;CreateTime&gt;1551456181597&lt;/CreateTime&gt;
+    &lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;
+
+      &lt;Content&gt;&lt;![CDATA[Empty News]]&gt;&lt;/Content&gt;
+
+  &lt;/xml&gt;
+{ ToUserName: &apos;gh_f8a6ed368293&apos;,
+  FromUserName: &apos;oMvSd5kt0vUtNS__dbqZvqi6dBBk&apos;,
+  CreateTime: &apos;1551456189&apos;,
+  MsgType: &apos;event&apos;,
+  Event: &apos;subscribe&apos;,
+  EventKey: &apos;&apos; }
+
+  &lt;xml&gt;
+    &lt;ToUserName&gt;&lt;![CDATA[oMvSd5kt0vUtNS__dbqZvqi6dBBk]]&gt;&lt;/ToUserName&gt;
+    &lt;FromUserName&gt;&lt;![CDATA[gh_f8a6ed368293]]&gt;&lt;/FromUserName&gt;
+    &lt;CreateTime&gt;1551456196412&lt;/CreateTime&gt;
+    &lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;
+
+      &lt;Content&gt;&lt;![CDATA[hi~
+&#x70B9;&#x51FB;&lt;a href=&quot;http://coding.imooc.com&quot;&gt;coding&lt;/a&gt;]]&gt;&lt;/Content&gt;
+  &lt;/xml&gt;
+</code></pre><p>&#x3010;&#x6CE8;&#x3011;&#x6D4B;&#x8BD5;&#x53D1;&#x73B0;&#x89C6;&#x9891;&#x65E0;&#x6CD5;&#x56DE;&#x590D;</p>
+<pre><code class="lang-sh">Mongoose: tokens.findOne({ name: <span class="hljs-string">&apos;access_token&apos;</span> }, { projection: {} })
+Mongoose: tokens.findOne({ name: <span class="hljs-string">&apos;access_token&apos;</span> }, { projection: {} })
+getAccessToken { meta:
+   { createAt: 2019-02-28T16:41:01.210Z,
+     updatedAt: 2019-03-01T19:57:25.011Z },
+  _id: 5c780f1d03785379f0d16889,
+  name: <span class="hljs-string">&apos;access_token&apos;</span>,
+  token:
+   <span class="hljs-string">&apos;19_DPxkDiQOukF1yyWCo04fwyIXWiczIwwLr6UOQ8t1pCvhWcHGMXU71hfKanzHYJUgjNDHMS2ELc05qX_5I3BMIcuB0L
+qq73rZQZTq0AvuD1eq1nT-UUH0NXdb4oth9OpIktQVMRi2Ih5WxdM6ILZbAIAVYM&apos;</span>,
+  expires_<span class="hljs-keyword">in</span>: 1551476879869,
+  __v: 0 }
+Mongoose: tokens.findOne({ name: <span class="hljs-string">&apos;access_token&apos;</span> }, { projection: {} })
+Mongoose: tokens.updateOne({ _id: ObjectId(<span class="hljs-string">&quot;5c780f1d03785379f0d16889&quot;</span>) }, { <span class="hljs-string">&apos;$set&apos;</span>: { <span class="hljs-string">&apos;meta.updatedAt&apos;</span>: new Date(<span class="hljs-string">&quot;Fri, 01 Mar 2019 19:58:40 GMT&quot;</span>) } })
+Mongoose: tokens.updateOne({ _id: ObjectId(<span class="hljs-string">&quot;5c780f1d03785379f0d16889&quot;</span>) }, { <span class="hljs-string">&apos;$set&apos;</span>: { <span class="hljs-string">&apos;meta.updat
+edAt&apos;</span>: new Date(<span class="hljs-string">&quot;Fri, 01 Mar 2019 19:58:40 GMT&quot;</span>) } })
+{ <span class="hljs-built_in">type</span>: <span class="hljs-string">&apos;video&apos;</span>,
+  media_id:
+   <span class="hljs-string">&apos;1nQCOB7mqgwyccg7mPXXZHaAp5dvwUCUc0H0t6SI6Fe64GRe7kY506QrNdV6Pinv&apos;</span>,
+  created_at: 1551470322 }
+</code></pre>
+<h4 id="&#x7528;&#x6237;&#x57FA;&#x672C;&#x4FE1;&#x606F;">&#x7528;&#x6237;&#x57FA;&#x672C;&#x4FE1;&#x606F;</h4>
+<p>&#x83B7;&#x53D6;&#x7528;&#x6237;&#x5217;&#x8868;GET 
+<a href="https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&amp;next_openid=NEXT_OPENID" target="_blank">https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&amp;next_openid=NEXT_OPENID</a></p>
+<pre><code class="lang-js"><span class="hljs-comment">// server/wechat/reply.js</span>
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-keyword">async</span> (ctx, next) =&gt; {
+  <span class="hljs-keyword">const</span> message = ctx.weixin
+  <span class="hljs-built_in">console</span>.log(message)
+
+  <span class="hljs-keyword">let</span> mp = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../wechat&apos;</span>)
+  <span class="hljs-keyword">let</span> client = mp.getWechat()
+
+  <span class="hljs-keyword">if</span> (message.MsgType === <span class="hljs-string">&apos;event&apos;</span>) {
+    ......
+  }  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (message.MsgType === <span class="hljs-string">&apos;text&apos;</span>) {
+    <span class="hljs-keyword">if</span> (message.Content === <span class="hljs-string">&apos;1&apos;</span>) {
+      <span class="hljs-comment">// test fetchUserList</span>
+      <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> client.handle(<span class="hljs-string">&apos;fetchUserList&apos;</span>)
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;reply&apos;</span>, data)
+    }
+    ctx.body = message.Content
+  }
+......
+</code></pre>
+<pre><code class="lang-sh">{ total: 2,
+  count: 2,
+  data:
+   { openid:
+      [ <span class="hljs-string">&apos;oMvSd5kt0vUtNS__dbqZvqi6dBBk&apos;</span>,
+        <span class="hljs-string">&apos;oMvSd5v8n80Gimx0nKQqcBtqAV14&apos;</span> ] },
+  next_openid: <span class="hljs-string">&apos;oMvSd5v8n80Gimx0nKQqcBtqAV14&apos;</span> }
+</code></pre>
+<p>&#x6279;&#x91CF;&#x83B7;&#x53D6;&#x7528;&#x6237;&#x4FE1;&#x606F;POST
+<a href="https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&amp;next_openid=NEXT_OPENID" target="_blank">https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&amp;next_openid=NEXT_OPENID</a></p>
+<pre><code class="lang-js"><span class="hljs-comment">// server/wechat/reply.js</span>
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (message.MsgType === <span class="hljs-string">&apos;text&apos;</span>) {
+    <span class="hljs-keyword">if</span> (message.Content === <span class="hljs-string">&apos;1&apos;</span>) {
+      <span class="hljs-comment">// test batchUserInfo</span>
+      <span class="hljs-keyword">let</span> userList = [
+        {
+          openid: <span class="hljs-string">&apos;oMvSd5kt0vUtNS__dbqZvqi6dBBk&apos;</span>,
+          lang: <span class="hljs-string">&apos;zh_CN&apos;</span>
+        },{
+          openid: <span class="hljs-string">&apos;oMvSd5v8n80Gimx0nKQqcBtqAV14&apos;</span>,
+          lang: <span class="hljs-string">&apos;zh_CN&apos;</span>
+        }]
+      <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> client.handle(<span class="hljs-string">&apos;batchUserInfo&apos;</span>, userList)
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;reply&apos;</span>, data)
+    }
+    ctx.body = message.Content
+  }
+</code></pre>
+<pre><code class="lang-sh">{ user_info_list:
+   [ { subscribe: 1,
+       openid: <span class="hljs-string">&apos;oMvSd5kt0vUtNS__dbqZvqi6dBBk&apos;</span>,
+       nickname: <span class="hljs-string">&apos;&#x86CB;&#x7CD5;&#x5E97;&#x7684;&#x590F;&#x5929;&apos;</span>,
+       sex: 1,
+       language: <span class="hljs-string">&apos;zh_CN&apos;</span>,
+       city: <span class="hljs-string">&apos;&#x6E29;&#x5DDE;&apos;</span>,
+       province: <span class="hljs-string">&apos;&#x6D59;&#x6C5F;&apos;</span>,
+       country: <span class="hljs-string">&apos;&#x4E2D;&#x56FD;&apos;</span>,
+       headimgurl:
+        <span class="hljs-string">&apos;http://thirdwx.qlogo.cn/mmopen/StgoZwMzBf5RgLuavgp0kMzef3OjqdQOGu5jcG6flpMsc3uh4mMdHo
+4xaTb8vyoFnY6vaOdp1OrOkTKIiagkYsxq079eG0LFib/132&apos;</span>,
+       subscribe_time: 1551523316,
+       remark: <span class="hljs-string">&apos;&apos;</span>,
+       groupid: 0,
+       tagid_list: [],
+       subscribe_scene: <span class="hljs-string">&apos;ADD_SCENE_SEARCH&apos;</span>,
+       qr_scene: 0,
+       qr_scene_str: <span class="hljs-string">&apos;&apos;</span> },
+     ... ] }
+</code></pre>
+<h4 id="&#x7528;&#x6237;&#x6807;&#x7B7E;&#x7BA1;&#x7406;">&#x7528;&#x6237;&#x6807;&#x7B7E;&#x7BA1;&#x7406;</h4>
+<p>&#x521B;&#x5EFA;&#x6807;&#x7B7E;POST
+<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140837" target="_blank">https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140837</a></p>
+<pre><code class="lang-js"><span class="hljs-comment">// server/wechat/reply.js</span>
+<span class="hljs-keyword">if</span> (message.Content === <span class="hljs-string">&apos;1&apos;</span>) {
+  <span class="hljs-comment">// test createTag</span>
+  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> client.handle(<span class="hljs-string">&apos;createTag&apos;</span>, <span class="hljs-string">&apos;family&apos;</span>)
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;reply&apos;</span>, data)
+}
+</code></pre>
+<pre><code class="lang-sh">{ tag: { id: 100, name: <span class="hljs-string">&apos;family&apos;</span> } }
+</code></pre>
+<p>&#x83B7;&#x53D6;&#x516C;&#x4F17;&#x53F7;&#x5DF2;&#x521B;&#x5EFA;&#x7684;&#x6807;&#x7B7E;GET</p>
+<pre><code class="lang-js"><span class="hljs-comment">// server/wechat/reply.js</span>
+<span class="hljs-keyword">if</span> (message.Content === <span class="hljs-string">&apos;1&apos;</span>) {
+  <span class="hljs-comment">// test fetchTags</span>
+  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> client.handle(<span class="hljs-string">&apos;fetchTags&apos;</span>)
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;reply&apos;</span>, data)
+}
+</code></pre>
+<pre><code class="lang-sh">{ tags:
+   [ { id: 2, name: <span class="hljs-string">&apos;&#x661F;&#x6807;&#x7EC4;&apos;</span>, count: 0 },
+     { id: 100, name: <span class="hljs-string">&apos;family&apos;</span>, count: 0 } ] }
+</code></pre>
+<p>&#x6279;&#x91CF;&#x4E3A;&#x7528;&#x6237;&#x6253;&#x6807;&#x7B7E;POST</p>
+<pre><code class="lang-js"><span class="hljs-comment">// test batchTag</span>
+<span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> client.handle(<span class="hljs-string">&apos;batchTag&apos;</span>, [<span class="hljs-string">&apos;oMvSd5kt0vUtNS__dbqZvqi6dBBk&apos;</span>], <span class="hljs-number">100</span>)
+</code></pre>
+<pre><code class="lang-sh">{ errcode: 0, errmsg: <span class="hljs-string">&apos;ok&apos;</span> }
+</code></pre>
+<p>&#x83B7;&#x53D6;&#x7528;&#x6237;&#x8EAB;&#x4E0A;&#x7684;&#x6807;&#x7B7E;&#x5217;&#x8868;POST</p>
+<pre><code class="lang-js"><span class="hljs-comment">// test getTagList</span>
+<span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> client.handle(<span class="hljs-string">&apos;getTagList&apos;</span>, <span class="hljs-string">&apos;oMvSd5kt0vUtNS__dbqZvqi6dBBk&apos;</span>)
+</code></pre>
+<pre><code class="lang-sh">{ tagid_list: [ 100 ] }
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="pm2_deploy.html" class="navigation navigation-prev " aria-label="Previous page: pm2 部署 nodejs 应用">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="redis.html" class="navigation navigation-next " aria-label="Next page: redis">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"nuxt-wechat","level":"1.6","depth":1,"next":{"title":"redis","level":"1.7","depth":1,"path":"redis.md","ref":"redis.md","articles":[]},"previous":{"title":"pm2 部署 nodejs 应用","level":"1.5","depth":1,"path":"pm2_deploy.md","ref":"pm2_deploy.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"tmp.md","mtime":"2022-01-10T11:41:46.464Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-01-10T12:19:40.625Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
