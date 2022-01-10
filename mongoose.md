@@ -59,7 +59,7 @@ dog.findSimilarTypes(function(err, dogs) {
     console.log(dogs)
 })
 ```
-#### 静态方法（static）
+#### 静态方法(static)
 添加 `Model` 的静态方法也十分简单，继续用 `animalSchema` 举例：
 ```js
   // assign a function to the "statics" object of our animalSchema
@@ -75,7 +75,7 @@ dog.findSimilarTypes(function(err, dogs) {
 
 同样**不要**在静态方法中使用 ES6 箭头函数
 
-#### 查询助手（query helper）
+#### 查询助手(query helper)
 查询助手作用于 query 实例，方便你自定义拓展你的 [链式查询](http://mongoosejs.net/docs/queries.html)
 ```js
   animalSchema.query.byName = function(name) {
@@ -88,7 +88,7 @@ dog.findSimilarTypes(function(err, dogs) {
   });
 ```
 
-#### 索引（index）
+#### 索引(index)
 
 MongoDB 支持 [secondary indexes](http://docs.mongodb.org/manual/indexes/). 在 mongoose 中，我们在 `Schema` 中定义索引。索引分字段级别和schema级别，[复合索引](https://docs.mongodb.com/manual/core/index-compound/) 需要在 schema 级别定义。
 ```js
@@ -102,13 +102,13 @@ MongoDB 支持 [secondary indexes](http://docs.mongodb.org/manual/indexes/). 在
 ```
 应用启动时， Mongoose 会自动调用 [`createIndex`](https://docs.mongodb.com/manual/reference/method/db.collection.createIndex/#db.collection.createIndex) 初始化你定义的索引。 Mongoose 顺序处理每一个 `createIndex` ，然后在model触发 'index' 事件。 While nice for development, it is recommended this behavior be disabled in production since index creation can cause a [significant performance impact](http://docs.mongodb.org/manual/core/indexes/#index-creation-operations). Disable the behavior by setting the `autoIndex` option of your schema to `false`, or globally on the connection by setting the option `autoIndex` to `false`.
 ```js
-  mongoose.connect('mongodb://user:pass@localhost:port/database', { autoIndex: false });
-  // or
-  mongoose.createConnection('mongodb://user:pass@localhost:port/database', { autoIndex: false });
-  // or
-  animalSchema.set('autoIndex', false);
-  // or
-  new Schema({..}, { autoIndex: false });
+mongoose.connect('mongodb://user:pass@localhost:port/database', { autoIndex: false });
+// or
+mongoose.createConnection('mongodb://user:pass@localhost:port/database', { autoIndex: false });
+// or
+animalSchema.set('autoIndex', false);
+// or
+new Schema({..}, { autoIndex: false });
 ```
 索引构建完成或失败后，Mongoose 会触发 `index` 事件。
 ```js

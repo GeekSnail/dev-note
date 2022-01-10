@@ -1,8 +1,6 @@
-# First Chapter
+## Linux环境
 
-准备
-
-#### 简单安裝 node.js
+### 简单安裝 node.js
 
 ```sh
 wget https://nodejs.org/dist/v10.15.1/node-v10.15.1-linux-x64.tar.xz
@@ -40,7 +38,7 @@ me      ALL=(ALL:ALL) ALL
 service ssh restart
 ```
 
-#### ssh公钥实现本地无秘登录
+### ssh公钥实现本地无秘登录
 
 ```bash
 me@服务器名 ~
@@ -76,7 +74,7 @@ $ ssh -p <port> <username>@<host-ip>
 
 [刘月林 \| 解决阿里云 ssh 端口修改后连接失败的问题](https://www.jianshu.com/p/51fdf8139e9a)
 
-#### 配置防火墙规则
+### 配置防火墙规则
 
 ```bash
 sudo vi /etc/iptables.up.rules
@@ -150,7 +148,7 @@ sudo service fail2ban start
 sudo service fail2ban status
 ```
 
-#### 安装环境依赖
+### 安装环境依赖
 
 ```sh
 apt-get install git build-essential libssh-dev
@@ -186,48 +184,6 @@ npm config set registry https://registry.npm.taobao.org
 npm install pm2 webpack
 ```
 
-#### pm2 实现对node程序运维
-
-```sh
-pm2 list
-                        -------------
-
-__/\\\\\\\\\\\\\____/\\\\____________/\\\\____/\\\\\\\\\_____
- _\/\\\/////////\\\_\/\\\\\\________/\\\\\\__/\\\///////\\\___
-  _\/\\\_______\/\\\_\/\\\//\\\____/\\\//\\\_\///______\//\\\__
-   _\/\\\\\\\\\\\\\/__\/\\\\///\\\/\\\/_\/\\\___________/\\\/___
-    _\/\\\/////////____\/\\\__\///\\\/___\/\\\________/\\\//_____
-     _\/\\\_____________\/\\\____\///_____\/\\\_____/\\\//________
-      _\/\\\_____________\/\\\_____________\/\\\___/\\\/___________
-       _\/\\\_____________\/\\\_____________\/\\\__/\\\\\\\\\\\\\\\_
-        _\///______________\///______________\///__\///////////////__
-
-
-                          Runtime Edition
-
-        PM2 is a Production Process Manager for Node.js applications
-                     with a built-in Load Balancer.
-
-                Start and Daemonize any application:
-                $ pm2 start app.js
-
-                Load Balance 4 instances of api.js:
-                $ pm2 start api.js -i 4
-
-                Monitor in production:
-                $ pm2 monitor
-
-                Make pm2 auto-boot at server restart:
-                $ pm2 startup
-
-                To go further checkout:
-                http://pm2.io/
-
-pm2 start app.js --watch
-pm2 show <id|name>
-pm2 logs
-```
-
 ### Nginx 实现反向代理
 
 ```sh
@@ -245,8 +201,7 @@ nginx version: nginx/1.10.3 (Ubuntu)
 sudo vi /etc/nginx/conf.d/hi-com-3000.conf
 ```
 
-虚拟主机配置  
-让
+虚拟主机配置
 
 ```js
 upstream hi {
@@ -296,9 +251,9 @@ sudo nginx -s reload
 
 然后可以通过公网ip直接访问之前pm2开启的3000端口app服务
 
-#### 去掉响应头服务器详细信息  
-默认：  
-Server: nginx/1.10.3 \(Ubuntu\)
+**去掉响应头服务器详细信息**
+
+默认：`Server: nginx/1.10.3 (Ubuntu)`
 
 ```sh
 sudo vi /etc/nginx/nginx.conf
@@ -306,8 +261,9 @@ server_tokens off; # 去掉注释
 sudo service nginx reload
 ```
 
-修改后：  
-Server: nginx
+修改后：`Server: nginx`
+
+### mongodb
 
 #### mongodb 云数据库连接
 
@@ -417,32 +373,23 @@ Authentication Options:
 file names: a list of files to run. files have to end in .js and will exit after unless --shell is specified
 ```
 
-redis安装
+### redis安装
 
-wget
-
-tar
-
-cd make
+```sh
+wget tar cd make
 
 sudo vi redis.conf
-
 daemonize yes
-
 requirepass xxx
 
-去除protectd-mode模式，并且设置所有ip均能访问：
-
+# 去除protectd-mode模式，并且设置所有ip均能访问：
 protected-mode no 
-
 bind 0.0.0.0 ::1
 
 sudo ./src/redis-server redis.conf
 
 src/redis-cli
-
-auth 
-
-keys
+auth keys
 
 netstat -tln | grep 6379
+```

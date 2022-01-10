@@ -1,7 +1,29 @@
-## pm2 部署 nodejs 应用
+## pm2 部署 node 应用
 
-本地操作：
-github.com 建立一个私有仓库，用来存放项目
+    pm2 list
+        PM2 is a Production Process Manager for Node.js applications
+                     with a built-in Load Balancer.
+    
+                Start and Daemonize any application:
+                $ pm2 start app.js
+    
+                Load Balance 4 instances of api.js:
+                $ pm2 start api.js -i 4
+    
+                Monitor in production:
+                $ pm2 monitor
+    
+                Make pm2 auto-boot at server restart:
+                $ pm2 startup
+    
+                To go further checkout:
+                http://pm2.io/
+    pm2 start app.js --watch
+    pm2 show <id|name>
+    pm2 logs            
+
+本地操作：github.com 建立一个私有仓库，用来存放项目
+
 ```sh
 # 本地的ssh公钥复制到github上，
 ssh -T git@github.com
