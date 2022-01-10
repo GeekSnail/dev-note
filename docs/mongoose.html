@@ -1,0 +1,686 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Mongoose 基础 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="pm2_deploy.html" />
+    
+    
+    <link rel="prev" href="mongodb_basic.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="environment.html">
+            
+                <a href="environment.html">
+            
+                    
+                    环境配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="mongodb_basic.html">
+            
+                <a href="mongodb_basic.html">
+            
+                    
+                    MongoDB 基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4" data-path="mongoose.html">
+            
+                <a href="mongoose.html">
+            
+                    
+                    Mongoose 基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="pm2_deploy.html">
+            
+                <a href="pm2_deploy.html">
+            
+                    
+                    pm2 部署 nodejs 应用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="nuxt.html">
+            
+                <a href="nuxt.html">
+            
+                    
+                    nuxt-wechat
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="redis.html">
+            
+                <a href="redis.html">
+            
+                    
+                    redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Mongoose 基础</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="mongoose-&#x57FA;&#x7840;">mongoose &#x57FA;&#x7840;</h2>
+<h3 id="schemas">Schemas</h3>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;mongoose&apos;</span>)
+<span class="hljs-keyword">var</span> Schema = mongoose.Schema
+
+<span class="hljs-comment">// define some properties which will be cast to the xxx SchemaType</span>
+<span class="hljs-keyword">var</span> blogSchema = <span class="hljs-keyword">new</span> Schema({
+  title: <span class="hljs-built_in">String</span>,
+  author: <span class="hljs-built_in">String</span>,
+  body: <span class="hljs-built_in">String</span>,
+  comments: [{ body: <span class="hljs-built_in">String</span>, date: <span class="hljs-built_in">Date</span> }],
+  date: { type: <span class="hljs-built_in">Date</span>, <span class="hljs-keyword">default</span>: <span class="hljs-built_in">Date</span>.now },
+  hidden: <span class="hljs-built_in">Boolean</span>,
+  meta: {
+    votes: <span class="hljs-built_in">Number</span>,
+    favs: <span class="hljs-built_in">Number</span>
+  }
+})
+</code></pre>
+<p>The permitted <a href="https://mongoosejs.com/docs/schematypes.html" target="_blank">SchemaTypes</a>. are:</p>
+<ul>
+<li><a href="https://mongoosejs.com/docs/schematypes.html#strings" target="_blank">String</a></li>
+<li><a href="https://mongoosejs.com/docs/schematypes.html#numbers" target="_blank">Number</a></li>
+<li><a href="https://mongoosejs.com/docs/schematypes.html#dates" target="_blank">Date</a></li>
+<li><a href="https://mongoosejs.com/docs/schematypes.html#buffers" target="_blank">Buffer</a></li>
+<li><a href="https://mongoosejs.com/docs/schematypes.html#booleans" target="_blank">Boolean</a></li>
+<li><a href="https://mongoosejs.com/docs/schematypes.html#mixed" target="_blank">Mixed</a></li>
+<li><a href="https://mongoosejs.com/docs/schematypes.html#objectids" target="_blank">ObjectId</a></li>
+<li><a href="https://mongoosejs.com/docs/schematypes.html#arrays" target="_blank">Array</a></li>
+<li>Decimal128</li>
+<li><a href="https://mongoosejs.com/docs/schematypes.html#maps" target="_blank">Map</a></li>
+</ul>
+<p>Schemas not only define the structure of your document and casting of properties, they also define document <a href="https://mongoosejs.com/docs/guide.html#methods" target="_blank">instance methods</a>, <a href="https://mongoosejs.com/docs/guide.html#statics" target="_blank">static Model methods</a>, <a href="https://mongoosejs.com/docs/guide.html#indexes" target="_blank">compound indexes</a>, and document lifecycle hooks called <a href="https://mongoosejs.com/docs/middleware.html" target="_blank">middleware</a>.</p>
+<h4 id="create-a-model">Create a model</h4>
+<p>To use our schema definition, we need to convert our <code>blogSchema</code> into a <a href="https://mongoosejs.com/docs/models.html" target="_blank">Model</a> we can work with. To do so, we pass it into <code>mongoose.model(modelName, schema)</code>:</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> Blog = mongoose.model(<span class="hljs-string">&apos;Blog&apos;</span>, blogSchema)
+</code></pre>
+<h4 id="&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;">&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;</h4>
+<p><a href="http://mongoosejs.net/docs/documents.html" target="_blank">documents</a> &#x662F; <code>Models</code> &#x7684;&#x5B9E;&#x4F8B;&#x3002; Document &#x6709;&#x5F88;&#x591A;&#x81EA;&#x5E26;&#x7684;<a href="http://mongoosejs.net/docs/api.html#document-js" target="_blank">&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;</a>&#xFF0C; &#x5F53;&#x7136;&#x4E5F;&#x53EF;&#x4EE5;&#x81EA;&#x5B9A;&#x4E49;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x7684;&#x65B9;&#x6CD5;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> animalSchema = <span class="hljs-keyword">new</span> Schema({ name: <span class="hljs-built_in">String</span>, type: <span class="hljs-built_in">String</span> })
+animalSchema.methods.findSimilarTypes = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">cb</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.model(<span class="hljs-string">&apos;Animal&apos;</span>).find({ type: <span class="hljs-keyword">this</span>.type }, cb)
+}
+
+<span class="hljs-keyword">var</span> Animal = mongoose.model(<span class="hljs-string">&apos;Animal&apos;</span>, animalSchema)
+<span class="hljs-keyword">var</span> dog = <span class="hljs-keyword">new</span> Animal({ type: <span class="hljs-string">&apos;dog&apos;</span>})
+dog.findSimilarTypes(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, dogs</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(dogs)
+})
+</code></pre>
+<h4 id="&#x9759;&#x6001;&#x65B9;&#x6CD5;static">&#x9759;&#x6001;&#x65B9;&#x6CD5;(static)</h4>
+<p>&#x6DFB;&#x52A0; <code>Model</code> &#x7684;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#x4E5F;&#x5341;&#x5206;&#x7B80;&#x5355;&#xFF0C;&#x7EE7;&#x7EED;&#x7528; <code>animalSchema</code> &#x4E3E;&#x4F8B;&#xFF1A;</p>
+<pre><code class="lang-js">  <span class="hljs-comment">// assign a function to the &quot;statics&quot; object of our animalSchema</span>
+  animalSchema.statics.findByName = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name, cb</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.find({ name: <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(name, <span class="hljs-string">&apos;i&apos;</span>) }, cb);
+  };
+
+  <span class="hljs-keyword">var</span> Animal = mongoose.model(<span class="hljs-string">&apos;Animal&apos;</span>, animalSchema);
+  Animal.findByName(<span class="hljs-string">&apos;fido&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, animals</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(animals);
+  });
+</code></pre>
+<p>&#x540C;&#x6837;<strong>&#x4E0D;&#x8981;</strong>&#x5728;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#x4E2D;&#x4F7F;&#x7528; ES6 &#x7BAD;&#x5934;&#x51FD;&#x6570;</p>
+<h4 id="&#x67E5;&#x8BE2;&#x52A9;&#x624B;query-helper">&#x67E5;&#x8BE2;&#x52A9;&#x624B;(query helper)</h4>
+<p>&#x67E5;&#x8BE2;&#x52A9;&#x624B;&#x4F5C;&#x7528;&#x4E8E; query &#x5B9E;&#x4F8B;&#xFF0C;&#x65B9;&#x4FBF;&#x4F60;&#x81EA;&#x5B9A;&#x4E49;&#x62D3;&#x5C55;&#x4F60;&#x7684; <a href="http://mongoosejs.net/docs/queries.html" target="_blank">&#x94FE;&#x5F0F;&#x67E5;&#x8BE2;</a></p>
+<pre><code class="lang-js">  animalSchema.query.byName = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.find({ name: <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(name, <span class="hljs-string">&apos;i&apos;</span>) });
+  };
+
+  <span class="hljs-keyword">var</span> Animal = mongoose.model(<span class="hljs-string">&apos;Animal&apos;</span>, animalSchema);
+  Animal.find().byName(<span class="hljs-string">&apos;fido&apos;</span>).exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, animals</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(animals);
+  });
+</code></pre>
+<h4 id="&#x7D22;&#x5F15;index">&#x7D22;&#x5F15;(index)</h4>
+<p>MongoDB &#x652F;&#x6301; <a href="http://docs.mongodb.org/manual/indexes/" target="_blank">secondary indexes</a>. &#x5728; mongoose &#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5728; <code>Schema</code> &#x4E2D;&#x5B9A;&#x4E49;&#x7D22;&#x5F15;&#x3002;&#x7D22;&#x5F15;&#x5206;&#x5B57;&#x6BB5;&#x7EA7;&#x522B;&#x548C;schema&#x7EA7;&#x522B;&#xFF0C;<a href="https://docs.mongodb.com/manual/core/index-compound/" target="_blank">&#x590D;&#x5408;&#x7D22;&#x5F15;</a> &#x9700;&#x8981;&#x5728; schema &#x7EA7;&#x522B;&#x5B9A;&#x4E49;&#x3002;</p>
+<pre><code class="lang-js">  <span class="hljs-keyword">var</span> animalSchema = <span class="hljs-keyword">new</span> Schema({
+    name: <span class="hljs-built_in">String</span>,
+    type: <span class="hljs-built_in">String</span>,
+    tags: { type: [<span class="hljs-built_in">String</span>], index: <span class="hljs-literal">true</span> } <span class="hljs-comment">// field level</span>
+  });
+
+  animalSchema.index({ name: <span class="hljs-number">1</span>, type: <span class="hljs-number">-1</span> }); <span class="hljs-comment">// schema level</span>
+</code></pre>
+<p>&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65F6;&#xFF0C; Mongoose &#x4F1A;&#x81EA;&#x52A8;&#x8C03;&#x7528; <a href="https://docs.mongodb.com/manual/reference/method/db.collection.createIndex/#db.collection.createIndex" target="_blank"><code>createIndex</code></a> &#x521D;&#x59CB;&#x5316;&#x4F60;&#x5B9A;&#x4E49;&#x7684;&#x7D22;&#x5F15;&#x3002; Mongoose &#x987A;&#x5E8F;&#x5904;&#x7406;&#x6BCF;&#x4E00;&#x4E2A; <code>createIndex</code> &#xFF0C;&#x7136;&#x540E;&#x5728;model&#x89E6;&#x53D1; &apos;index&apos; &#x4E8B;&#x4EF6;&#x3002; While nice for development, it is recommended this behavior be disabled in production since index creation can cause a <a href="http://docs.mongodb.org/manual/core/indexes/#index-creation-operations" target="_blank">significant performance impact</a>. Disable the behavior by setting the <code>autoIndex</code> option of your schema to <code>false</code>, or globally on the connection by setting the option <code>autoIndex</code> to <code>false</code>.</p>
+<pre><code class="lang-js">mongoose.connect(<span class="hljs-string">&apos;mongodb://user:pass@localhost:port/database&apos;</span>, { autoIndex: <span class="hljs-literal">false</span> });
+<span class="hljs-comment">// or</span>
+mongoose.createConnection(<span class="hljs-string">&apos;mongodb://user:pass@localhost:port/database&apos;</span>, { autoIndex: <span class="hljs-literal">false</span> });
+<span class="hljs-comment">// or</span>
+animalSchema.set(<span class="hljs-string">&apos;autoIndex&apos;</span>, <span class="hljs-literal">false</span>);
+<span class="hljs-comment">// or</span>
+<span class="hljs-keyword">new</span> Schema({..}, { autoIndex: <span class="hljs-literal">false</span> });
+</code></pre>
+<p>&#x7D22;&#x5F15;&#x6784;&#x5EFA;&#x5B8C;&#x6210;&#x6216;&#x5931;&#x8D25;&#x540E;&#xFF0C;Mongoose &#x4F1A;&#x89E6;&#x53D1; <code>index</code> &#x4E8B;&#x4EF6;&#x3002;</p>
+<pre><code class="lang-js">  <span class="hljs-comment">// Will cause an error because mongodb has an _id index by default that</span>
+  <span class="hljs-comment">// is not sparse</span>
+  animalSchema.index({ _id: <span class="hljs-number">1</span> }, { sparse: <span class="hljs-literal">true</span> });
+  <span class="hljs-keyword">var</span> Animal = mongoose.model(<span class="hljs-string">&apos;Animal&apos;</span>, animalSchema);
+
+  Animal.on(<span class="hljs-string">&apos;index&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
+    <span class="hljs-comment">// &quot;_id index cannot be sparse&quot;</span>
+    <span class="hljs-built_in">console</span>.log(error.message);
+  });
+</code></pre>
+<p>&#x76F8;&#x5173;&#x94FE;&#x63A5; <a href="http://mongoosejs.net/docs/api.html#model_Model.ensureIndexes" target="_blank">Model#ensureIndexes</a></p>
+<h4 id="&#x865A;&#x62DF;&#x503C;&#xFF08;virtual&#xFF09;">&#x865A;&#x62DF;&#x503C;&#xFF08;Virtual&#xFF09;</h4>
+<p><a href="http://mongoosejs.net/docs/api.html#schema_Schema-virtual" target="_blank">Virtuals</a> &#x662F; document &#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x4F1A;&#x88AB;&#x4FDD;&#x5B58;&#x5230; MongoDB&#x3002; getter &#x53EF;&#x4EE5;&#x7528;&#x4E8E;&#x683C;&#x5F0F;&#x5316;&#x548C;&#x7EC4;&#x5408;&#x5B57;&#x6BB5;&#x6570;&#x636E;&#xFF0C; setter &#x53EF;&#x4EE5;&#x5F88;&#x65B9;&#x4FBF;&#x5730;&#x5206;&#x89E3;&#x4E00;&#x4E2A;&#x503C;&#x5230;&#x591A;&#x4E2A;&#x5B57;&#x6BB5;&#x3002;</p>
+<pre><code class="lang-js">  <span class="hljs-comment">// define a schema</span>
+  <span class="hljs-keyword">var</span> personSchema = <span class="hljs-keyword">new</span> Schema({
+    name: {
+      first: <span class="hljs-built_in">String</span>,
+      last: <span class="hljs-built_in">String</span>
+    }
+  });
+
+  <span class="hljs-comment">// compile our model</span>
+  <span class="hljs-keyword">var</span> Person = mongoose.model(<span class="hljs-string">&apos;Person&apos;</span>, personSchema);
+
+  <span class="hljs-comment">// create a document</span>
+  <span class="hljs-keyword">var</span> axl = <span class="hljs-keyword">new</span> Person({
+    name: { first: <span class="hljs-string">&apos;Axl&apos;</span>, last: <span class="hljs-string">&apos;Rose&apos;</span> }
+  });
+</code></pre>
+<p>&#x5982;&#x679C;&#x4F60;&#x8981;log&#x51FA;&#x5168;&#x540D;&#xFF0C;&#x53EF;&#x4EE5;&#x8FD9;&#x4E48;&#x505A;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(axl.name.first + <span class="hljs-string">&apos; &apos;</span> + axl.name.last); <span class="hljs-comment">// Axl Rose</span>
+</code></pre>
+<p>&#x4F46;&#x662F;&#x6BCF;&#x6B21;&#x90FD;&#x8FD9;&#x4E48;&#x62FC;&#x63A5;&#x5B9E;&#x5728;&#x592A;&#x9EBB;&#x70E6;&#x4E86;&#xFF0C; &#x63A8;&#x8350;&#x4F60;&#x4F7F;&#x7528;<a href="http://mongoosejs.net/docs/api.html#virtualtype_VirtualType-get" target="_blank">virtual property getter</a>&#xFF0C; &#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x5141;&#x8BB8;&#x4F60;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A; <code>fullName</code> &#x5C5E;&#x6027;&#xFF0C;&#x4F46;&#x4E0D;&#x5FC5;&#x4FDD;&#x5B58;&#x5230;&#x6570;&#x636E;&#x5E93;&#x3002;</p>
+<pre><code class="lang-js">personSchema.virtual(<span class="hljs-string">&apos;fullName&apos;</span>).get(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name.first + <span class="hljs-string">&apos; &apos;</span> + <span class="hljs-keyword">this</span>.name.last;
+});
+</code></pre>
+<p>&#x73B0;&#x5728;, mongoose &#x53EF;&#x4EE5;&#x8C03;&#x7528; getter &#x51FD;&#x6570;&#x8BBF;&#x95EE; <code>fullName</code> &#x5C5E;&#x6027;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(axl.fullName); <span class="hljs-comment">// Axl Rose</span>
+</code></pre>
+<p>&#x5982;&#x679C;&#x5BF9; document &#x4F7F;&#x7528; <code>toJSON()</code> &#x6216; <code>toObject()</code>&#xFF0C;&#x9ED8;&#x8BA4;&#x4E0D;&#x5305;&#x62EC;&#x865A;&#x62DF;&#x503C;&#xFF0C; &#x4F60;&#x9700;&#x8981;&#x989D;&#x5916;&#x5411; <a href="http://mongoosejs.net/docs/api.html#document_Document-toObject" target="_blank">toObject()</a> &#x6216;&#x8005; <code>toJSON()</code> &#x4F20;&#x5165;&#x53C2;&#x6570; <code>{ virtuals: true }</code>&#x3002;</p>
+<p>&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x8BBE;&#x5B9A;&#x865A;&#x62DF;&#x503C;&#x7684; setter &#xFF0C;&#x4E0B;&#x4F8B;&#x4E2D;&#xFF0C;&#x5F53;&#x4F60;&#x8D4B;&#x503C;&#x5230;&#x865A;&#x62DF;&#x503C;&#x65F6;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x81EA;&#x52A8;&#x62C6;&#x5206;&#x5230;&#x5176;&#x4ED6;&#x5C5E;&#x6027;&#xFF1A;</p>
+<pre><code class="lang-js">personSchema.virtual(<span class="hljs-string">&apos;fullName&apos;</span>).
+  get(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name.first + <span class="hljs-string">&apos; &apos;</span> + <span class="hljs-keyword">this</span>.name.last; }).
+  set(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>{
+    <span class="hljs-keyword">this</span>.name.first = v.substr(<span class="hljs-number">0</span>, v.indexOf(<span class="hljs-string">&apos; &apos;</span>));
+    <span class="hljs-keyword">this</span>.name.last = v.substr(v.indexOf(<span class="hljs-string">&apos; &apos;</span>) + <span class="hljs-number">1</span>);
+  });
+
+axl.fullName = <span class="hljs-string">&apos;William Rose&apos;</span>; <span class="hljs-comment">// Now `axl.name.first` is &quot;William&quot;</span>
+</code></pre>
+<p>&#x518D;&#x6B21;&#x5F3A;&#x8C03;&#xFF0C;&#x865A;&#x62DF;&#x503C;&#x4E0D;&#x80FD;&#x7528;&#x4E8E;&#x67E5;&#x8BE2;&#x548C;&#x5B57;&#x6BB5;&#x9009;&#x62E9;&#xFF0C;&#x56E0;&#x4E3A;&#x865A;&#x62DF;&#x503C;&#x4E0D;&#x50A8;&#x5B58;&#x4E8E; MongoDB&#x3002;</p>
+<p>&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;mongoose&apos;</span>)
+<span class="hljs-keyword">var</span> db = mongoose.connect(<span class="hljs-string">&apos;mongodb://localhost:27017/test&apos;</span>, {useNewUrlParser: <span class="hljs-literal">true</span>})
+<span class="hljs-keyword">var</span> Schema = mongoose.Schema
+
+<span class="hljs-keyword">var</span> testSchema = <span class="hljs-keyword">new</span> Schema({
+  name: { type: <span class="hljs-built_in">String</span> },
+  age: { type: <span class="hljs-built_in">Number</span>, <span class="hljs-keyword">default</span>: <span class="hljs-number">0</span> },
+  time: { type: <span class="hljs-built_in">Date</span>, <span class="hljs-keyword">default</span>: <span class="hljs-built_in">Date</span>.now },
+  email: { type: <span class="hljs-built_in">String</span>, <span class="hljs-keyword">default</span>: <span class="hljs-string">&apos;&apos;</span> }
+})
+<span class="hljs-comment">// 1.document method</span>
+testSchema.method(<span class="hljs-string">&apos;findName&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">callback</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.model(<span class="hljs-string">&apos;test&apos;</span>).find({ name: <span class="hljs-keyword">this</span>.name }, callback)
+})
+<span class="hljs-comment">// 2.model static method</span>
+testSchema.statics.findByName = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">name, callback</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.find({ name: <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(name, <span class="hljs-string">&apos;i&apos;</span>) }, callback)
+}
+
+<span class="hljs-keyword">var</span> testModel = mongoose.model(<span class="hljs-string">&apos;test&apos;</span>, testSchema)
+<span class="hljs-comment">// at the first call, mongoose will automatically create a collection named &apos;tests&apos;</span>
+
+<span class="hljs-keyword">var</span> t1 = <span class="hljs-keyword">new</span> testModel({
+  name: <span class="hljs-string">&apos;he&apos;</span>,
+  age: <span class="hljs-number">18</span>
+})
+t1.save(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, doc</span>) </span>{
+  t1.findName(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, docs</span>) </span>{
+    <span class="hljs-comment">//console.log(&apos;t1.save(), docs:&apos;, docs)</span>
+  })
+  doc.findName(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, docs</span>) </span>{ 
+    <span class="hljs-comment">//console.log(&apos;argv:doc.save(), docs:&apos;, docs)</span>
+  })
+}) 
+
+testModel.findByName(<span class="hljs-string">&apos;he&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, docs</span>) </span>{
+  <span class="hljs-comment">// console.log(&apos;call model static method, \ndocs:&apos;, docs)</span>
+})
+
+<span class="hljs-comment">// 3.create, update, find and delete based on model</span>
+<span class="hljs-keyword">var</span> doc = { name: <span class="hljs-string">&apos;Lee&apos;</span>, age: <span class="hljs-number">23</span> }
+testModel.create(doc, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) <span class="hljs-built_in">console</span>.log(err)
+  <span class="hljs-keyword">else</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;create doc:&apos;</span>, doc) <span class="hljs-comment">// &#x6700;&#x540E;&#x6267;&#x884C;</span>
+})
+
+<span class="hljs-keyword">var</span> condition = {name:<span class="hljs-string">&apos;Lee&apos;</span>}
+<span class="hljs-keyword">var</span> update = {$set: {age: <span class="hljs-number">29</span>}}
+<span class="hljs-keyword">var</span> option = {upsert: <span class="hljs-literal">false</span>} <span class="hljs-comment">// avoid modify:0, but insert</span>
+testModel.updateMany(condition, update, option, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, result</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) <span class="hljs-built_in">console</span>.log(err)
+  <span class="hljs-keyword">else</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;updateMany.&apos;</span>, result) 
+})
+
+<span class="hljs-keyword">var</span> criteria = {name: <span class="hljs-string">&apos;Lee&apos;</span>}
+<span class="hljs-keyword">var</span> field = {age:<span class="hljs-number">1</span>}
+<span class="hljs-keyword">var</span> option = {}
+testModel.find(criteria, field, option, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, result</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) <span class="hljs-built_in">console</span>.log(err)
+  <span class="hljs-keyword">else</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;find docs:&apos;</span>,result)
+})
+
+<span class="hljs-keyword">var</span> cond = {$or: [{name:<span class="hljs-string">&apos;Lee&apos;</span>},{name:<span class="hljs-string">&apos;he&apos;</span>}]}
+testModel.deleteMany(cond, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, result</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) <span class="hljs-built_in">console</span>.log(err)
+  <span class="hljs-keyword">else</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;deleteMany.&apos;</span>,result) <span class="hljs-comment">//</span>
+})
+<span class="hljs-comment">// &#x53C2;&#x8003;&#x4E86; https://blog.csdn.net/sinat_25127047/article/details/50560167</span>
+</code></pre>
+<h3 id="connections">Connections</h3>
+<h4 id="&#x591A;&#x4E2A;&#x8FDE;&#x63A5;">&#x591A;&#x4E2A;&#x8FDE;&#x63A5;</h4>
+<p>&#x4E4B;&#x524D;&#x6211;&#x4EEC;&#x4E86;&#x89E3;&#x5982;&#x4F55;&#x4F7F;&#x7528; Mongoose &#x9ED8;&#x8BA4;&#x8FDE;&#x63A5;&#x65B9;&#x6CD5;&#x8FDE;&#x63A5;&#x5230; MongoDB&#x3002;&#x4F46;&#x6709;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x6743;&#x9650;&#x4E0D;&#x540C;&#x7684;&#x591A;&#x4E2A;&#x8FDE;&#x63A5;&#xFF0C; &#x6216;&#x662F;&#x8FDE;&#x63A5;&#x5230;&#x4E0D;&#x540C;&#x6570;&#x636E;&#x5E93;&#x3002;&#x8FD9;&#x4E2A;&#x60C5;&#x51B5;&#x4E0B;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>mongoose.createConnection()</code>&#xFF0C; &#x5B83;&#x63A5;&#x53D7;&#x4E4B;&#x524D;&#x63D0;&#x5230;&#x7684;&#x6240;&#x6709;&#x53C2;&#x6570;&#xFF0C;&#x7ED9;&#x4F60;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x8FDE;&#x63A5;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> conn = mongoose.createConnection(<span class="hljs-string">&apos;mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]&apos;</span>, options);
+</code></pre>
+<p><a href="http://mongoosejs.net/docs/api.html#connection_Connection" target="_blank">connection</a> &#x5BF9;&#x8C61;&#x540E;&#x7EED;&#x7528;&#x4E8E;&#x521B;&#x5EFA;&#x548C;&#x68C0;&#x7D22; <a href="http://mongoosejs.net/docs/api.html#model_Model" target="_blank">models</a>&#x3002; models &#x7684;&#x8303;&#x56F4;&#x603B;&#x662F;&#x5C40;&#x9650;&#x4E8E;&#x5355;&#x4E2A;&#x8FDE;&#x63A5;&#x3002;</p>
+<p>&#x8C03;&#x7528; <code>mongoose.connect()</code> &#x65F6;&#xFF0C;Mongoose &#x4F1A;&#x81EA;&#x52A8;&#x521B;&#x5EFA;<strong>&#x9ED8;&#x8BA4;&#x8FDE;&#x63A5;</strong>&#x3002; &#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>mongoose.connection</code> &#x8BBF;&#x95EE;&#x9ED8;&#x8BA4;&#x8FDE;&#x63A5;&#x3002;</p>
+<h3 id="models">Models</h3>
+<p><a href="http://mongoosejs.net/docs/api.html#model-js" target="_blank">Models</a> &#x662F;&#x4ECE; <code>Schema</code> &#x7F16;&#x8BD1;&#x6765;&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;&#x3002; &#x5B83;&#x4EEC;&#x7684;&#x5B9E;&#x4F8B;&#x5C31;&#x4EE3;&#x8868;&#x7740;&#x53EF;&#x4EE5;&#x4ECE;&#x6570;&#x636E;&#x5E93;&#x4FDD;&#x5B58;&#x548C;&#x8BFB;&#x53D6;&#x7684; <a href="http://mongoosejs.net/docs/documents.html" target="_blank">documents</a>&#x3002; &#x4ECE;&#x6570;&#x636E;&#x5E93;&#x521B;&#x5EFA;&#x548C;&#x8BFB;&#x53D6; document &#x7684;&#x6240;&#x6709;&#x64CD;&#x4F5C;&#x90FD;&#x662F;&#x901A;&#x8FC7; model &#x8FDB;&#x884C;&#x7684;&#x3002;</p>
+<h4 id="&#x7F16;&#x8BD1;&#x4F60;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;-model">&#x7F16;&#x8BD1;&#x4F60;&#x7684;&#x7B2C;&#x4E00;&#x4E2A; model</h4>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> schema = <span class="hljs-keyword">new</span> mongoose.Schema({ name: <span class="hljs-string">&apos;string&apos;</span>, size: <span class="hljs-string">&apos;string&apos;</span> });
+<span class="hljs-keyword">var</span> Tank = mongoose.model(<span class="hljs-string">&apos;Tank&apos;</span>, schema);
+</code></pre>
+<p>&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x8DDF; model &#x5BF9;&#x5E94;&#x7684;&#x96C6;&#x5408;&#xFF08; collection &#xFF09;&#x540D;&#x5B57;&#x7684; <em>&#x5355;&#x6570;</em> &#x5F62;&#x5F0F;&#x3002; <strong>Mongoose &#x4F1A;&#x81EA;&#x52A8;&#x627E;&#x5230;&#x540D;&#x79F0;&#x662F; model &#x540D;&#x5B57; &#x590D;&#x6570;&#x5F62;&#x5F0F;&#x7684; collection</strong> &#x3002; &#x5BF9;&#x4E8E;&#x4E0A;&#x4F8B;&#xFF0C;Tank &#x8FD9;&#x4E2A; model &#x5C31;&#x5BF9;&#x5E94;&#x6570;&#x636E;&#x5E93;&#x4E2D; <strong>tanks</strong> &#x8FD9;&#x4E2A; collection&#x3002;<code>.model()</code> &#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x662F;&#x5BF9; <code>schema</code> &#x505A;&#x4E86;&#x62F7;&#x8D1D;&#xFF08;&#x751F;&#x6210;&#x4E86; model&#xFF09;&#x3002; &#x4F60;&#x8981;&#x786E;&#x4FDD;&#x5728;&#x8C03;&#x7528; <code>.model()</code> &#x4E4B;&#x524D;&#x628A;&#x6240;&#x6709;&#x9700;&#x8981;&#x7684;&#x4E1C;&#x897F;&#x90FD;&#x52A0;&#x8FDB; <code>schema</code> &#x91CC;&#x4E86;&#xFF01;</p>
+<h4 id="&#x6784;&#x9020;-documents">&#x6784;&#x9020; documents</h4>
+<p><a href="http://mongoosejs.net/docs/documents.html" target="_blank">Documents</a> &#x662F; model &#x7684;&#x5B9E;&#x4F8B;&#x3002; &#x521B;&#x5EFA;&#x5B83;&#x4EEC;&#x5E76;&#x4FDD;&#x5B58;&#x5230;&#x6570;&#x636E;&#x5E93;&#x975E;&#x5E38;&#x7B80;&#x5355;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> Tank = mongoose.model(<span class="hljs-string">&apos;Tank&apos;</span>, yourSchema);
+
+<span class="hljs-keyword">var</span> small = <span class="hljs-keyword">new</span> Tank({ size: <span class="hljs-string">&apos;small&apos;</span> });
+small.save(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">return</span> handleError(err);
+  <span class="hljs-comment">// saved!</span>
+})
+
+<span class="hljs-comment">// or</span>
+
+Tank.create({ size: <span class="hljs-string">&apos;small&apos;</span> }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, small</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">return</span> handleError(err);
+  <span class="hljs-comment">// saved!</span>
+})
+</code></pre>
+<p>&#x8981;&#x6CE8;&#x610F;&#xFF0C;&#x76F4;&#x5230; model &#x4F7F;&#x7528;&#x7684;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#xFF08; connection &#xFF09;&#x88AB;&#x6253;&#x5F00;&#xFF0C;tanks &#x624D;&#x4F1A;&#x88AB;&#x521B;&#x5EFA;/&#x5220;&#x9664;&#x3002;&#x6BCF;&#x4E2A; model &#x90FD;&#x6709;&#x4E00;&#x4E2A;&#x7ED1;&#x5B9A;&#x7684;&#x8FDE;&#x63A5;&#x3002; &#x5982;&#x679C; model &#x662F;&#x901A;&#x8FC7;&#x8C03;&#x7528; <code>mongoose.model()</code> &#x751F;&#x6210;&#x7684;&#xFF0C;&#x5B83;&#x5C06;&#x4F7F;&#x7528; mongoose &#x7684;&#x9ED8;&#x8BA4;&#x8FDE;&#x63A5;&#x3002;</p>
+<pre><code class="lang-js">mongoose.connect(<span class="hljs-string">&apos;localhost&apos;</span>, <span class="hljs-string">&apos;gettingstarted&apos;</span>);
+</code></pre>
+<p>&#x5982;&#x679C;&#x81EA;&#x884C;&#x521B;&#x5EFA;&#x4E86;&#x8FDE;&#x63A5;&#xFF0C;&#x5C31;&#x9700;&#x8981;&#x4F7F;&#x7528; connection &#x7684; <code>model()</code> &#x51FD;&#x6570;&#x4EE3;&#x66FF; mongoose &#x7684; <code>model()</code> &#x51FD;&#x6570;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> connection = mongoose.createConnection(<span class="hljs-string">&apos;mongodb://localhost:27017/test&apos;</span>);
+<span class="hljs-keyword">var</span> Tank = connection.model(<span class="hljs-string">&apos;Tank&apos;</span>, yourSchema);
+</code></pre>
+<h4 id="&#x67E5;&#x8BE2;">&#x67E5;&#x8BE2;</h4>
+<p>&#x7528; mongoose &#x67E5;&#x8BE2;&#x6587;&#x6863;&#x76F8;&#x5F53;&#x5BB9;&#x6613;&#x5566;&#xFF0C;&#x5B83;&#x652F;&#x6301; MongoDB &#x7684;&#x9AD8;&#x7EA7;&#xFF08; <a href="http://www.mongodb.org/display/DOCS/Advanced+Queries" target="_blank">rich</a> &#xFF09;&#x67E5;&#x8BE2;&#x8BED;&#x6CD5;&#x3002; &#x67E5;&#x8BE2;&#x6587;&#x6863;&#x53EF;&#x4EE5;&#x7528; <code>model</code> &#x7684; <a href="http://mongoosejs.net/docs/api.html#model_Model.find" target="_blank">find</a>, <a href="http://mongoosejs.net/docs/api.html#model_Model.findById" target="_blank">findById</a>, <a href="http://mongoosejs.net/docs/api.html#model_Model.findOne" target="_blank">findOne</a>, &#x548C; <a href="http://mongoosejs.net/docs/api.html#model_Model.where" target="_blank">where</a> &#x8FD9;&#x4E9B;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#x3002;</p>
+<pre><code>Tank.find({ size: &apos;small&apos; }).where(&apos;createdDate&apos;).gt(oneYearAgo).exec(callback);
+</code></pre><p>&#x8981;&#x4E86;&#x89E3; <a href="http://mongoosejs.net/docs/api.html#query-js" target="_blank">Query</a> api &#x7684;&#x66F4;&#x591A;&#x7EC6;&#x8282;&#xFF0C;&#x53EF;&#x4EE5;&#x67E5;&#x9605; <a href="http://mongoosejs.net/docs/queries.html" target="_blank">querying</a> &#x7AE0;&#x8282;&#x3002;</p>
+<h4 id="&#x5220;&#x9664;">&#x5220;&#x9664;</h4>
+<p><code>model</code> &#x7684; <code>remove</code> &#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x5220;&#x9664;&#x6240;&#x6709;&#x5339;&#x914D;&#x67E5;&#x8BE2;&#x6761;&#x4EF6;&#xFF08; <code>conditions</code> &#xFF09;&#x7684;&#x6587;&#x6863;&#x3002;</p>
+<pre><code>Tank.remove({ size: &apos;large&apos; }, function (err) {
+  if (err) return handleError(err);
+  // removed!
+});
+</code></pre><h4 id="&#x66F4;&#x65B0;">&#x66F4;&#x65B0;</h4>
+<p><code>model</code> &#x7684; <code>update</code> &#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x4FEE;&#x6539;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;&#x6587;&#x6863;&#xFF0C;&#x4E0D;&#x8FC7;&#x4E0D;&#x4F1A;&#x628A;&#x6587;&#x6863;&#x8FD4;&#x56DE;&#x7ED9;&#x5E94;&#x7528;&#x5C42;&#x3002;&#x67E5;&#x9605; <a href="http://mongoosejs.net/docs/api.html#model_Model.update" target="_blank">API</a> &#x4E86;&#x89E3;&#x66F4;&#x591A;&#x8BE6;&#x60C5;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x60F3;&#x66F4;&#x65B0;&#x5355;&#x72EC;&#x4E00;&#x6761;&#x6587;&#x6863;&#x5E76;&#x4E14;&#x8FD4;&#x56DE;&#x7ED9;&#x5E94;&#x7528;&#x5C42;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <a href="http://mongoosejs.net/docs/api.html#model_Model.findOneAndUpdate" target="_blank">findOneAndUpdate</a> &#x65B9;&#x6CD5;&#x3002;</p>
+<h3 id="documents">Documents</h3>
+<p>Mongoose <a href="http://mongoosejs.net/docs/api.html#document-js" target="_blank">document</a> &#x4EE3;&#x8868;&#x7740; MongoDB &#x6587;&#x6863;&#x7684;&#x4E00;&#x5BF9;&#x4E00;&#x6620;&#x5C04;&#x3002; &#x6BCF;&#x4E2A; document &#x90FD;&#x662F;&#x4ED6;&#x7684; <a href="http://mongoosejs.net/docs/models.html" target="_blank">Model</a> &#x7684;&#x5B9E;&#x4F8B;&#x3002;</p>
+<h4 id="&#x68C0;&#x7D22;">&#x68C0;&#x7D22;</h4>
+<p>MongoDB &#x6709;&#x5F88;&#x591A;&#x68C0;&#x7D22;&#x6570;&#x636E;&#x7684;&#x65B9;&#x6CD5;&#x3002;&#x6211;&#x4EEC;&#x5728;&#x8FD9;&#x7AE0;&#x6682;&#x4E0D;&#x63D0;&#x53CA;&#xFF0C;&#x8BE6;&#x60C5;&#x8BF7;&#x770B; <a href="http://mongoosejs.net/docs/queries.html" target="_blank">querying</a>&#x3002;</p>
+<h4 id="&#x66F4;&#x65B0;">&#x66F4;&#x65B0;</h4>
+<p>Document &#x66F4;&#x65B0;&#x7684;&#x65B9;&#x6CD5;&#x540C;&#x6837;&#x6709;&#x5F88;&#x591A;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x770B;&#x770B;&#x4E00;&#x4E2A;&#x4F20;&#x7EDF;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x4F7F;&#x7528; <a href="http://mongoosejs.net/docs/api.html#model_Model.findById" target="_blank">findById</a>&#xFF1A;</p>
+<pre><code class="lang-js">Tank.findById(id, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, tank</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">return</span> handleError(err);
+
+  tank.size = <span class="hljs-string">&apos;large&apos;</span>;
+  tank.save(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, updatedTank</span>) </span>{
+    <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">return</span> handleError(err);
+    res.send(updatedTank);
+  });
+});
+</code></pre>
+<p>&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x7528; <a href="http://mongoosejs.net/docs/api.html#document_Document-set" target="_blank"><code>.set()</code></a> &#x4FEE;&#x6539; document&#x3002;&#x5728;&#x5E95;&#x5C42;&#xFF0C; <code>tank.size = &apos;large&apos;;</code> &#x7528; <code>tank.set({ size: &apos;large&apos; })</code>&#x5B9E;&#x73B0;&#x3002;</p>
+<pre><code class="lang-js">Tank.findById(id, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, tank</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">return</span> handleError(err);
+
+  tank.set({ size: <span class="hljs-string">&apos;large&apos;</span> });
+  tank.save(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, updatedTank</span>) </span>{
+    <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">return</span> handleError(err);
+    res.send(updatedTank);
+  });
+});
+</code></pre>
+<p>&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x5148;&#x68C0;&#x7D22;&#x6570;&#x636E;&#xFF0C;&#x63A5;&#x7740;&#x66F4;&#x65B0;&#xFF08;&#x4F7F;&#x7528;&#x4E86; <code>save</code>&#xFF09;&#x3002; &#x5982;&#x679C;&#x6211;&#x4EEC;&#x4EC5;&#x4EC5;&#x9700;&#x8981;&#x66F4;&#x65B0;&#x800C;&#x4E0D;&#x9700;&#x8981;&#x83B7;&#x53D6;&#x8BE5;&#x6570;&#x636E;&#xFF0C; <a href="http://mongoosejs.net/docs/api.html#model_Model.update" target="_blank">Model#update</a> &#x5C31;&#x5F88;&#x9002;&#x5408;&#x6211;&#x4EEC;&#xFF1A;</p>
+<pre><code class="lang-js">Tank.update({ _id: id }, { $set: { size: <span class="hljs-string">&apos;large&apos;</span> }}, callback);
+</code></pre>
+<p>&#x5982;&#x679C;&#x6211;&#x4EEC;&#x786E;&#x5B9E;&#x9700;&#x8981;&#x8FD4;&#x56DE;&#x6587;&#x6863;&#xFF0C;<a href="http://mongoosejs.net/docs/api.html#model_Model.findByIdAndUpdate" target="_blank">&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;</a>&#x66F4;&#x9002;&#x5408;&#xFF1A;</p>
+<pre><code class="lang-js">Tank.findByIdAndUpdate(id, { $set: { size: <span class="hljs-string">&apos;large&apos;</span> }}, { <span class="hljs-keyword">new</span>: <span class="hljs-literal">true</span> }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, tank</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">return</span> handleError(err);
+  res.send(tank);
+});
+</code></pre>
+<p><code>findAndUpdate/Remove</code> &#x7CFB;&#x5217;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#x67E5;&#x627E;&#x5E76;&#x8FD4;&#x56DE;&#x6700;&#x591A;1&#x4E2A;&#x6587;&#x6863;&#x3002; &#x6A21;&#x5F0F;&#x7684;&#x65B9;&#x6CD5;&#x6709;&#x4E0D;&#x5C11;&#xFF0C;&#x8BF7;&#x9605;&#x8BFB; <a href="http://mongoosejs.net/docs/api.html" target="_blank">API</a> &#x6587;&#x6863;&#x4E86;&#x89E3;&#x66F4;&#x591A;&#x3002;</p>
+<p><em>&#x6CE8;&#x610F;&#xFF1A;findAndUpdate/Remove &#x4E0D;&#x4F1A; &#x4FEE;&#x6539;&#x6570;&#x636E;&#x5E93;&#x65F6;&#x6267;&#x884C;&#x4EFB;&#x4F55;&#x94A9;&#x5B50;&#x6216;&#x9A8C;&#x8BC1;&#x3002; &#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; runValidators &#x9009;&#x9879; &#x83B7;&#x53D6;&#x4E00;&#x4E2A;&#x9A8C;&#x8BC1;&#x7684;&#x9650;&#x5236;&#x5B50;&#x96C6;&#xFF08;&#x5F85;&#x4FEE;&#x6539;&#xFF09;&#x3002; &#x4F46;&#x662F;&#x4F60;&#x9700;&#x8981;&#x94A9;&#x5B50;&#x548C;&#x5168;&#x6587;&#x6863;&#x9A8C;&#x8BC1;&#xFF0C;&#x8FD8;&#x662F;&#x5148; query &#x540E; save &#x5427;&#x3002;</em></p>
+<h4 id="&#x9A8C;&#x8BC1;">&#x9A8C;&#x8BC1;</h4>
+<p>Document &#x4F1A;&#x5728;&#x88AB;&#x4FDD;&#x5B58;&#x4E4B;&#x524D;&#x9A8C;&#x8BC1;&#x3002;&#x9605;&#x8BFB; <a href="http://mongoosejs.net/docs/api.html#document_Document-validate" target="_blank">api</a> &#x6587;&#x6863;&#x6216; <a href="http://mongoosejs.net/docs/validation.html" target="_blank">validation</a> &#x7AE0;&#x8282;&#x4E86;&#x89E3;&#x66F4;&#x591A;&#x3002;</p>
+<h4 id="&#x8986;&#x76D6;">&#x8986;&#x76D6;</h4>
+<p>&#x4F60;&#x53EF;&#x4EE5;&#x7528; <code>.set()</code> &#x8986;&#x76D6;&#x6574;&#x4E2A;&#x6587;&#x6863;&#x3002;&#x5982;&#x679C;&#x4F60;&#x8981;&#x4FEE;&#x6539; &#x5728;<a href="http://mongoosejs.net/docs/middleware.html" target="_blank">&#x4E2D;&#x95F4;&#x4EF6;</a>&#x4E2D;&#x88AB;&#x4FDD;&#x5B58;&#x7684;&#x6587;&#x6863;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x5F88;&#x65B9;&#x4FBF;&#x3002;</p>
+<pre><code class="lang-js">Tank.findById(id, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, tank</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">return</span> handleError(err);
+  <span class="hljs-comment">// Now `otherTank` is a copy of `tank`</span>
+  otherTank.set(tank);
+});
+</code></pre>
+<h3 id="queries-&#x67E5;&#x8BE2;">Queries &#x67E5;&#x8BE2;</h3>
+<p><a href="http://mongoosejs.net/docs/models.html" target="_blank">Model</a> &#x7684;&#x591A;&#x4E2A;&#x9759;&#x6001;&#x8F85;&#x52A9;&#x65B9;&#x6CD5;&#x90FD;&#x53EF;&#x4EE5;&#x67E5;&#x8BE2;&#x6587;&#x6863;&#x3002;</p>
+<p><a href="http://mongoosejs.net/docs/api.html#model_Model" target="_blank">Model</a> &#x7684;&#x65B9;&#x6CD5;&#x4E2D;&#x5305;&#x542B;&#x67E5;&#x8BE2;&#x6761;&#x4EF6;&#x53C2;&#x6570;&#x7684;&#xFF08; <a href="http://mongoosejs.net/docs/api.html#model_Model.find" target="_blank">find</a> <a href="http://mongoosejs.net/docs/api.html#model_Model.findById" target="_blank">findById</a> <a href="http://mongoosejs.net/docs/api.html#model_Model.count" target="_blank">count</a> <a href="http://mongoosejs.net/docs/api.html#model_Model.update" target="_blank">update</a> &#xFF09;&#x90FD;&#x53EF;&#x4EE5;&#x6309;&#x4EE5;&#x4E0B;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x6267;&#x884C;&#xFF1A;</p>
+<ul>
+<li>&#x4F20;&#x5165; <code>callback</code> &#x53C2;&#x6570;&#xFF0C;&#x64CD;&#x4F5C;&#x4F1A;&#x88AB;&#x7ACB;&#x5373;&#x6267;&#x884C;&#xFF0C;&#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#x88AB;&#x4F20;&#x7ED9;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF08; callback &#xFF09;&#x3002;</li>
+<li>&#x4E0D;&#x4F20; <code>callback</code> &#x53C2;&#x6570;&#xFF0C;<a href="http://mongoosejs.net/docs/api.html#query-js" target="_blank">Query</a> &#x7684;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#xFF08;&#x4E00;&#x4E2A; query &#x5BF9;&#x8C61;&#xFF09;&#x88AB;&#x8FD4;&#x56DE;&#xFF0C;&#x8FD9;&#x4E2A; query &#x63D0;&#x4F9B;&#x4E86;&#x6784;&#x5EFA;&#x67E5;&#x8BE2;&#x5668;&#x7684;&#x7279;&#x6B8A;&#x63A5;&#x53E3;&#x3002;</li>
+</ul>
+<p><a href="http://mongoosejs.net/docs/api.html#query-js" target="_blank">Query</a> &#x5B9E;&#x4F8B;&#x6709;&#x4E00;&#x4E2A; <code>.then()</code> &#x51FD;&#x6570;&#xFF0C;&#x7528;&#x6CD5;&#x7C7B;&#x4F3C; promise&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6267;&#x884C;&#x67E5;&#x8BE2;&#x65F6;&#x4F20;&#x5165; <code>callback</code> &#x53C2;&#x6570;&#xFF0C;&#x5C31;&#x9700;&#x8981;&#x7528; JSON &#x6587;&#x6863;&#x7684;&#x683C;&#x5F0F;&#x6307;&#x5B9A;&#x67E5;&#x8BE2;&#x6761;&#x4EF6;&#x3002;JSON &#x6587;&#x6863;&#x7684;&#x8BED;&#x6CD5;&#x8DDF; <a href="http://docs.mongodb.org/manual/tutorial/query-documents/" target="_blank">MongoDB shell</a> &#x4E00;&#x81F4;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> Person = mongoose.model(<span class="hljs-string">&apos;Person&apos;</span>, yourSchema);
+
+<span class="hljs-comment">// &#x67E5;&#x8BE2;&#x6BCF;&#x4E2A; last name &#x662F; &apos;Ghost&apos; &#x7684; person&#xFF0C; select `name` &#x548C; `occupation` &#x5B57;&#x6BB5;</span>
+Person.findOne({ <span class="hljs-string">&apos;name.last&apos;</span>: <span class="hljs-string">&apos;Ghost&apos;</span> }, <span class="hljs-string">&apos;name occupation&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, person</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">return</span> handleError(err);
+  <span class="hljs-comment">// Prints &quot;Space Ghost is a talk show host&quot;.</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;%s %s is a %s.&apos;</span>, person.name.first, person.name.last,
+    person.occupation);
+});
+</code></pre>
+<p>&#x4E0A;&#x4F8B;&#x4E2D;&#x67E5;&#x8BE2;&#x88AB;&#x7ACB;&#x5373;&#x6267;&#x884C;&#xFF0C;&#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#x88AB;&#x4F20;&#x7ED9;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;Mongoose &#x4E2D;&#x6240;&#x6709;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x90FD;&#x4F7F;&#x7528; <code>callback(error, result)</code> &#x8FD9;&#x79CD;&#x6A21;&#x5F0F;&#x3002;&#x5982;&#x679C;&#x67E5;&#x8BE2;&#x65F6;&#x53D1;&#x751F;&#x9519;&#x8BEF;&#xFF0C;<code>error</code> &#x53C2;&#x6570;&#x5373;&#x662F;&#x9519;&#x8BEF;&#x6587;&#x6863;&#xFF0C; <code>result</code> &#x53C2;&#x6570;&#x4F1A;&#x662F; null&#x3002;&#x5982;&#x679C;&#x67E5;&#x8BE2;&#x6210;&#x529F;&#xFF0C;<code>error</code> &#x53C2;&#x6570;&#x662F; null&#xFF0C;<code>result</code> &#x5373;&#x662F;&#x67E5;&#x8BE2;&#x7684;&#x7ED3;&#x679C;&#x3002;</p>
+<p>Mongoose &#x4E2D;&#x6BCF;&#x4E00;&#x5904;&#x67E5;&#x8BE2;&#xFF0C;&#x88AB;&#x4F20;&#x5165;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x90FD;&#x9075;&#x5FAA; <code>callback(error, result)</code> &#x8FD9;&#x79CD;&#x6A21;&#x5F0F;&#x3002;&#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#x7684;&#x683C;&#x5F0F;&#x53D6;&#x51B3;&#x4E8E;&#x505A;&#x4EC0;&#x4E48;&#x64CD;&#x4F5C;&#xFF1A; <a href="http://mongoosejs.net/docs/api.html#model_Model.findOne" target="_blank">findOne()</a> &#x662F;&#x5355;&#x4E2A;&#x6587;&#x6863;&#xFF08;&#x6709;&#x53EF;&#x80FD;&#x662F; null &#xFF09;&#xFF0C;<a href="http://mongoosejs.net/docs/api.html#model_Model.find" target="_blank">find()</a> &#x662F;&#x6587;&#x6863;&#x5217;&#x8868;&#xFF0C; <a href="http://mongoosejs.net/docs/api.html#model_Model.count" target="_blank">count()</a> &#x662F;&#x6587;&#x6863;&#x6570;&#x91CF;&#xFF0C;<a href="http://mongoosejs.net/docs/api.html#model_Model.update" target="_blank">update()</a> &#x662F;&#x88AB;&#x4FEE;&#x6539;&#x7684;&#x6587;&#x6863;&#x6570;&#x91CF;&#x3002; <a href="http://mongoosejs.net/docs/api.html#model-js" target="_blank">Models API</a> &#x6587;&#x6863;&#x4E2D;&#x6709;&#x8BE6;&#x7EC6;&#x63CF;&#x8FF0;&#x88AB;&#x4F20;&#x7ED9;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x7684;&#x503C;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x6765;&#x770B;&#x4E0D;&#x4F20;&#x5165; <code>callback</code> &#x8FD9;&#x4E2A;&#x53C2;&#x6570;&#x4F1A;&#x600E;&#x6837;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-comment">// &#x67E5;&#x8BE2;&#x6BCF;&#x4E2A; last name &#x662F; &apos;Ghost&apos; &#x7684; person</span>
+<span class="hljs-keyword">var</span> query = Person.findOne({ <span class="hljs-string">&apos;name.last&apos;</span>: <span class="hljs-string">&apos;Ghost&apos;</span> });
+
+<span class="hljs-comment">// select `name` &#x548C; `occupation` &#x5B57;&#x6BB5;</span>
+query.select(<span class="hljs-string">&apos;name occupation&apos;</span>);
+
+<span class="hljs-comment">// &#x7136;&#x540E;&#x6267;&#x884C;&#x67E5;&#x8BE2;</span>
+query.exec(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, person</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">return</span> handleError(err);
+  <span class="hljs-comment">// Prints &quot;Space Ghost is a talk show host.&quot;</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;%s %s is a %s.&apos;</span>, person.name.first, person.name.last,
+    person.occupation);
+});
+</code></pre>
+<p>&#x4EE5;&#x4E0A;&#x4EE3;&#x7801;&#x4E2D;&#xFF0C;<code>query</code> &#x662F;&#x4E2A; <a href="http://mongoosejs.net/docs/api.html#query-js" target="_blank">Query</a> &#x7C7B;&#x578B;&#x7684;&#x53D8;&#x91CF;&#x3002; <code>Query</code> &#x80FD;&#x591F;&#x7528;&#x94FE;&#x5F0F;&#x8BED;&#x6CD5;&#x6784;&#x5EFA;&#x67E5;&#x8BE2;&#x5668;&#xFF0C;&#x65E0;&#x9700;&#x6307;&#x5B9A; JSON &#x5BF9;&#x8C61;&#x3002; &#x4E0B;&#x9762;2&#x4E2A;&#x793A;&#x4F8B;&#x7B49;&#x6548;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-comment">// With a JSON doc</span>
+Person.
+  find({
+    occupation: <span class="hljs-regexp">/host/</span>,
+    <span class="hljs-string">&apos;name.last&apos;</span>: <span class="hljs-string">&apos;Ghost&apos;</span>,
+    age: { $gt: <span class="hljs-number">17</span>, $lt: <span class="hljs-number">66</span> },
+    likes: { $<span class="hljs-keyword">in</span>: [<span class="hljs-string">&apos;vaporizing&apos;</span>, <span class="hljs-string">&apos;talking&apos;</span>] }
+  }).
+  limit(<span class="hljs-number">10</span>).
+  sort({ occupation: <span class="hljs-number">-1</span> }).
+  select({ name: <span class="hljs-number">1</span>, occupation: <span class="hljs-number">1</span> }).
+  exec(callback);
+
+<span class="hljs-comment">// Using query builder</span>
+Person.
+  find({ occupation: <span class="hljs-regexp">/host/</span> }).
+  where(<span class="hljs-string">&apos;name.last&apos;</span>).equals(<span class="hljs-string">&apos;Ghost&apos;</span>).
+  where(<span class="hljs-string">&apos;age&apos;</span>).gt(<span class="hljs-number">17</span>).lt(<span class="hljs-number">66</span>).
+  where(<span class="hljs-string">&apos;likes&apos;</span>).in([<span class="hljs-string">&apos;vaporizing&apos;</span>, <span class="hljs-string">&apos;talking&apos;</span>]).
+  limit(<span class="hljs-number">10</span>).
+  sort(<span class="hljs-string">&apos;-occupation&apos;</span>).
+  select(<span class="hljs-string">&apos;name occupation&apos;</span>).
+  exec(callback);
+</code></pre>
+<p><a href="http://mongoosejs.net/docs/api.html#query-js" target="_blank">Query API</a> &#x6587;&#x6863;&#x4E2D;&#x6709;&#x67E5;&#x8BE2;&#x51FD;&#x6570;&#x7684;&#x5B8C;&#x6574;&#x5217;&#x8868;&#x3002;</p>
+<h4 id="&#x5F15;&#x7528;&#x5176;&#x4ED6;&#x6587;&#x6863;"><a href="http://mongoosejs.net/docs/queries.html#refs" target="_blank">&#x5F15;&#x7528;&#x5176;&#x4ED6;&#x6587;&#x6863;</a></h4>
+<p>MongoDB &#x4E2D;&#x6CA1;&#x6709;&#x8868;&#x8FDE;&#x63A5;&#xFF0C;&#x4F46;&#x5F15;&#x7528;&#x5176;&#x4ED6;&#x96C6;&#x5408;&#x7684;&#x6587;&#x6863;&#x6709;&#x65F6;&#x4E5F;&#x4F1A;&#x9700;&#x8981;&#x3002;<a href="http://mongoosejs.net/docs/populate.html" target="_blank">Population</a> &#x5373;&#x4E3A;&#x6B64;&#x800C;&#x751F;&#x3002; <a href="http://mongoosejs.net/docs/api.html#query_Query-populate" target="_blank">&#x8FD9;&#x91CC;</a> &#x6709;&#x5173;&#x4E8E;&#x4ECE;&#x5176;&#x4ED6;&#x96C6;&#x5408;&#x5F15;&#x7528;&#x6587;&#x6863;&#x7684;&#x66F4;&#x591A;&#x5185;&#x5BB9;&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="mongodb_basic.html" class="navigation navigation-prev " aria-label="Previous page: MongoDB 基础">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="pm2_deploy.html" class="navigation navigation-next " aria-label="Next page: pm2 部署 nodejs 应用">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Mongoose 基础","level":"1.4","depth":1,"next":{"title":"pm2 部署 nodejs 应用","level":"1.5","depth":1,"path":"pm2_deploy.md","ref":"pm2_deploy.md","articles":[]},"previous":{"title":"MongoDB 基础","level":"1.3","depth":1,"path":"mongodb_basic.md","ref":"mongodb_basic.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"mongoose.md","mtime":"2022-01-10T11:41:46.434Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-01-10T13:11:40.072Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

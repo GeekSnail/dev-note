@@ -5,5 +5,5 @@
 - [MongoDB 基础](mongodb_basic.md)
 - [Mongoose 基础](mongoose.md)
 - [pm2 部署 nodejs 应用](pm2_deploy.md)
-- [nuxt-wechat](tmp.md)
+- [nuxt-wechat](nuxt.md)
 - [redis](redis.md)
